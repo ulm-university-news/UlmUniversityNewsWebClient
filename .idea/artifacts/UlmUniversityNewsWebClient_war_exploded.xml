@@ -7,6 +7,15 @@
         <element id="directory" name="classes">
           <element id="module-output" name="UlmUniversityNewsWebClient" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="lib" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.6.2" />
+          <element id="library" level="project" name="Maven: com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.2.0" />
+          <element id="library" level="project" name="Maven: joda-time:joda-time:2.9.3" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.12" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.7.12" />
+        </element>
       </element>
     </root>
   </artifact>

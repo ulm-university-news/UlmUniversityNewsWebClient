@@ -1,6 +1,8 @@
 package ulm.university.news.webclient.data;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulm.university.news.webclient.data.enums.Language;
 
 import java.io.Serializable;
@@ -41,7 +43,7 @@ public class Moderator implements Serializable {
     Boolean active;
 
     /** The logger instance for Moderator. */
-    // private static final Logger logger = LoggerFactory.getLogger(Moderator.class);
+    private static final Logger logger = LoggerFactory.getLogger(Moderator.class);
 
     /**
      * Empty constructor. Needed values are set with corresponding set methods.
