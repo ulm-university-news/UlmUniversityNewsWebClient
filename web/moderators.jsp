@@ -1,16 +1,13 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- Page header. -->
+<%@ include file="header.jsp" %>
 
-<html>
-<head>
-    <title>University New Ulm Web Client</title>
-</head>
-<body>
+<!-- Page content. -->
 <h3>Moderators</h3>
 <c:forEach items="${moderators}" var="moderator">
-    Name:  ${moderator.getName()}<br>
-    First name:  ${moderator.getFirstName()}<br>
-    Last name:  ${moderator.getLastName()}<br><br>
+    <fmt:message key="moderators.label.name"/>:  ${moderator.getName()}<br>
+    <fmt:message key="moderators.label.firstName"/>:  ${moderator.getFirstName()}<br>
+    <fmt:message key="moderators.label.lastName"/>:  ${moderator.getLastName()}<br><br>
 </c:forEach>
-</body>
-</html>
+
+<!-- Page footer. -->
+<%@ include file="footer.jsp" %>
