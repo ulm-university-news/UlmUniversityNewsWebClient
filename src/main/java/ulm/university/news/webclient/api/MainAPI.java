@@ -42,18 +42,60 @@ public abstract class MainAPI {
         initServerAddress();
     }
 
-    protected String getResponse(HttpURLConnection connection) throws Exception {
+    /**
+     * Used to extract a server's response in cases the request has been performed successfully.
+     * This method works only with status codes indicating a successful request.
+     *
+     * @param connection The connection to the server.
+     * @return The server's response as a string.
+     * @throws IOException If IO operation fails.
+     */
+    protected String getResponse(HttpURLConnection connection) throws IOException {
         int responseCode = connection.getResponseCode();
         logger.info("Response Code: {}", responseCode);
 
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
         StringBuffer response = new StringBuffer();
+        if (responseCode < 300) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String inputLine;
 
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+        } else {
+            logger.error("Cannot parse an error message via input stream.");
         }
-        in.close();
+
+
+        logger.info("Response: {}", response.toString());
+        return response.toString();
+    }
+
+    /**
+     * Used to extract a server's response in cases the request has been rejected by the server.
+     * This method works only with status codes indicating a non-successful request.
+     *
+     * @param connection The connection to the server.
+     * @return The server's response as a string.
+     * @throws IOException If IO operation fails.
+     */
+    protected String getErrorResponse(HttpURLConnection connection) throws IOException {
+        int responseCode = connection.getResponseCode();
+        logger.info("Response Code: {}", responseCode);
+
+        StringBuffer response = new StringBuffer();
+        if (responseCode > 400) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+            String inputLine;
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+        } else {
+            logger.error("Cannot parse an non-error message via error stream.");
+        }
 
         logger.info("Response: {}", response.toString());
         return response.toString();

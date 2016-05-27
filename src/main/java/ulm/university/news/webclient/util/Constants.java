@@ -196,6 +196,16 @@ public class Constants {
     public static final int OPTION_INVALID_TEXT = 4403;
     public static final int OPTION_USER_HAS_ALREADY_VOTED = 4406;
 
+    // Page States:
+    // Login/Home screen:
+    public static final String LOGGED_IN = "LoggedIn";      // GET
+    public static final String LOGGED_OUT = "LoggedOut";    // GET
+    public static final String LOGIN_SUCCESSFUL = "LoginSuccessful";    // POST
+    public static final String LOGIN_FAILED = "LoginFailed";    // POST
+
+    // Expired state:
+    public static final String SESSION_EXPIRED = "SessionExpired";  // GET and POST
+
 
     // General:
     public static final int DATABASE_FAILURE = 5000;
@@ -205,4 +215,8 @@ public class Constants {
     public static final int RESOURCE_BUNDLE_NOT_FOUND = 5004;
     public static final int PARSING_FAILURE = 5005;
     public static final int CONNECTION_FAILURE = 9999;
+
+    public static final int PAGE_NOT_FOUND = 404;
+    public static final int FORBIDDEN = 403;
+    public static final int FATAL_ERROR = 500;
 }

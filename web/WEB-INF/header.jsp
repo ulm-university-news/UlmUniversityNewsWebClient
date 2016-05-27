@@ -1,12 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!-- Internationalization -->
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language :
 pageContext.request.locale}" scope="session"/>
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="text"/>
+
+<!-- Base-URL -->
+<c:set var="req" value="${pageContext.request}" />
+<c:set var="url">${req.requestURL}</c:set>
+<c:set var="base" value="${fn:substring(url, 0, fn:length(url) - fn:length(req.requestURI))}${req.contextPath}/" />
 
 <!DOCTYPE html>
 <html lang="${language}">
@@ -17,16 +23,16 @@ pageContext.request.locale}" scope="session"/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>University New Ulm Web Client</title>
     <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         body { padding-top: 50px; }
     </style>
 </head>
 <body>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="jquery/jquery-1.12.4.min.js"></script>
+    <script src="../jquery/jquery-1.12.4.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -38,7 +44,7 @@ pageContext.request.locale}" scope="session"/>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">UUN</a>
+                <a class="navbar-brand" href="index">UUN</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -54,10 +60,18 @@ pageContext.request.locale}" scope="session"/>
                         </ul>
                     </li>
                 </ul>
-                <div class="nav navbar-nav navbar-right">
-                    <a class="btn btn-primary navbar-btn" href="login.jsp">
-                        <fmt:message key="header.nav.button.login"/></a>
-                </div>
+                <c:if test="${loginStatus == 0}">
+                    <div class="nav navbar-nav navbar-right">
+                        <a class="btn btn-primary navbar-btn" href="${base}webclient/login">
+                            <fmt:message key="header.nav.button.login"/></a>
+                    </div>
+                </c:if>
+                <c:if test="${loginStatus == 1}">
+                    <div class="nav navbar-nav navbar-right">
+                        <p><fmt:message key="index.text.loggedin"/>${activeModerator.getFirstName()}</p>
+                    </div>
+                </c:if>
+
             </div><!--/.navbar-collapse -->
         </div>
     </nav>
