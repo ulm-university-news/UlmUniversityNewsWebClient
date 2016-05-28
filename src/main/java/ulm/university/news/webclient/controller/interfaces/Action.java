@@ -11,7 +11,7 @@ public interface Action {
      * This method executes the business logic contained in the specific action object.
      *
      * @param requestContext The context of the request for which the execution is triggered.
-     * @return Returns the identifier of the view that should be displayed after execution.
+     * @return Returns the status that is used to determine the view that should be displayed after execution.
      * @throws SessionIsExpiredException If the session of the user is expired.
      */
     String execute(RequestContextManager requestContext) throws SessionIsExpiredException;

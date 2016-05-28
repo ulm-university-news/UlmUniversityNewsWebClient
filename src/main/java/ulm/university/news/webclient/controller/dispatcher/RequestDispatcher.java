@@ -1,5 +1,6 @@
 package ulm.university.news.webclient.controller.dispatcher;
 
+import org.eclipse.jdt.internal.compiler.ast.ContinueStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulm.university.news.webclient.controller.context.RequestContextManager;
@@ -48,13 +49,19 @@ public abstract class RequestDispatcher {
         _getRequestStatusMapping.put("/index:" + Constants.LOGGED_OUT, "index");
         _getRequestStatusMapping.put("/index:" + Constants.LOGGED_IN, "index");
 
+        // Moderators page.
+        _getRequestStatusMapping.put("/moderators:" + Constants.MODERATORS_LOADED, "moderators");
+
         // POST requests.
         // Login page.
         _postRequestStatusMapping.put("/login:" + Constants.LOGIN_SUCCESSFUL, "index");
         _postRequestStatusMapping.put("/login:" + Constants.LOGIN_FAILED, "login");
-
         _postForwardingStatusMapping.put("/login:" + Constants.LOGIN_SUCCESSFUL, false);
         _postForwardingStatusMapping.put("/login:" + Constants.LOGIN_FAILED, true);
+
+        // Logout.
+        _postRequestStatusMapping.put("/logout:" + Constants.LOGGED_OUT, "index");
+        _postForwardingStatusMapping.put("/logout:" + Constants.LOGGED_OUT, false);
     }
 
     /**
@@ -82,7 +89,7 @@ public abstract class RequestDispatcher {
             // Perform forwarding.
             forwardRequest(context.getRequest(), context.getResponse(), viewName);
         } else {
-           viewName =  _postRequestStatusMapping.get(key);
+           viewName = _postRequestStatusMapping.get(key);
 
             if (_postForwardingStatusMapping.get(key) == Boolean.TRUE) {
                 // Perform forwarding.

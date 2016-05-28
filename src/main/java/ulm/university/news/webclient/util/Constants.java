@@ -197,15 +197,17 @@ public class Constants {
     public static final int OPTION_USER_HAS_ALREADY_VOTED = 4406;
 
     // Page States:
-    // Login/Home screen:
+    // Login/Home page:
     public static final String LOGGED_IN = "LoggedIn";      // GET
-    public static final String LOGGED_OUT = "LoggedOut";    // GET
+    public static final String LOGGED_OUT = "LoggedOut";    // GET (POST for logout)
     public static final String LOGIN_SUCCESSFUL = "LoginSuccessful";    // POST
     public static final String LOGIN_FAILED = "LoginFailed";    // POST
 
     // Expired state:
     public static final String SESSION_EXPIRED = "SessionExpired";  // GET and POST
 
+    // Moderators page:
+    public static final String MODERATORS_LOADED = "ModeratorsLoaded"; // GET
 
     // General:
     public static final int DATABASE_FAILURE = 5000;

@@ -2,10 +2,7 @@ package ulm.university.news.webclient.controller.factory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulm.university.news.webclient.controller.GetMyChannelsAction;
-import ulm.university.news.webclient.controller.HomeAction;
-import ulm.university.news.webclient.controller.LoadLoginAction;
-import ulm.university.news.webclient.controller.LoginAction;
+import ulm.university.news.webclient.controller.*;
 import ulm.university.news.webclient.controller.interfaces.Action;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,8 +33,14 @@ public abstract class ActionFactory {
         _actionMap.put("POST/login", new LoginAction());
         _actionMap.put("GET/login", new LoadLoginAction());
 
+        // Logout.
+        _actionMap.put("POST/logout", new LogoutAction());
+
         // Main page / index.
         _actionMap.put("GET/index", new HomeAction());
+
+        // Moderators page.
+        _actionMap.put("GET/moderators", new DisplayModeratorsAction());
 
         _actionMap.put("GET/channels", new GetMyChannelsAction());
 

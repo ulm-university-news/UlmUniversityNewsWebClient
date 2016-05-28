@@ -129,8 +129,7 @@ public class RequestContextManager {
      * requestor already has an active session, the current one is
      * invalidated.
      */
-    public void createNewSession()
-    {
+    public void createNewSession() {
         HttpSession session = request.getSession(false);
         if (session != null){
             // Moderator has an active session. Invalidate the current session.
@@ -139,6 +138,17 @@ public class RequestContextManager {
 
         // Get new session.
         request.getSession(true);
+    }
+
+    /**
+     * Invalidates the active session of the requestor.
+     */
+    public void invalidateSession(){
+        HttpSession session = request.getSession(false);
+        if (session != null){
+            // Moderator has an active session. Invalidate the current session.
+            session.invalidate();
+        }
     }
 
     /**

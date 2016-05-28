@@ -78,6 +78,7 @@ public class FrontController extends HttpServlet {
                     logger.info("Requestor has no active session.");
                     // Redirect request directly to login page.
                     // Display error message on the login page.
+                    // TODO change the two following lines of code.
                     request.setAttribute("loginStatusMsg", "You need to be logged in to execute this task.");
                     request.getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
                     return;

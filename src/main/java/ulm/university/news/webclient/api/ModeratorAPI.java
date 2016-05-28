@@ -13,6 +13,7 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.List;
 
@@ -32,21 +33,54 @@ public class ModeratorAPI extends MainAPI {
         moderatorUrl = serverUrl + "moderator";
     }
 
-    public List<Moderator> getModerators() throws Exception {
-        URL obj = new URL(moderatorUrl);
-        // Set http method.
-        connection = (HttpURLConnection) obj.openConnection();
-        connection.setRequestMethod("GET");
-        setAuthorization();
+    /**
+     * Requests all moderator accounts from the RESt server. Returns the list of moderator
+     * resources.
+     *
+     * @param accessToken The access token of the requestor.
+     * @return A list of Moderator objects.
+     * @throws APIException Throws API exception if the request fails or is rejected from the server.
+     */
+    public List<Moderator> getModerators(String accessToken) throws APIException {
+        List<Moderator> moderators = null;
+        try{
+            URL obj = new URL(moderatorUrl);
+            // Set http method.
+            connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("GET");
+            setAuthorization(accessToken);
 
-        logger.info("Sending GET request to URL: {}", moderatorUrl);
+            logger.info("Sending GET request to URL: {}", moderatorUrl);
 
-        // Get request response as String.
-        String json = getResponse(connection);
-        // Use a list of moderators as deserialization type.
-        Type listType = new TypeToken<List<Moderator>>() {
-        }.getType();
-        return gson.fromJson(json, listType);
+            int statusCode = connection.getResponseCode();
+            if (statusCode == 200) {
+                // Get request response as String.
+                String json = getResponse(connection);
+
+                // Use a list of moderators as deserialization type.
+                Type listType = new TypeToken<List<Moderator>>() {
+                }.getType();
+
+                moderators = gson.fromJson(json, listType);
+            } else {
+                String serverResponse = getErrorResponse(connection);
+                ServerError se = gson.fromJson(serverResponse, ServerError.class);
+                // Map to API exception.
+                throw new APIException(se.getErrorCode(), "Get moderators failed.");
+            }
+
+        } catch (MalformedURLException malEx) {
+            malEx.printStackTrace();
+            // TODO
+        } catch (ProtocolException pe) {
+            pe.printStackTrace();
+            // TODO
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            // TODO
+        }
+
+        return moderators;
     }
 
     /**
@@ -83,7 +117,6 @@ public class ModeratorAPI extends MainAPI {
             out.write(jsonContent);
             out.flush();
             out.close();
-
 
             if (connection.getResponseCode() == 200)
             {

@@ -25,10 +25,10 @@ public class HomeAction implements Action {
 
         // Check whether the player is currently logged in or not.
         if (requestContext.hasActiveSession()){
-            requestContext.addToRequestContext("loginStatus", "1");
+            // requestContext.addToRequestContext("loginStatus", "1");
             status = Constants.LOGGED_IN;
         } else {
-            requestContext.addToRequestContext("loginStatus", "0");
+            // requestContext.addToRequestContext("loginStatus", "0");
             status = Constants.LOGGED_OUT;
         }
 

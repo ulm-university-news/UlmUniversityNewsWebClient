@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!-- Internationalization -->
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language :
@@ -48,7 +48,7 @@ pageContext.request.locale}" scope="session"/>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="moderator">Test</a></li>
+                    <li><a href="${base}webclient/moderators">Test</a></li>
                     <li><a href="#">Link</a></li>
                     <!-- Language selection. -->
                     <li class="dropdown">
@@ -60,15 +60,30 @@ pageContext.request.locale}" scope="session"/>
                         </ul>
                     </li>
                 </ul>
-                <c:if test="${loginStatus == 0}">
+                <c:if test="${activeModerator == null}">
                     <div class="nav navbar-nav navbar-right">
                         <a class="btn btn-primary navbar-btn" href="${base}webclient/login">
                             <fmt:message key="header.nav.button.login"/></a>
                     </div>
                 </c:if>
-                <c:if test="${loginStatus == 1}">
+                <c:if test="${activeModerator != null}">
                     <div class="nav navbar-nav navbar-right">
-                        <p><fmt:message key="index.text.loggedin"/>${activeModerator.getFirstName()}</p>
+                        <table>
+                            <tr>
+                                <td>
+                                    <p style="color: white">
+                                        <fmt:message key="index.text.loggedin"/> ${activeModerator.getFirstName()}
+                                        ${activeModerator.getLastName()} &emsp;
+                                    </p>
+                                </td>
+                                <td>
+                                    <form method="post" action="${base}webclient/logout">
+                                    <button class="btn btn-primary navbar-btn" type="submit">
+                                        <fmt:message key="header.nav.button.logout"/></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </c:if>
 

@@ -1,23 +1,43 @@
 package ulm.university.news.webclient.controller;
 
+import ulm.university.news.webclient.api.ModeratorAPI;
 import ulm.university.news.webclient.controller.context.RequestContextManager;
 import ulm.university.news.webclient.controller.interfaces.Action;
+import ulm.university.news.webclient.data.Moderator;
+import ulm.university.news.webclient.util.Constants;
+import ulm.university.news.webclient.util.exceptions.APIException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Created by Philipp on 26.05.2016.
+ * Created by Philipp on 28.05.2016.
  */
-public class GetMyChannelsAction implements Action {
+public class DisplayModeratorsAction implements Action{
     /**
-     * This method executes the business logic for retrieving the channels managed by
-     * the logged in moderator.
+     * This method executes the business logic to load moderator resources from the server.
      *
      * @param requestContext The context of the request for which the execution is triggered.
      * @return Returns the status that is used to determine the view that should be displayed after execution.
      * @throws SessionIsExpiredException If the session of the user is expired.
      */
     public String execute(RequestContextManager requestContext) throws SessionIsExpiredException {
-        return "channels";
+        // Get moderators via REST Server.
+        List<Moderator> moderators = new ArrayList<Moderator>();
+        Moderator activeModerator = requestContext.retrieveRequestor();
+
+        try {
+            moderators = new ModeratorAPI().getModerators(activeModerator.getServerAccessToken());
+        } catch (APIException ex) {
+            ex.printStackTrace();
+            // TODO
+        }
+
+        // Store moderator data in request context.
+        requestContext.addToRequestContext("moderators", moderators);
+
+        return Constants.MODERATORS_LOADED;
     }
 
     /**
@@ -37,6 +57,6 @@ public class GetMyChannelsAction implements Action {
      * @return Returns true if administrator permissions are required, otherwise false.
      */
     public boolean requiresAdminPermissions() {
-        return false;
+        return true;
     }
 }

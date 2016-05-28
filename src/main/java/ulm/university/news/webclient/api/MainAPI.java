@@ -122,7 +122,13 @@ public abstract class MainAPI {
         logger.info("REST server url loaded: {}", serverUrl);
     }
 
-    protected void setAuthorization(){
-        connection.setRequestProperty("Authorization", "510e4f3dafa2568c59d94787030292f81a37e5a4baf6a727cd5274db79d0b17d");
+    /**
+     * Adds the authorization header to the request that is sent via the connection
+     * object. The access token is set as the content of the header.
+     *
+     * @param accessToken The access token.
+     */
+    protected void setAuthorization(String accessToken){
+        connection.setRequestProperty("Authorization", accessToken);
     }
 }
