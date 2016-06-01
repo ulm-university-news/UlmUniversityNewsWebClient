@@ -1,6 +1,5 @@
 package ulm.university.news.webclient.controller;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulm.university.news.webclient.api.ModeratorAPI;
@@ -8,6 +7,7 @@ import ulm.university.news.webclient.controller.context.RequestContextManager;
 import ulm.university.news.webclient.controller.interfaces.Action;
 import ulm.university.news.webclient.data.Moderator;
 import ulm.university.news.webclient.util.Constants;
+import ulm.university.news.webclient.util.Translator;
 import ulm.university.news.webclient.util.exceptions.APIException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
@@ -30,8 +30,7 @@ public class LoginAction implements Action {
     public String execute(RequestContextManager requestContext) throws SessionIsExpiredException {
         logger.debug("In LoginAction.");
 
-        if (requestContext == null)
-        {
+        if (requestContext == null) {
             logger.error("Invalid request context.");
             return Constants.LOGIN_FAILED;
         }
@@ -41,14 +40,13 @@ public class LoginAction implements Action {
         String password = requestContext.getRequestParameter("password");
         String task = requestContext.getRequestParameter("task");
 
-        if (task != null && task.equals("login"))
-        {
+        if (task != null && task.equals("login")) {
             logger.debug("Login called. Parameters are: {} and {}.",
                     username,
                     password);
 
             // Send request to REST server.
-            try{
+            try {
                 ModeratorAPI moderatorAPI = new ModeratorAPI();
 
                 Moderator moderator = moderatorAPI.login(username, password);
@@ -57,21 +55,20 @@ public class LoginAction implements Action {
                 // Create session and store moderator in it.
                 requestContext.createNewSession();
                 requestContext.storeRequestorInSession(moderator);
-            } catch (APIException ex)
-            {
+            } catch (APIException ex) {
                 logger.error("Login request failed. Error code is {}.", ex.getErrorCode());
 
                 // React to rejection due to invalid credentials.
-                if (ex.getErrorCode() == Constants.MODERATOR_UNAUTHORIZED){
-                    requestContext.addToRequestContext("loginStatusMsg", "Der Nutzername oder das Passwort ist " +
-                            "falsch.");
+                if (ex.getErrorCode() == Constants.MODERATOR_UNAUTHORIZED) {
+                    String text = Translator.getInstance().getText(requestContext.retrieveLocale(), "login.message.failed");
+                    requestContext.addToRequestContext("loginStatusMsg", text);
                     return Constants.LOGIN_FAILED;
                 }
-                if (ex.getErrorCode() == Constants.MODERATOR_LOCKED){
+                if (ex.getErrorCode() == Constants.MODERATOR_LOCKED) {
                     requestContext.addToRequestContext("loginStatusMsg", "Der Account wurde noch nicht freigegeben.");
                     return Constants.LOGIN_FAILED;
                 }
-                if (ex.getErrorCode() == Constants.MODERATOR_DELETED){
+                if (ex.getErrorCode() == Constants.MODERATOR_DELETED) {
                     requestContext.addToRequestContext("loginStatusMsg", "Der Account existiert nicht mehr.");
                     return Constants.LOGIN_FAILED;
                 }

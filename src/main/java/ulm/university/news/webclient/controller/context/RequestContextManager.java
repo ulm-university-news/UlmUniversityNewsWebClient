@@ -3,20 +3,18 @@ package ulm.university.news.webclient.controller.context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulm.university.news.webclient.data.Moderator;
-import ulm.university.news.webclient.util.Constants;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
+import java.util.Locale;
 
 /**
  * This class is used to represent a request and its corresponding context.
  * It can be used along the processing of the request in order to keep track
  * of request data as well as session data associated with the requestor's session.
- *
+ * <p>
  * Created by Philipp on 26.05.2016.
  */
 public class RequestContextManager {
@@ -41,11 +39,11 @@ public class RequestContextManager {
 
     /**
      * Creates a new object of RequestContextManager for a given request.
+     *
      * @param request The request object of the request.
      * @param response The response object of the request.
      */
-    public RequestContextManager(HttpServletRequest request, HttpServletResponse response)
-    {
+    public RequestContextManager(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
         this.response = response;
 
@@ -59,10 +57,8 @@ public class RequestContextManager {
      * @param key The key to identify the object in the context.
      * @param obj The data object.
      */
-    public void addToRequestContext(String key, Object obj)
-    {
-        if (request != null)
-        {
+    public void addToRequestContext(String key, Object obj) {
+        if (request != null) {
             request.setAttribute(key, obj);
         }
     }
@@ -74,14 +70,28 @@ public class RequestContextManager {
      * @param key The key for the data object.
      * @return The data object, or null if no object is stored using this key.
      */
-    public Object retrieveFromRequestContext(String key)
-    {
-        if (request != null)
-        {
+    public Object retrieveFromRequestContext(String key) {
+        if (request != null) {
             return request.getAttribute(key);
         }
 
         return null;
+    }
+
+    /**
+     * Retrieve an object stored in the context of the request. The object
+     * is identified by the specified key.
+     *
+     * @return The current locale, or English if not specified.
+     */
+    public Locale retrieveLocale() throws SessionIsExpiredException {
+        if (request != null) {
+            String language = (String) retrieveFromSession("language");
+            if (language != null) {
+                return new Locale(language);
+            }
+        }
+        return Locale.ENGLISH;
     }
 
     /**
@@ -90,8 +100,7 @@ public class RequestContextManager {
      * @param param The name of the parameter.
      * @return The parameter value, or null if the parameter is not specified.
      */
-    public String getRequestParameter(String param)
-    {
+    public String getRequestParameter(String param) {
         if (request != null)
             return request.getParameter(param);
 
@@ -99,24 +108,20 @@ public class RequestContextManager {
     }
 
     /**
-
      * Determines whether the requestor is already associated
      * with an active session.
      *
      * @return Returns true if the requestor is associated with an active session,
-     *  otherwise false.
+     * otherwise false.
      */
-    public boolean hasActiveSession()
-    {
+    public boolean hasActiveSession() {
         HttpSession session = request.getSession(false);
-        if (session == null)
-        {
+        if (session == null) {
             // No active session for the requestor.
             return false;
         }
 
-        if (session.getAttribute(REQUESTOR_KEY) == null)
-        {
+        if (session.getAttribute(REQUESTOR_KEY) == null) {
             // No moderator object stored in session.
             return false;
         }
@@ -131,7 +136,7 @@ public class RequestContextManager {
      */
     public void createNewSession() {
         HttpSession session = request.getSession(false);
-        if (session != null){
+        if (session != null) {
             // Moderator has an active session. Invalidate the current session.
             session.invalidate();
         }
@@ -143,9 +148,9 @@ public class RequestContextManager {
     /**
      * Invalidates the active session of the requestor.
      */
-    public void invalidateSession(){
+    public void invalidateSession() {
         HttpSession session = request.getSession(false);
-        if (session != null){
+        if (session != null) {
             // Moderator has an active session. Invalidate the current session.
             session.invalidate();
         }
@@ -160,14 +165,13 @@ public class RequestContextManager {
      */
     public Moderator retrieveRequestor() throws SessionIsExpiredException {
         HttpSession session = request.getSession(false);
-        if (session == null){
+        if (session == null) {
             // Moderator has no session. Session is probably expired.
             throw new SessionIsExpiredException("Session is expired");
         }
 
         Moderator requestor = (Moderator) session.getAttribute(REQUESTOR_KEY);
-        if (requestor == null)
-        {
+        if (requestor == null) {
             // No object stored in the session. Seems like the moderator isn't logged in anymore.
             throw new SessionIsExpiredException("Moderator not logged in anymore.");
         }
@@ -184,7 +188,7 @@ public class RequestContextManager {
      */
     public void storeRequestorInSession(Moderator moderator) throws SessionIsExpiredException {
         HttpSession session = request.getSession(false);
-        if (session == null){
+        if (session == null) {
             // Moderator has no session. Session is probably expired.
             throw new SessionIsExpiredException("Session is expired");
         }
@@ -202,7 +206,7 @@ public class RequestContextManager {
      */
     public void storeInSession(String key, Object obj) throws SessionIsExpiredException {
         HttpSession session = request.getSession(false);
-        if (session == null){
+        if (session == null) {
             // Moderator has no session. Session is probably expired.
             throw new SessionIsExpiredException("Session is expired");
         }
@@ -220,7 +224,7 @@ public class RequestContextManager {
      */
     public Object retrieveFromSession(String key) throws SessionIsExpiredException {
         HttpSession session = request.getSession(false);
-        if (session == null){
+        if (session == null) {
             // Moderator has no session. Session is probably expired.
             throw new SessionIsExpiredException("Session is expired");
         }
