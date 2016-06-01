@@ -1,6 +1,7 @@
 package ulm.university.news.webclient.controller.interfaces;
 
 import ulm.university.news.webclient.controller.context.RequestContextManager;
+import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
 /**
@@ -14,7 +15,7 @@ public interface Action {
      * @return Returns the status that is used to determine the view that should be displayed after execution.
      * @throws SessionIsExpiredException If the session of the user is expired.
      */
-    String execute(RequestContextManager requestContext) throws SessionIsExpiredException;
+    String execute(RequestContextManager requestContext) throws SessionIsExpiredException, ServerException;
 
     /**
      * This method indicates whether an active session is required in order

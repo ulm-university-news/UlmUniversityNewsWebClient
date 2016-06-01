@@ -1,5 +1,6 @@
 package ulm.university.news.webclient.controller;
 
+import org.apache.catalina.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulm.university.news.webclient.api.ModeratorAPI;
@@ -9,7 +10,10 @@ import ulm.university.news.webclient.data.Moderator;
 import ulm.university.news.webclient.util.Constants;
 import ulm.university.news.webclient.util.Translator;
 import ulm.university.news.webclient.util.exceptions.APIException;
+import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
+
+import java.util.Locale;
 
 /**
  * Created by Philipp on 26.05.2016.
@@ -27,7 +31,7 @@ public class LoginAction implements Action {
      * @return Returns the status that is used to determine the view that should be displayed after execution.
      * @throws SessionIsExpiredException If the session of the user is expired.
      */
-    public String execute(RequestContextManager requestContext) throws SessionIsExpiredException {
+    public String execute(RequestContextManager requestContext) throws SessionIsExpiredException, ServerException {
         logger.debug("In LoginAction.");
 
         if (requestContext == null) {

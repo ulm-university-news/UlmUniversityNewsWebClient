@@ -141,6 +141,15 @@ public class RequestContextManager {
      * invalidated.
      */
     public void createNewSession() {
+        // Get the local that is currently sent with the request.
+        Locale currentLocale;
+        try {
+            currentLocale = retrieveLocale();
+        } catch (SessionIsExpiredException e) {
+            logger.warn("Failed to retrieve locale in createNewSession. Set it to english per default.");
+            currentLocale = Locale.ENGLISH;
+        }
+
         HttpSession session = request.getSession(false);
         if (session != null) {
             // Moderator has an active session. Invalidate the current session.
@@ -149,6 +158,15 @@ public class RequestContextManager {
 
         // Get new session.
         request.getSession(true);
+
+        // Set the locale again, i.e. the user's language settings keep up to date.
+        // Set locale again in new session object.
+        try {
+            storeInSession("language", currentLocale);
+        } catch (SessionIsExpiredException e) {
+            logger.warn("SessionIsExpiredException occurred in create new session.");
+            logger.error("This should never happen.");
+        }
     }
 
     /**

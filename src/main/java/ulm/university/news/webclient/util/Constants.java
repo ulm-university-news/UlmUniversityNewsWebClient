@@ -203,11 +203,16 @@ public class Constants {
     public static final String LOGIN_SUCCESSFUL = "LoginSuccessful";    // POST
     public static final String LOGIN_FAILED = "LoginFailed";    // POST
 
-    // Expired state:
-    public static final String SESSION_EXPIRED = "SessionExpired";  // GET and POST
-
     // Moderators page:
     public static final String MODERATORS_LOADED = "ModeratorsLoaded"; // GET
+
+    // Special states:
+    // Expired state.
+    public static final String SESSION_EXPIRED = "SessionExpired";  // GET and POST
+
+    // Login required.
+    public static final String REQUIRES_LOGIN = "RequiresLogin";
+
 
     // General:
     public static final int DATABASE_FAILURE = 5000;
@@ -217,6 +222,7 @@ public class Constants {
     public static final int RESOURCE_BUNDLE_NOT_FOUND = 5004;
     public static final int PARSING_FAILURE = 5005;
     public static final int CONNECTION_FAILURE = 9999;
+
 
     public static final int PAGE_NOT_FOUND = 404;
     public static final int FORBIDDEN = 403;

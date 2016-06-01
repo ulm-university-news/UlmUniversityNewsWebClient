@@ -82,21 +82,24 @@ public abstract class RequestDispatcher {
 
         logger.debug("Dispatcher: Key for lookup is: {}.", key);
 
-        if (context.getHttpMethod().toUpperCase().equals("GET"))
-        {
+        if (context.getHttpMethod().toUpperCase().equals("GET")) {
             viewName = _getRequestStatusMapping.get(key);
 
-            // Perform forwarding.
-            forwardRequest(context.getRequest(), context.getResponse(), viewName);
+            if (viewName != null) {
+                // Perform forwarding.
+                forwardRequest(context.getRequest(), context.getResponse(), viewName);
+            }
         } else {
            viewName = _postRequestStatusMapping.get(key);
 
-            if (_postForwardingStatusMapping.get(key) == Boolean.TRUE) {
-                // Perform forwarding.
-                forwardRequest(context.getRequest(), context.getResponse(), viewName);
-            } else {
-                // Perform redirect.
-                redirectRequest(context.getResponse(), viewName);
+            if (viewName != null) {
+                if (_postForwardingStatusMapping.get(key) == Boolean.TRUE) {
+                    // Perform forwarding.
+                    forwardRequest(context.getRequest(), context.getResponse(), viewName);
+                } else {
+                    // Perform redirect.
+                    redirectRequest(context.getResponse(), viewName);
+                }
             }
         }
 
@@ -106,6 +109,9 @@ public abstract class RequestDispatcher {
 
             // Check special status strings.
             if (status.equals(Constants.SESSION_EXPIRED)) {
+                    viewName = "login";
+            }
+            else if (status.equals(Constants.REQUIRES_LOGIN)) {
                     viewName = "login";
             }
 

@@ -68,7 +68,7 @@ public abstract class MainAPI {
         }
 
 
-        logger.info("Response: {}", response.toString());
+        logger.debug("Response: {}", response.toString());
         return response.toString();
     }
 
@@ -97,7 +97,7 @@ public abstract class MainAPI {
             logger.error("Cannot parse an non-error message via error stream.");
         }
 
-        logger.info("Response: {}", response.toString());
+        logger.debug("Response: {}", response.toString());
         return response.toString();
     }
 

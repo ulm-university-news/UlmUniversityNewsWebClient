@@ -7,6 +7,8 @@ import ulm.university.news.webclient.controller.dispatcher.RequestDispatcher;
 import ulm.university.news.webclient.controller.factory.ActionFactory;
 import ulm.university.news.webclient.controller.interfaces.Action;
 import ulm.university.news.webclient.util.Constants;
+import ulm.university.news.webclient.util.Translator;
+import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
 import javax.servlet.ServletException;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * The FrontController class is the servlet that takes incoming requests. Its the
@@ -75,12 +78,13 @@ public class FrontController extends HttpServlet {
                 // Handle requests where session is necessary.
                 // First, check whether the requestor has an active session.
                 if (!contextManager.hasActiveSession()){
-                    logger.info("Requestor has no active session.");
+                    logger.info("Requestor has no active session! Request is rejected.");
                     // Redirect request directly to login page.
                     // Display error message on the login page.
-                    // TODO change the two following lines of code.
-                    request.setAttribute("loginStatusMsg", "You need to be logged in to execute this task.");
-                    request.getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
+                    String errorMessage = Translator.getInstance().getText(contextManager.retrieveLocale(),
+                            "general.message.error.requiresLogin");
+                    contextManager.addToRequestContext("loginStatusMsg", errorMessage);
+                    RequestDispatcher.dispatch(contextManager, Constants.REQUIRES_LOGIN);
                     return;
                 }
                 else {
@@ -111,9 +115,16 @@ public class FrontController extends HttpServlet {
 
         }
         catch (SessionIsExpiredException sessionEx){
+            logger.error("Session of the requestor is expired. Request is rejected.");
             // Display error message on the login page.
-            request.setAttribute("loginStatusMsg", "It looks like your session has expired. You need to login again.");
+            // TODO - what about internationalisation in case of an expired session.
+            String errorMessage = Translator.getInstance().getText(Locale.ENGLISH,
+                    "general.message.error.sessionExpired");
+            contextManager.addToRequestContext("loginStatusMsg", errorMessage);
             RequestDispatcher.dispatch(contextManager, Constants.SESSION_EXPIRED);
+        }
+        catch (ServerException serverE){
+            // TODO
         }
         catch (Exception ex){
             logger.error(ex.getMessage());

@@ -2,10 +2,12 @@ package ulm.university.news.webclient.api;
 
 import com.google.gson.reflect.TypeToken;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulm.university.news.webclient.data.Moderator;
 import ulm.university.news.webclient.data.ServerError;
+import ulm.university.news.webclient.util.Constants;
 import ulm.university.news.webclient.util.exceptions.APIException;
 
 import java.io.IOException;
@@ -18,7 +20,8 @@ import java.net.URL;
 import java.util.List;
 
 /**
- * TODO
+ * The moderator API is responsible for setting up and executing
+ * requests to the REST server which cover moderator resources.
  *
  * @author Matthias Mak
  */
@@ -71,13 +74,15 @@ public class ModeratorAPI extends MainAPI {
 
         } catch (MalformedURLException malEx) {
             malEx.printStackTrace();
-            // TODO
+            logger.error("Malformed URL discovered.");
+            throw new APIException(Constants.FATAL_ERROR, "URL malformed.");
         } catch (ProtocolException pe) {
             pe.printStackTrace();
-            // TODO
+            throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
         } catch (IOException ioe) {
             ioe.printStackTrace();
-            // TODO
+            logger.error("IO exception occurred.");
+            throw new APIException(Constants.FATAL_ERROR, "IO Exception");
         }
 
         return moderators;
@@ -132,10 +137,12 @@ public class ModeratorAPI extends MainAPI {
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            // TODO
+            logger.error("Malformed URL discovered.");
+            throw new APIException(Constants.FATAL_ERROR, "Url malformed.");
         } catch (IOException e) {
             e.printStackTrace();
-            // TODO
+            logger.error("IO exception occurred.");
+            throw new APIException(Constants.FATAL_ERROR, "IO exception occurred.");
         }
 
         return m;

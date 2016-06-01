@@ -1,7 +1,9 @@
 package ulm.university.news.webclient.controller;
 
+import org.apache.catalina.Server;
 import ulm.university.news.webclient.controller.context.RequestContextManager;
 import ulm.university.news.webclient.controller.interfaces.Action;
+import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
 /**
@@ -16,7 +18,7 @@ public class GetMyChannelsAction implements Action {
      * @return Returns the status that is used to determine the view that should be displayed after execution.
      * @throws SessionIsExpiredException If the session of the user is expired.
      */
-    public String execute(RequestContextManager requestContext) throws SessionIsExpiredException {
+    public String execute(RequestContextManager requestContext) throws SessionIsExpiredException, ServerException {
         return "channels";
     }
 
