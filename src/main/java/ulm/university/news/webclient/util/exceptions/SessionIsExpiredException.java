@@ -5,7 +5,8 @@ package ulm.university.news.webclient.util.exceptions;
  * valid session anymore. This can happen if the session was inactive
  * for a specified time span.
  *
- * Created by Philipp on 26.05.2016.
+ * @author Philipp Speidel
+ * @author Matthias Mak
  */
 public class SessionIsExpiredException extends Exception {
 

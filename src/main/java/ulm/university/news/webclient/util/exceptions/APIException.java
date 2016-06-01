@@ -1,7 +1,11 @@
 package ulm.university.news.webclient.util.exceptions;
 
 /**
- * Created by Philipp on 26.05.2016.
+ * This exception is thrown if an request to the REST server
+ * has failed or if the server has rejected the request.
+ *
+ * @author Philipp Speidel
+ * @author Matthias Mak
  */
 public class APIException extends Exception{
 
