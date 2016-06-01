@@ -71,7 +71,7 @@ public class LoginAction implements Action {
                         errorMessage = Translator.getInstance().getText(requestContext.retrieveLocale(), "login.message.error.deleted");
                         break;
                     default:
-                        errorMessage = Translator.getInstance().getText(requestContext.retrieveLocale(), "general.message.error.failed");
+                        errorMessage = Translator.getInstance().getText(requestContext.retrieveLocale(), "general.message.error.fatal");
                 }
 
                 requestContext.addToRequestContext("loginStatusMsg", errorMessage);
