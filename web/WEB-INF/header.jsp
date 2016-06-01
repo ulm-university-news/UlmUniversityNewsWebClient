@@ -72,7 +72,7 @@ pageContext.request.locale}" scope="session"/>
                             <tr>
                                 <td>
                                     <p style="color: white">
-                                        <fmt:message key="index.text.loggedin"/> ${activeModerator.getFirstName()}
+                                        <fmt:message key="index.text.loggedIn"/> ${activeModerator.getFirstName()}
                                         ${activeModerator.getLastName()} &emsp;
                                     </p>
                                 </td>

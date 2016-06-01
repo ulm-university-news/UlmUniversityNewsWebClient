@@ -86,9 +86,15 @@ public class RequestContextManager {
      */
     public Locale retrieveLocale() throws SessionIsExpiredException {
         if (request != null) {
-            String language = (String) retrieveFromSession("language");
-            if (language != null) {
-                return new Locale(language);
+            Object object = retrieveFromSession("language");
+            if (object != null) {
+                if (object instanceof Locale) {
+                    return (Locale) object;
+                }
+                if (object instanceof String) {
+                    String language = (String) object;
+                    return new Locale(language);
+                }
             }
         }
         return Locale.ENGLISH;

@@ -57,24 +57,24 @@ public class LoginAction implements Action {
                 requestContext.storeRequestorInSession(moderator);
             } catch (APIException ex) {
                 logger.error("Login request failed. Error code is {}.", ex.getErrorCode());
+                String errorMessage;
 
                 // React to rejection due to invalid credentials.
-                if (ex.getErrorCode() == Constants.MODERATOR_UNAUTHORIZED) {
-                    String text = Translator.getInstance().getText(requestContext.retrieveLocale(), "login.message.failed");
-                    requestContext.addToRequestContext("loginStatusMsg", text);
-                    return Constants.LOGIN_FAILED;
-                }
-                if (ex.getErrorCode() == Constants.MODERATOR_LOCKED) {
-                    requestContext.addToRequestContext("loginStatusMsg", "Der Account wurde noch nicht freigegeben.");
-                    return Constants.LOGIN_FAILED;
-                }
-                if (ex.getErrorCode() == Constants.MODERATOR_DELETED) {
-                    requestContext.addToRequestContext("loginStatusMsg", "Der Account existiert nicht mehr.");
-                    return Constants.LOGIN_FAILED;
+                switch (ex.getErrorCode()){
+                    case Constants.MODERATOR_UNAUTHORIZED:
+                        errorMessage = Translator.getInstance().getText(requestContext.retrieveLocale(), "login.message.error.credentials");
+                        break;
+                    case Constants.MODERATOR_LOCKED:
+                        errorMessage = Translator.getInstance().getText(requestContext.retrieveLocale(), "login.message.error.locked");
+                        break;
+                    case Constants.MODERATOR_DELETED:
+                        errorMessage = Translator.getInstance().getText(requestContext.retrieveLocale(), "login.message.error.deleted");
+                        break;
+                    default:
+                        errorMessage = Translator.getInstance().getText(requestContext.retrieveLocale(), "general.message.error.failed");
                 }
 
-                // TODO What about other errors.
-                requestContext.addToRequestContext("loginStatusMsg", "Login fehlgeschlagen aus unbekannten Gründen.");
+                requestContext.addToRequestContext("loginStatusMsg", errorMessage);
                 return Constants.LOGIN_FAILED;
             }
         }
