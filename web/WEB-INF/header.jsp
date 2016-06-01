@@ -52,6 +52,15 @@ pageContext.request.locale}" scope="session"/>
             <ul class="nav navbar-nav">
                 <li><a href="${base}webclient/moderators">Test</a></li>
                 <li><a href="#">Link</a></li>
+                <c:if test="${activeModerator != null && activeModerator.isAdmin()}">
+                    <!-- Logged in as moderator. -->
+                    <li><a href="${base}webclient/index"><fmt:message key="header.nav.label.myChannels"/></a></li>
+                    <c:if test="${activeModerator.isAdmin()}">
+                        <!-- Logged in as admin. -->
+                        <li><a href="${base}webclient/admin"><fmt:message key="header.nav.label.admin"/></a>
+                        </li>
+                    </c:if>
+                </c:if>
                 <!-- Language selection. -->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -63,12 +72,14 @@ pageContext.request.locale}" scope="session"/>
                 </li>
             </ul>
             <c:if test="${activeModerator == null}">
+                <!-- Not logged in. -->
                 <div class="nav navbar-nav navbar-right">
                     <a class="btn btn-primary navbar-btn" href="${base}webclient/login">
                         <fmt:message key="header.nav.button.login"/></a>
                 </div>
             </c:if>
             <c:if test="${activeModerator != null}">
+                <!-- Logged in. -->
                 <div class="nav navbar-nav navbar-right">
                     <form method="post" action="${base}webclient/logout">
                         <button class="btn btn-primary navbar-btn" type="submit">
