@@ -45,6 +45,10 @@ public abstract class RequestDispatcher {
         _getRequestStatusMapping.put("/login:" + Constants.LOGGED_IN, "index"); // Navigate him back to index.
         _getRequestStatusMapping.put("/login:" + Constants.LOGGED_OUT, "login");
 
+        // Register page.
+        _getRequestStatusMapping.put("/register:" + Constants.LOGGED_IN, "index"); // Navigate him back to index.
+        _getRequestStatusMapping.put("/register:" + Constants.LOGGED_OUT, "register");
+
         // Index/Main page.
         _getRequestStatusMapping.put("/index:" + Constants.LOGGED_OUT, "index");
         _getRequestStatusMapping.put("/index:" + Constants.LOGGED_IN, "index");

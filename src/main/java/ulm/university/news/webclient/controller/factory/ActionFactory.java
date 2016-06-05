@@ -36,6 +36,9 @@ public abstract class ActionFactory {
         // Logout.
         _actionMap.put("POST/logout", new LogoutAction());
 
+        // Register page.
+        _actionMap.put("GET/register", new LoadRegisterFormAction());
+
         // Main page / index.
         _actionMap.put("GET/index", new HomeAction());
 

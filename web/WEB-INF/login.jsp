@@ -32,6 +32,19 @@
         </div>
         <div class="col-md-4"></div>
     </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h2><fmt:message key="login.noaccount.heading" /> </h2>
+            <p><fmt:message key="login.noaccount.description"/></p>
+            <p><a class="btn btn-primary" href="${base}webclient/register" role="button">
+                <fmt:message key="login.noaccount.button.label"/></a></p>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
 </div>
 
 <script>
