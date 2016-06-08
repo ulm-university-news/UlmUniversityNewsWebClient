@@ -59,7 +59,14 @@ public abstract class ActionFactory {
      * @return A specific implementation of the Action interface.
      */
     public static Action getAction(HttpServletRequest request){
-        String key = request.getMethod() + request.getPathInfo();
+        String pathInfo = request.getPathInfo();
+        // Remove any .jsp and parameter data in the path info.
+        if (pathInfo != null && pathInfo.contains(".jsp")){
+            pathInfo = pathInfo.replaceFirst(".jsp*", "");
+            logger.debug("Path info after ending is checked: {}.", pathInfo);
+        }
+
+        String key = request.getMethod() + pathInfo;
         Action extractedAction = _actionMap.get(key);
 
         if (extractedAction != null)

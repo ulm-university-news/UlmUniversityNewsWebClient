@@ -203,6 +203,9 @@ public class Constants {
     public static final String LOGIN_SUCCESSFUL = "LoginSuccessful";    // POST
     public static final String LOGIN_FAILED = "LoginFailed";    // POST
 
+    // Register page:
+    public static final String REGISTRATION_SUCCESSFUL = "RegistrationSuccessful"; // POST
+
     // Moderators page:
     public static final String MODERATORS_LOADED = "ModeratorsLoaded"; // GET
 

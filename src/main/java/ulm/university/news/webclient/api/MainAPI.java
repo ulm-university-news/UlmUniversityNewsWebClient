@@ -85,7 +85,7 @@ public abstract class MainAPI {
         logger.info("Response Code: {}", responseCode);
 
         StringBuffer response = new StringBuffer();
-        if (responseCode > 400) {
+        if (responseCode >= 400) {
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
             String inputLine;
 

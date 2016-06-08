@@ -71,6 +71,8 @@ public abstract class RequestDispatcher {
         // Register page.
         _postRequestStatusMapping.put("/register:" + Constants.VALIDATION_FAILED, "register");
         _postForwardingStatusMapping.put("/register:" + Constants.VALIDATION_FAILED, true);
+        _postRequestStatusMapping.put("/register:" + Constants.REGISTRATION_SUCCESSFUL, "register.jsp?successful=true");
+        _postForwardingStatusMapping.put("/register:" + Constants.REGISTRATION_SUCCESSFUL, false);  // Redirect
     }
 
     /**
@@ -86,8 +88,15 @@ public abstract class RequestDispatcher {
             throws ServletException, IOException {
         String viewName = null;
 
+        String pathInfo = context.getUrlPath();
+        // Remove any .jsp and parameter data in the path info.
+        if (pathInfo != null && pathInfo.contains(".jsp")){
+            pathInfo = pathInfo.replaceFirst(".jsp*", "");
+            logger.debug("Path info after ending is checked: {}.", pathInfo);
+        }
+
         // Determine view name based on status and request context.
-        String key = context.getUrlPath() + ":" + status;
+        String key = pathInfo + ":" + status;
 
         logger.debug("Dispatcher: Key for lookup is: {}.", key);
 
@@ -118,10 +127,10 @@ public abstract class RequestDispatcher {
 
             // Check special status strings.
             if (status.equals(Constants.SESSION_EXPIRED)) {
-                    viewName = "login";
+                    viewName = "login.jsp";
             }
             else if (status.equals(Constants.REQUIRES_LOGIN)) {
-                    viewName = "login";
+                    viewName = "login.jsp";
             }
 
             if (viewName != null) {
@@ -144,7 +153,11 @@ public abstract class RequestDispatcher {
     public static void forwardRequest(HttpServletRequest request, HttpServletResponse response, String viewName)
             throws ServletException, IOException {
         // Forward
-        String path = "/WEB-INF/" + viewName + ".jsp";
+        String path = "";
+        if (!viewName.contains(".jsp"))
+            path = "/WEB-INF/" + viewName + ".jsp";
+        else
+            path = "/WEB-INF/" + viewName;
 
         logger.debug("Forwarding request to {}.", path);
 

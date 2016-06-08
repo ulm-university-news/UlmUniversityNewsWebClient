@@ -56,7 +56,7 @@ public class ModeratorAPI extends MainAPI {
             logger.info("Sending GET request to URL: {}", moderatorUrl);
 
             int statusCode = connection.getResponseCode();
-            if (statusCode == 200) {
+            if (statusCode == HttpURLConnection.HTTP_OK) {
                 // Get request response as String.
                 String json = getResponse(connection);
 
@@ -123,7 +123,7 @@ public class ModeratorAPI extends MainAPI {
             out.flush();
             out.close();
 
-            if (connection.getResponseCode() == 200)
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK)
             {
                 String serverResponse = getResponse(connection);
                 // Load new moderator object.
@@ -146,5 +146,56 @@ public class ModeratorAPI extends MainAPI {
         }
 
         return m;
+    }
+
+    /**
+     * Send an account request to the REST server in order to create a new moderator resource.
+     *
+     * @param moderator The data of the new moderator.
+     * @throws APIException Throws an API exception if the request to the server fails or is rejected.
+     */
+    public void sendCreateAccountRequest(Moderator moderator) throws APIException {
+        // Create URL for login.
+        String url = moderatorUrl;
+        try {
+            URL obj = new URL(url);
+
+            // Parse moderator to json.
+            String jsonContent = gson.toJson(moderator, Moderator.class);
+            logger.debug("Send request to {} with content {}.", url, jsonContent);
+
+            // Set http method.
+            connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("POST");
+            connection.addRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+            out.write(jsonContent);
+            out.flush();
+            out.close();
+
+            // Check response.
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_CREATED){
+                // Request successful.
+            } else {
+                String serverResponse = getErrorResponse(connection);
+                ServerError se = gson.fromJson(serverResponse, ServerError.class);
+                // Map to API exception.
+                throw new APIException(se.getErrorCode(), "Account request failed.");
+            }
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            logger.error("Malformed URL discovered.");
+            throw new APIException(Constants.FATAL_ERROR, "Url malformed.");
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+            throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            logger.error("IO exception occurred.");
+            throw new APIException(Constants.FATAL_ERROR, "IO exception occurred.");
+        }
     }
 }

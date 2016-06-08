@@ -11,6 +11,13 @@
 
             <br>
 
+            <c:if test="${param.successful}">
+                <div class="alert alert-success">
+                    <strong><fmt:message key="general.alert.success" /></strong>
+                    <fmt:message key="register.info.success" />
+                </div>
+            </c:if>
+
             <form class="form-horizontal" role="form" method="post" action="${base}webclient/register">
                 <!-- Name of the new moderator account -->
                 <c:if test="${registerNameValidationError == null}">
@@ -34,6 +41,7 @@
                             <input type="text" name="username" class="form-control" id="nameInputError"
                                    value="${param.username}">
                             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <span class="help-block">${registerNameValidationError}</span>
                         </div>
                     </div>
                 </c:if>
@@ -60,6 +68,7 @@
                             <input type="text" class="form-control" name="firstname" id="firstnameInputError"
                                    value="${param.firstname}">
                             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <span class="help-block">${registerFirstNameValidationError}</span>
                         </div>
                     </div>
                 </c:if>
@@ -86,6 +95,7 @@
                             <input type="text" class="form-control" name="lastname" id="lastnameInputError"
                                    value="${param.lastname}">
                             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <span class="help-block">${registerLastNameValidationError}</span>
                         </div>
                     </div>
                 </c:if>
@@ -112,6 +122,7 @@
                             <input type="email" class="form-control" name="email" id="emailInputError"
                                    value="${param.email}">
                             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <span class="help-block">${registerEmailValidationError}</span>
                         </div>
                     </div>
                 </c:if>
@@ -150,6 +161,7 @@
                             <input type="password" class="form-control" name="reEnteredPassword" id="passwordInputError"
                                    value="${param.reEnteredPassword}">
                             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <span class="help-block">${registerPasswordValidationError}</span>
                         </div>
                     </div>
                 </c:if>
@@ -176,6 +188,7 @@
                             <input type="text" class="form-control" name="motivation" id="motivationInputError"
                                    value="${param.motivation}">
                             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <span class="help-block">${registerMotivationValidationError}</span>
                         </div>
                     </div>
                 </c:if>

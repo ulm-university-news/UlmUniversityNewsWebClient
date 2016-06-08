@@ -53,9 +53,11 @@ public class FrontController extends HttpServlet {
         // Create context object.
         RequestContextManager contextManager = new RequestContextManager(request, response);
 
+        String pathInfo = request.getPathInfo();
+
         // Extract HTTP method and path info.
         contextManager.setHttpMethod(request.getMethod());
-        contextManager.setUrlPath(request.getPathInfo());
+        contextManager.setUrlPath(pathInfo);
 
         try{
             // Get Action implementation with appropriate handling logic.
