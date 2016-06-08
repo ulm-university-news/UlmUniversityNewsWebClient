@@ -5,6 +5,7 @@ import ulm.university.news.webclient.controller.context.RequestContextManager;
 import ulm.university.news.webclient.controller.interfaces.Action;
 import ulm.university.news.webclient.data.Moderator;
 import ulm.university.news.webclient.util.Constants;
+import ulm.university.news.webclient.util.ModeratorUtil;
 import ulm.university.news.webclient.util.exceptions.APIException;
 import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
@@ -13,11 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Philipp on 28.05.2016.
+ * TODO
+ *
+ * @author Matthias Mak
+ * @author Philipp Speidel
  */
-public class DisplayModeratorsAction implements Action{
+public class ApplicationsAction implements Action {
+
     /**
-     * This method executes the business logic to load moderator resources from the server.
+     * This method executes the business logic to load applications (moderator resources) from the server.
      *
      * @param requestContext The context of the request for which the execution is triggered.
      * @return Returns the status that is used to determine the view that should be displayed after execution.
@@ -28,17 +33,20 @@ public class DisplayModeratorsAction implements Action{
         List<Moderator> moderators = new ArrayList<Moderator>();
         Moderator activeModerator = requestContext.retrieveRequestor();
 
-        try {
-            moderators = new ModeratorAPI().getModerators(activeModerator.getServerAccessToken());
-        } catch (APIException ex) {
-            ex.printStackTrace();
-            // TODO
+        // Do not load moderators again if the client clicks on list entries.
+        if (requestContext.getRequestParameter("moderatorId") == null) {
+            try {
+                moderators = new ModeratorAPI().getModerators(activeModerator.getServerAccessToken());
+                ModeratorUtil.sortModeratorsName(moderators);
+                // Store moderator data in session for later reuse.
+                requestContext.storeInSession("moderators", moderators);
+            } catch (APIException ex) {
+                ex.printStackTrace();
+                // TODO
+            }
         }
 
-        // Store moderator data in request context.
-        requestContext.addToRequestContext("moderators", moderators);
-
-        return Constants.MODERATORS_LOADED;
+        return Constants.APPLICATIONS_LOADED;
     }
 
     /**

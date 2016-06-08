@@ -50,17 +50,6 @@ pageContext.request.locale}" scope="session"/>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="${base}webclient/moderators">Test</a></li>
-                <li><a href="#">Link</a></li>
-                <c:if test="${activeModerator != null && activeModerator.isAdmin()}">
-                    <!-- Logged in as moderator. -->
-                    <li><a href="${base}webclient/index"><fmt:message key="header.nav.label.myChannels"/></a></li>
-                    <c:if test="${activeModerator.isAdmin()}">
-                        <!-- Logged in as admin. -->
-                        <li><a href="${base}webclient/admin"><fmt:message key="header.nav.label.admin"/></a>
-                        </li>
-                    </c:if>
-                </c:if>
                 <!-- Language selection. -->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -70,6 +59,26 @@ pageContext.request.locale}" scope="session"/>
                         <li><a href="?language=de">Deutsch</a></li>
                     </ul>
                 </li>
+                <c:if test="${activeModerator != null && activeModerator.isAdmin()}">
+                    <!-- Logged in as moderator. -->
+                    <c:if test="${activeModerator.isAdmin()}">
+                        <!-- Logged in as admin. -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false"><fmt:message key="header.nav.label.admin"/>
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="${base}webclient/applications">
+                                    <fmt:message key="header.nav.label.admin.applications"/></a></li>
+                                <li><a href="#"><fmt:message key="header.nav.label.admin.accounts"/></a></li>
+                                <li><a href="#"><fmt:message key="header.nav.label.admin.channels"/></a></li>
+                                <li><a href="#"><fmt:message key="header.nav.label.admin.groups"/></a></li>
+                            </ul>
+                        </li>
+                    </c:if>
+                    <li><a href="${base}webclient/index"><fmt:message key="header.nav.label.myChannels"/></a></li>
+                    <li><a href="${base}webclient/index"><fmt:message key="header.nav.label.myAccount"/></a></li>
+                </c:if>
             </ul>
             <c:if test="${activeModerator == null}">
                 <!-- Not logged in. -->

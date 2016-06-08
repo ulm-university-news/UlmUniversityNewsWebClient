@@ -12,7 +12,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * This factory class is used to retrieve specific implementations of
  * the Action interface based on the request.
  *
- * Created by Philipp on 26.05.2016.
+ * @author Matthias Mak
+ * @author Philipp Speidel
  */
 public abstract class ActionFactory {
 
@@ -26,7 +27,7 @@ public abstract class ActionFactory {
      * Initializes the ActionFactory. The factory cannot return
      * Action instances before the initialization has been performed.
      */
-    public static void initialize(){
+    public static void initialize() {
         _actionMap = new ConcurrentHashMap<String, Action>();
 
         // Login page.
@@ -44,7 +45,7 @@ public abstract class ActionFactory {
         _actionMap.put("GET/index", new HomeAction());
 
         // Moderators page.
-        _actionMap.put("GET/moderators", new DisplayModeratorsAction());
+        _actionMap.put("GET/applications", new ApplicationsAction());
 
         _actionMap.put("GET/channels", new GetMyChannelsAction());
 

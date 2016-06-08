@@ -20,6 +20,9 @@ import org.joda.time.DateTimeZone;
 
 /**
  * The Constants class provides a variety of application information.
+ *
+ * @author Matthias Mak
+ * @author Philipp Speidel
  */
 public class Constants {
     /** This classes tag for logging. */
@@ -206,8 +209,8 @@ public class Constants {
     // Register page:
     public static final String REGISTRATION_SUCCESSFUL = "RegistrationSuccessful"; // POST
 
-    // Moderators page:
-    public static final String MODERATORS_LOADED = "ModeratorsLoaded"; // GET
+    // Applications page:
+    public static final String APPLICATIONS_LOADED = "ApplicationsLoaded"; // GET
 
     // Validation:
     // Validation error state:

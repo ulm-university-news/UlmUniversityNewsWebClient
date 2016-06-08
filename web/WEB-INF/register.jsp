@@ -23,7 +23,7 @@
                 <c:if test="${registerNameValidationError == null}">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">
-                            <fmt:message key="register.form.label.name" />
+                            <fmt:message key="moderator.name" />
                         </label>
                         <div class="col-sm-10">
                             <input class="form-control" name="username" id="name" type="text"
@@ -35,7 +35,7 @@
                 <c:if test="${registerNameValidationError != null}">
                     <div class="form-group has-error has-feedback">
                         <label class="col-sm-2 control-label" for="nameInputError">
-                            <fmt:message key="register.form.label.name" />
+                            <fmt:message key="moderator.name" />
                         </label>
                         <div class="col-sm-10">
                             <input type="text" name="username" class="form-control" id="nameInputError"
@@ -50,7 +50,7 @@
                 <c:if test="${registerFirstNameValidationError == null}">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">
-                            <fmt:message key="register.form.label.firstname" />
+                            <fmt:message key="moderator.firstname" />
                         </label>
                         <div class="col-sm-10">
                             <input class="form-control" name="firstname" id="firstname" type="text"
@@ -62,7 +62,7 @@
                 <c:if test="${registerFirstNameValidationError != null}">
                     <div class="form-group has-error has-feedback">
                         <label class="col-sm-2 control-label" for="firstnameInputError">
-                            <fmt:message key="register.form.label.firstname" />
+                            <fmt:message key="moderator.firstname" />
                         </label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="firstname" id="firstnameInputError"
@@ -77,7 +77,7 @@
                 <c:if test="${registerLastNameValidationError == null}">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">
-                            <fmt:message key="register.form.label.lastname" />
+                            <fmt:message key="moderator.lastname" />
                         </label>
                         <div class="col-sm-10">
                             <input class="form-control" name="lastname" id="lastname" type="text"
@@ -89,7 +89,7 @@
                 <c:if test="${registerLastNameValidationError != null}">
                     <div class="form-group has-error has-feedback">
                         <label class="col-sm-2 control-label" for="lastnameInputError">
-                            <fmt:message key="register.form.label.lastname" />
+                            <fmt:message key="moderator.lastname" />
                         </label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="lastname" id="lastnameInputError"
@@ -104,7 +104,7 @@
                 <c:if test="${registerEmailValidationError == null}">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">
-                            <fmt:message key="register.form.label.email" />
+                            <fmt:message key="moderator.email" />
                         </label>
                         <div class="col-sm-10">
                             <input class="form-control" name="email" id="email" type="email"
@@ -116,7 +116,7 @@
                 <c:if test="${registerEmailValidationError != null}">
                     <div class="form-group has-error has-feedback">
                         <label class="col-sm-2 control-label" for="emailInputError">
-                            <fmt:message key="register.form.label.email" />
+                            <fmt:message key="moderator.email" />
                         </label>
                         <div class="col-sm-10">
                             <input type="email" class="form-control" name="email" id="emailInputError"
@@ -170,7 +170,7 @@
                 <c:if test="${registerMotivationValidationError == null}">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">
-                            <fmt:message key="register.form.label.motivation" />
+                            <fmt:message key="moderator.motivation" />
                         </label>
                         <div class="col-sm-10">
                             <input class="form-control" name="motivation" id="motivation" type="text"
@@ -182,7 +182,7 @@
                 <c:if test="${registerMotivationValidationError != null}">
                     <div class="form-group has-error has-feedback">
                         <label class="col-sm-2 control-label" for="motivationInputError">
-                            <fmt:message key="register.form.label.motivation" />
+                            <fmt:message key="moderator.motivation" />
                         </label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="motivation" id="motivationInputError"

@@ -15,7 +15,10 @@ import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Created by Philipp on 27.05.2016.
+ * TODO
+ *
+ * @author Matthias Mak
+ * @author Philipp Speidel
  */
 public abstract class RequestDispatcher {
 
@@ -28,15 +31,16 @@ public abstract class RequestDispatcher {
     /** Maps status responses that have been returned by Action objects processing POST requests. */
     private static ConcurrentHashMap<String, String> _postRequestStatusMapping;
 
-    /** Maps status responses that have been returned by Action objects to a forwarding status which
-     * determines whether the dispatcher should perform a forwarding or a redirect. */
+    /**
+     * Maps status responses that have been returned by Action objects to a forwarding status which
+     * determines whether the dispatcher should perform a forwarding or a redirect.
+     */
     private static ConcurrentHashMap<String, Boolean> _postForwardingStatusMapping;
 
     /**
      * Initializes the data structures realizing the mappings.
      */
-    public static void initialize()
-    {
+    public static void initialize() {
         _getRequestStatusMapping = new ConcurrentHashMap<String, String>();
         _postRequestStatusMapping = new ConcurrentHashMap<String, String>();
         _postForwardingStatusMapping = new ConcurrentHashMap<String, Boolean>();
@@ -54,8 +58,8 @@ public abstract class RequestDispatcher {
         _getRequestStatusMapping.put("/index:" + Constants.LOGGED_OUT, "index");
         _getRequestStatusMapping.put("/index:" + Constants.LOGGED_IN, "index");
 
-        // Moderators page.
-        _getRequestStatusMapping.put("/moderators:" + Constants.MODERATORS_LOADED, "moderators");
+        // Applications page.
+        _getRequestStatusMapping.put("/applications:" + Constants.APPLICATIONS_LOADED, "applications");
 
         // POST requests.
         // Login page.
@@ -86,7 +90,7 @@ public abstract class RequestDispatcher {
      */
     public static void dispatch(RequestContextManager context, String status)
             throws ServletException, IOException {
-        String viewName = null;
+        String viewName;
 
         String pathInfo = context.getUrlPath();
         // Remove any .jsp and parameter data in the path info.
@@ -108,7 +112,7 @@ public abstract class RequestDispatcher {
                 forwardRequest(context.getRequest(), context.getResponse(), viewName);
             }
         } else {
-           viewName = _postRequestStatusMapping.get(key);
+            viewName = _postRequestStatusMapping.get(key);
 
             if (viewName != null) {
                 if (_postForwardingStatusMapping.get(key) == Boolean.TRUE) {
@@ -127,10 +131,10 @@ public abstract class RequestDispatcher {
 
             // Check special status strings.
             if (status.equals(Constants.SESSION_EXPIRED)) {
-                    viewName = "login.jsp";
+                    viewName = "login";
             }
             else if (status.equals(Constants.REQUIRES_LOGIN)) {
-                    viewName = "login.jsp";
+                    viewName = "login";
             }
 
             if (viewName != null) {
