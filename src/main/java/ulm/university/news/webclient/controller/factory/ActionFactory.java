@@ -38,6 +38,7 @@ public abstract class ActionFactory {
 
         // Register page.
         _actionMap.put("GET/register", new LoadRegisterFormAction());
+        _actionMap.put("POST/register", new RegisterAction());
 
         // Main page / index.
         _actionMap.put("GET/index", new HomeAction());

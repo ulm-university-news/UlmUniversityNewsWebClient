@@ -19,18 +19,20 @@
                             <fmt:message key="register.form.label.name" />
                         </label>
                         <div class="col-sm-10">
-                            <input class="form-control" id="name" type="text" value="<fmt:message
-                            key="register.form.label.name.desc" />">
+                            <input class="form-control" name="username" id="name" type="text"
+                                   placeholder="<fmt:message key="register.form.label.name.desc" />"
+                                    value="${param.username}">
                         </div>
                     </div>
                 </c:if>
-                <c:if test="${registerNameValidiationError != null}">
+                <c:if test="${registerNameValidationError != null}">
                     <div class="form-group has-error has-feedback">
                         <label class="col-sm-2 control-label" for="nameInputError">
                             <fmt:message key="register.form.label.name" />
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nameInputError" value="">
+                            <input type="text" name="username" class="form-control" id="nameInputError"
+                                   value="${param.username}">
                             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
                         </div>
                     </div>
@@ -43,18 +45,20 @@
                             <fmt:message key="register.form.label.firstname" />
                         </label>
                         <div class="col-sm-10">
-                            <input class="form-control" id="firstname" type="text" value="<fmt:message
-                            key="register.form.label.firstname.desc" />">
+                            <input class="form-control" name="firstname" id="firstname" type="text"
+                                   placeholder="<fmt:message key="register.form.label.firstname.desc" />"
+                                    value="${param.firstname}">
                         </div>
                     </div>
                 </c:if>
-                <c:if test="${registerFirstNameValidiationError != null}">
+                <c:if test="${registerFirstNameValidationError != null}">
                     <div class="form-group has-error has-feedback">
                         <label class="col-sm-2 control-label" for="firstnameInputError">
                             <fmt:message key="register.form.label.firstname" />
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="firstnameInputError" value="">
+                            <input type="text" class="form-control" name="firstname" id="firstnameInputError"
+                                   value="${param.firstname}">
                             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
                         </div>
                     </div>
@@ -67,8 +71,9 @@
                             <fmt:message key="register.form.label.lastname" />
                         </label>
                         <div class="col-sm-10">
-                            <input class="form-control" id="lastname" type="text" value="<fmt:message
-                            key="register.form.label.lastname.desc" />">
+                            <input class="form-control" name="lastname" id="lastname" type="text"
+                                   placeholder="<fmt:message key="register.form.label.lastname.desc" />"
+                                    value="${param.lastname}">
                         </div>
                     </div>
                 </c:if>
@@ -78,7 +83,8 @@
                             <fmt:message key="register.form.label.lastname" />
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="lastnameInputError" value="">
+                            <input type="text" class="form-control" name="lastname" id="lastnameInputError"
+                                   value="${param.lastname}">
                             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
                         </div>
                     </div>
@@ -91,8 +97,9 @@
                             <fmt:message key="register.form.label.email" />
                         </label>
                         <div class="col-sm-10">
-                            <input class="form-control" id="email" type="email" value="<fmt:message
-                            key="register.form.label.email.desc" />">
+                            <input class="form-control" name="email" id="email" type="email"
+                                   placeholder="<fmt:message key="register.form.label.email.desc" />"
+                                   value="${param.email}">
                         </div>
                     </div>
                 </c:if>
@@ -102,7 +109,8 @@
                             <fmt:message key="register.form.label.email" />
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="emailInputError" value="">
+                            <input type="email" class="form-control" name="email" id="emailInputError"
+                                   value="${param.email}">
                             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
                         </div>
                     </div>
@@ -114,8 +122,9 @@
                         <fmt:message key="register.form.label.password" />
                     </label>
                     <div class="col-sm-10">
-                        <input class="form-control" id="password" type="password" value="<fmt:message
-                            key="register.form.label.password.desc" />">
+                        <input class="form-control" name="password" id="password" type="password"
+                               placeholder="<fmt:message key="register.form.label.password.desc" />"
+                                value="${param.password}">
                     </div>
                 </div>
 
@@ -126,8 +135,9 @@
                             <fmt:message key="register.form.label.reenterpassword" />
                         </label>
                         <div class="col-sm-10">
-                            <input class="form-control" id="reEnteredPassword" type="password" value="<fmt:message
-                            key="register.form.label.reenterpassword.desc" />">
+                            <input class="form-control" name="reEnteredPassword" id="reEnteredPassword" type="password"
+                                   placeholder="<fmt:message key="register.form.label.reenterpassword.desc" />"
+                                    value="${param.reEnteredPassword}">
                         </div>
                     </div>
                 </c:if>
@@ -137,7 +147,8 @@
                             <fmt:message key="register.form.label.reenterpassword" />
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="passwordInputError" value="">
+                            <input type="password" class="form-control" name="reEnteredPassword" id="passwordInputError"
+                                   value="${param.reEnteredPassword}">
                             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
                         </div>
                     </div>
@@ -150,8 +161,9 @@
                             <fmt:message key="register.form.label.motivation" />
                         </label>
                         <div class="col-sm-10">
-                            <input class="form-control" id="motivation" type="text" value="<fmt:message
-                            key="register.form.label.motivation.desc" />">
+                            <input class="form-control" name="motivation" id="motivation" type="text"
+                                   placeholder="<fmt:message key="register.form.label.motivation.desc" />"
+                                   value="${param.motivation}">
                         </div>
                     </div>
                 </c:if>
@@ -161,7 +173,8 @@
                             <fmt:message key="register.form.label.motivation" />
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="motivationInputError" value="">
+                            <input type="text" class="form-control" name="motivation" id="motivationInputError"
+                                   value="${param.motivation}">
                             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
                         </div>
                     </div>

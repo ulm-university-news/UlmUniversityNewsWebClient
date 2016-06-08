@@ -206,6 +206,10 @@ public class Constants {
     // Moderators page:
     public static final String MODERATORS_LOADED = "ModeratorsLoaded"; // GET
 
+    // Validation:
+    // Validation error state:
+    public static final String VALIDATION_FAILED = "ValidationFailed"; // POST
+
     // Special states:
     // Expired state.
     public static final String SESSION_EXPIRED = "SessionExpired";  // GET and POST

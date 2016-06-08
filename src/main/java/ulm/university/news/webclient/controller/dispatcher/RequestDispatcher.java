@@ -1,5 +1,6 @@
 package ulm.university.news.webclient.controller.dispatcher;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.eclipse.jdt.internal.compiler.ast.ContinueStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,6 +67,10 @@ public abstract class RequestDispatcher {
         // Logout.
         _postRequestStatusMapping.put("/logout:" + Constants.LOGGED_OUT, "index");
         _postForwardingStatusMapping.put("/logout:" + Constants.LOGGED_OUT, false);
+
+        // Register page.
+        _postRequestStatusMapping.put("/register:" + Constants.VALIDATION_FAILED, "register");
+        _postForwardingStatusMapping.put("/register:" + Constants.VALIDATION_FAILED, true);
     }
 
     /**
@@ -108,7 +113,7 @@ public abstract class RequestDispatcher {
         }
 
         // If no action has been performed so far.
-        if (viewName == null) {
+        if (viewName == null && status != null) {
             logger.debug("Need to check special cases.");
 
             // Check special status strings.
