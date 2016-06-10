@@ -13,7 +13,8 @@ import javax.servlet.annotation.WebListener;
  * Listens on events of the ServletContext. Is used to initialize
  * components, e.g. the ActionFactory on startup.
  *
- * Created by Philipp on 26.05.2016.
+ * @author Matthias Mak
+ * @author Philipp Speidel
  */
 @WebListener
 public class StartUpListener implements ServletContextListener {

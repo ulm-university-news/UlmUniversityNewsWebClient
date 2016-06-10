@@ -7,9 +7,10 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * TODO
+ * This class provides useful functionality to process moderator data.
  *
  * @author Matthias Mak
+ * @author Philipp Speidel
  */
 public class ModeratorUtil {
 

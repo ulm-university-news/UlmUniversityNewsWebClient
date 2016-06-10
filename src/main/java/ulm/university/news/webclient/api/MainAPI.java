@@ -7,11 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulm.university.news.webclient.data.Channel;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -128,7 +128,29 @@ public abstract class MainAPI {
      *
      * @param accessToken The access token.
      */
-    protected void setAuthorization(String accessToken){
+    protected void setAuthorization(String accessToken) {
         connection.setRequestProperty("Authorization", accessToken);
+    }
+
+    protected String getUrlParams(HashMap<String, String> params) {
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            if (first) {
+                first = false;
+                result.append("?");
+            } else {
+                result.append("&");
+            }
+            try {
+                result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                logger.error("getUrlParams: UnsupportedEncodingException");
+                return null;
+            }
+        }
+        return result.toString();
     }
 }

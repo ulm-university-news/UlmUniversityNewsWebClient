@@ -17,6 +17,7 @@ import java.lang.reflect.Type;
  * deserialization is based on the channel type included in the JSON String.
  *
  * @author Matthias Mak
+ * @author Philipp Speidel
  */
 public class ChannelDeserializer implements JsonDeserializer<Channel> {
     /** The Gson object used to parse from JSON with default deserializer. */

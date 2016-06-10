@@ -211,6 +211,9 @@ public class Constants {
 
     // Applications page:
     public static final String APPLICATIONS_LOADED = "ApplicationsLoaded"; // GET
+    public static final String APPLICATIONS_LOAD_FAILED = "ApplicationsLoadFailed"; // GET
+    public static final String APPLICATIONS_EDITED = "ApplicationsEdited"; // POST
+    public static final String APPLICATIONS_EDIT_FAILED = "ApplicationsEditedFailed"; // POST
 
     // Validation:
     // Validation error state:

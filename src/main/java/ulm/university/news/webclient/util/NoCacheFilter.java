@@ -9,7 +9,8 @@ import java.io.IOException;
  * This filter instance is used to deactivate caching in browsers for requests that
  * are sent to our weblient application by setting header fields.
  *
- * Created by Philipp on 28.05.2016.
+ * @author Matthias Mak
+ * @author Philipp Speidel
  */
 @WebFilter("/webclient/*")
 public class NoCacheFilter implements Filter {

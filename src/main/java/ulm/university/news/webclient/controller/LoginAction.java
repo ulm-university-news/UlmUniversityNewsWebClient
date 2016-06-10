@@ -1,6 +1,5 @@
 package ulm.university.news.webclient.controller;
 
-import org.apache.catalina.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulm.university.news.webclient.api.ModeratorAPI;
@@ -13,10 +12,11 @@ import ulm.university.news.webclient.util.exceptions.APIException;
 import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
-import java.util.Locale;
-
 /**
- * Created by Philipp on 26.05.2016.
+ * TODO
+ *
+ * @author Matthias Mak
+ * @author Philipp Speidel
  */
 public class LoginAction implements Action {
 
@@ -64,7 +64,7 @@ public class LoginAction implements Action {
                 String errorMessage;
 
                 // React to rejection due to invalid credentials.
-                switch (ex.getErrorCode()){
+                switch (ex.getErrorCode()) {
                     case Constants.MODERATOR_UNAUTHORIZED:
                         errorMessage = Translator.getInstance().getText(requestContext.retrieveLocale(), "login.message.error.credentials");
                         break;

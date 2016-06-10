@@ -1,13 +1,15 @@
 package ulm.university.news.webclient.controller;
 
-import org.apache.catalina.Server;
 import ulm.university.news.webclient.controller.context.RequestContextManager;
 import ulm.university.news.webclient.controller.interfaces.Action;
 import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
 /**
- * Created by Philipp on 26.05.2016.
+ * TODO
+ *
+ * @author Matthias Mak
+ * @author Philipp Speidel
  */
 public class GetMyChannelsAction implements Action {
     /**

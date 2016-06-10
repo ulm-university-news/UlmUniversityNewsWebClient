@@ -46,6 +46,7 @@ public abstract class ActionFactory {
 
         // Moderators page.
         _actionMap.put("GET/applications", new ApplicationsAction());
+        _actionMap.put("POST/applications", new EditApplicationsAction());
 
         _actionMap.put("GET/channels", new GetMyChannelsAction());
 

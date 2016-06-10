@@ -11,6 +11,9 @@ import java.util.ResourceBundle;
 /**
  * The Translator class is a Singleton class which offers the possibility to get language-dependent texts from
  * different properties files.
+ *
+ * @author Matthias Mak
+ * @author Philipp Speidel
  */
 public class Translator {
     /** The logger instance for Translator. */

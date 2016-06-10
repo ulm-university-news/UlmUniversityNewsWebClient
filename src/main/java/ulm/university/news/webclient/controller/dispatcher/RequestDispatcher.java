@@ -1,7 +1,5 @@
 package ulm.university.news.webclient.controller.dispatcher;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
-import org.eclipse.jdt.internal.compiler.ast.ContinueStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulm.university.news.webclient.controller.context.RequestContextManager;
@@ -10,7 +8,6 @@ import ulm.university.news.webclient.util.Constants;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -60,6 +57,7 @@ public abstract class RequestDispatcher {
 
         // Applications page.
         _getRequestStatusMapping.put("/applications:" + Constants.APPLICATIONS_LOADED, "applications");
+        _getRequestStatusMapping.put("/applications:" + Constants.APPLICATIONS_LOAD_FAILED, "applications");
 
         // POST requests.
         // Login page.
@@ -77,6 +75,12 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping.put("/register:" + Constants.VALIDATION_FAILED, true);
         _postRequestStatusMapping.put("/register:" + Constants.REGISTRATION_SUCCESSFUL, "register.jsp?successful=true");
         _postForwardingStatusMapping.put("/register:" + Constants.REGISTRATION_SUCCESSFUL, false);  // Redirect
+
+        // Applications page.
+        _postRequestStatusMapping.put("/applications:" + Constants.APPLICATIONS_EDIT_FAILED, "applications");
+        _postForwardingStatusMapping.put("/applications:" + Constants.APPLICATIONS_EDIT_FAILED, true);
+        _postRequestStatusMapping.put("/applications:" + Constants.APPLICATIONS_EDITED, "applications");
+        _postForwardingStatusMapping.put("/applications:" + Constants.APPLICATIONS_EDITED, false);
     }
 
     /**

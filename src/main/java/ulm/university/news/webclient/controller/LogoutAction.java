@@ -6,10 +6,11 @@ import ulm.university.news.webclient.util.Constants;
 import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
-import java.util.Locale;
-
 /**
- * Created by Philipp on 28.05.2016.
+ * TODO
+ *
+ * @author Matthias Mak
+ * @author Philipp Speidel
  */
 public class LogoutAction implements Action {
     /**

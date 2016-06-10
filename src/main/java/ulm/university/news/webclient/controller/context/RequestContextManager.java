@@ -15,7 +15,8 @@ import java.util.Locale;
  * It can be used along the processing of the request in order to keep track
  * of request data as well as session data associated with the requestor's session.
  * <p>
- * Created by Philipp on 26.05.2016.
+ * @author Matthias Mak
+ * @author Philipp Speidel
  */
 public class RequestContextManager {
 

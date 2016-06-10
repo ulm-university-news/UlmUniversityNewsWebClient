@@ -26,7 +26,8 @@ import java.util.Locale;
  * The class will delegate the request to the appropriate Action handler if there is no
  * violation of any rights.
  *
- * Created by Philipp on 26.05.2016.
+ * @author Matthias Mak
+ * @author Philipp Speidel
  */
 @WebServlet("/webclient/*")
 public class FrontController extends HttpServlet {

@@ -7,7 +7,10 @@ import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
 /**
- * Created by Philipp on 27.05.2016.
+ * TODO
+ *
+ * @author Matthias Mak
+ * @author Philipp Speidel
  */
 public class LoadLoginAction implements Action {
     /**
