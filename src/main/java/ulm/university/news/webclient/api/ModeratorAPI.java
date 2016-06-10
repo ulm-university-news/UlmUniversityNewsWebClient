@@ -231,9 +231,10 @@ public class ModeratorAPI extends MainAPI {
             obj = new URL(url);
             // Set http method.
             connection = (HttpURLConnection) obj.openConnection();
-            // connection.setRequestMethod("PATCH");
-            connection.setRequestProperty("X-HTTP-Method-Override", "PATCH");
+            // PATCH method is not allowed in HttpUrlConnection.
             connection.setRequestMethod("POST");
+            // Use X-HTTP-Method-Override header to replace POST with PATCH on the REST server.
+            connection.setRequestProperty("X-HTTP-Method-Override", "PATCH");
             connection.addRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
             setAuthorization(accessToken);
