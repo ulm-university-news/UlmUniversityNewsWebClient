@@ -38,6 +38,19 @@
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
+            <p>
+                <fmt:message key="login.passwordReset.description"/>
+                <br>
+                <a class="btn btn-link" href="${base}webclient/passwordReset" role="button">
+                    <fmt:message key="login.passwordReset.description.link"/></a>
+            </p>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
             <h2><fmt:message key="login.noaccount.heading" /> </h2>
             <p><fmt:message key="login.noaccount.description"/></p>
             <p><a class="btn btn-primary" href="${base}webclient/register" role="button">

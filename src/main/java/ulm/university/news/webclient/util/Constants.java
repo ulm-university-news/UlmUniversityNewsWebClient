@@ -209,6 +209,10 @@ public class Constants {
     // Register page:
     public static final String REGISTRATION_SUCCESSFUL = "RegistrationSuccessful"; // POST
 
+    // Password reset page:
+    public static final String PASSWORD_RESET_FAILED = "PasswordResetFailed";   // POST
+    public static final String PASSWORD_RESET_SUCCESSFUL = "PasswordResetSuccessful";   // POST
+
     // Applications page:
     public static final String APPLICATIONS_LOADED = "ApplicationsLoaded"; // GET
     public static final String APPLICATIONS_LOAD_FAILED = "ApplicationsLoadFailed"; // GET

@@ -1,5 +1,6 @@
 package ulm.university.news.webclient.api;
 
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -304,6 +305,63 @@ public class ModeratorAPI extends MainAPI {
             e.printStackTrace();
             logger.error("Malformed URL discovered.");
             throw new APIException(Constants.FATAL_ERROR, "Url malformed.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            logger.error("IO exception occurred.");
+            throw new APIException(Constants.FATAL_ERROR, "IO exception occurred.");
+        }
+    }
+
+    /**
+     * Sends a request to reset the password of the account that is associated with the
+     * specified username.
+     *
+     * @param username The username of the account that requires the password reset.
+     * @throws APIException Throws an APIException if the request fails or was rejected from the server.
+     */
+    public void resetPassword(String username) throws APIException
+    {
+        // Create URL for password reset.
+        String url = moderatorUrl + "/password";
+
+        // Create content for the password reset.
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("name", username);
+        String jsonContent = jsonObject.getAsString();
+
+        URL obj;
+        try {
+            obj = new URL(url);
+            // Set http method.
+            connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("POST");
+            connection.addRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+
+            logger.info("Sending POST request to URL: {}", url);
+
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+            out.write(jsonContent);
+            out.flush();
+            out.close();
+
+            logger.info("Response Code: {}", connection.getResponseCode());
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                // Do nothing.
+            } else {
+                String serverResponse = getErrorResponse(connection);
+                ServerError se = gson.fromJson(serverResponse, ServerError.class);
+                // Map to API exception.
+                throw new APIException(se.getErrorCode(), "Reset password request failed.");
+            }
+        }
+        catch (MalformedURLException e) {
+            e.printStackTrace();
+            logger.error("Malformed URL discovered.");
+            throw new APIException(Constants.FATAL_ERROR, "Url malformed.");
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+            throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
         } catch (IOException e) {
             e.printStackTrace();
             logger.error("IO exception occurred.");

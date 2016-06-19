@@ -51,6 +51,10 @@ public abstract class RequestDispatcher {
         _getRequestStatusMapping.put("/register:" + Constants.LOGGED_IN, "index"); // Navigate him back to index.
         _getRequestStatusMapping.put("/register:" + Constants.LOGGED_OUT, "register");
 
+        // Password reset page.
+        _getRequestStatusMapping.put("/passwordReset:" + Constants.LOGGED_IN, "index"); // Navigate him back to index.
+        _getRequestStatusMapping.put("/passwordReset:" + Constants.LOGGED_OUT, "resetPassword");
+
         // Index/Main page.
         _getRequestStatusMapping.put("/index:" + Constants.LOGGED_OUT, "index");
         _getRequestStatusMapping.put("/index:" + Constants.LOGGED_IN, "index");
@@ -75,6 +79,13 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping.put("/register:" + Constants.VALIDATION_FAILED, true);
         _postRequestStatusMapping.put("/register:" + Constants.REGISTRATION_SUCCESSFUL, "register.jsp?successful=true");
         _postForwardingStatusMapping.put("/register:" + Constants.REGISTRATION_SUCCESSFUL, false);  // Redirect
+
+        // Password reset page.
+        _postRequestStatusMapping.put("/passwordReset:" + Constants.PASSWORD_RESET_SUCCESSFUL,
+                "resetPassword.jsp?successful=true");
+        _postForwardingStatusMapping.put("/passwordReset:" + Constants.PASSWORD_RESET_SUCCESSFUL, false);  // Redirect.
+        _postRequestStatusMapping.put("/passwordReset:" + Constants.PASSWORD_RESET_FAILED, "resetPassword");
+        _postForwardingStatusMapping.put("/passwordReset:" + Constants.PASSWORD_RESET_FAILED, true);
 
         // Applications page.
         _postRequestStatusMapping.put("/applications:" + Constants.APPLICATIONS_EDIT_FAILED, "applications");

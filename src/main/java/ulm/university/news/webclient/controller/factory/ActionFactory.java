@@ -41,6 +41,10 @@ public abstract class ActionFactory {
         _actionMap.put("GET/register", new LoadRegisterFormAction());
         _actionMap.put("POST/register", new RegisterAction());
 
+        // Password reset page.
+        _actionMap.put("GET/passwordReset", new LoadPasswordResetAction());
+        _actionMap.put("POST/passwordReset", new ResetPasswordAction());
+
         // Main page / index.
         _actionMap.put("GET/index", new HomeAction());
 
