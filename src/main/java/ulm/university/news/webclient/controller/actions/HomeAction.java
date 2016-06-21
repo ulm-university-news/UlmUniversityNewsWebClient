@@ -1,27 +1,39 @@
-package ulm.university.news.webclient.controller;
+package ulm.university.news.webclient.controller.actions;
 
 import ulm.university.news.webclient.controller.context.RequestContextManager;
 import ulm.university.news.webclient.controller.interfaces.Action;
+import ulm.university.news.webclient.util.Constants;
 import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
+import java.awt.*;
+
 /**
- * TODO
- *
- * @author Matthias Mak
- * @author Philipp Speidel
+ * Created by Philipp on 26.05.2016.
  */
-public class GetMyChannelsAction implements Action {
+public class HomeAction implements Action {
     /**
-     * This method executes the business logic for retrieving the channels managed by
-     * the logged in moderator.
+     * This method determines whether the home screen view should be displayed in logged in status or
+     * in logged out status.
      *
      * @param requestContext The context of the request for which the execution is triggered.
      * @return Returns the status that is used to determine the view that should be displayed after execution.
      * @throws SessionIsExpiredException If the session of the user is expired.
      */
     public String execute(RequestContextManager requestContext) throws SessionIsExpiredException, ServerException {
-        return "channels";
+
+        String status;
+
+        // Check whether the player is currently logged in or not.
+        if (requestContext.hasActiveSession()){
+            // requestContext.addToRequestContext("loginStatus", "1");
+            status = Constants.LOGGED_IN;
+        } else {
+            // requestContext.addToRequestContext("loginStatus", "0");
+            status = Constants.LOGGED_OUT;
+        }
+
+        return status;
     }
 
     /**
@@ -31,7 +43,7 @@ public class GetMyChannelsAction implements Action {
      * @return Returns true if an active session is required, otherwise false.
      */
     public boolean requiresSession() {
-        return true;
+        return false;
     }
 
     /**

@@ -1,4 +1,4 @@
-package ulm.university.news.webclient.controller;
+package ulm.university.news.webclient.controller.actions;
 
 import ulm.university.news.webclient.controller.context.RequestContextManager;
 import ulm.university.news.webclient.controller.interfaces.Action;
@@ -7,14 +7,15 @@ import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
 /**
- * TODO
+ * A simple implementation of the action interface for the
+ * loading of the password reset page.
  *
  * @author Matthias Mak
  * @author Philipp Speidel
  */
-public class LoadLoginAction implements Action {
+public class LoadPasswordResetAction implements Action{
     /**
-     * This method executes the business logic for loading the login screen.
+     * This method executes the business logic for loading the password reset functionality.
      *
      * @param requestContext The context of the request for which the execution is triggered.
      * @return Returns the status that is used to determine the view that should be displayed after execution.

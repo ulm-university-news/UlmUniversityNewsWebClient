@@ -63,6 +63,10 @@ public abstract class RequestDispatcher {
         _getRequestStatusMapping.put("/applications:" + Constants.APPLICATIONS_LOADED, "applications");
         _getRequestStatusMapping.put("/applications:" + Constants.APPLICATIONS_LOAD_FAILED, "applications");
 
+        // Accounts page.
+        _getRequestStatusMapping.put("/accounts:" + Constants.ACCOUNTS_LOADED, "accounts");
+        _getRequestStatusMapping.put("/accounts:" + Constants.ACCOUNTS_LOAD_FAILED, "accounts");
+
         // POST requests.
         // Login page.
         _postRequestStatusMapping.put("/login:" + Constants.LOGIN_SUCCESSFUL, "index");
@@ -92,6 +96,12 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping.put("/applications:" + Constants.APPLICATIONS_EDIT_FAILED, true);
         _postRequestStatusMapping.put("/applications:" + Constants.APPLICATIONS_EDITED, "applications");
         _postForwardingStatusMapping.put("/applications:" + Constants.APPLICATIONS_EDITED, false);
+
+        // Accounts page.
+        _postRequestStatusMapping.put("/accounts:" + Constants.ACCOUNTS_EDIT_FAILED, "accounts");
+        _postForwardingStatusMapping.put("/accounts:" + Constants.ACCOUNTS_EDIT_FAILED, true);
+        _postRequestStatusMapping.put("/accounts:" + Constants.ACCOUNTS_EDITED, "accounts");
+        _postForwardingStatusMapping.put("/accounts:" + Constants.ACCOUNTS_EDITED, false);
     }
 
     /**

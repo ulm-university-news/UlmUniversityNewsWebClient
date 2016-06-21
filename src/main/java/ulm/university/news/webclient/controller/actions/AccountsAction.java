@@ -1,4 +1,4 @@
-package ulm.university.news.webclient.controller;
+package ulm.university.news.webclient.controller.actions;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,20 +18,20 @@ import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
  * @author Matthias Mak
  * @author Philipp Speidel
  */
-public class EditApplicationsAction implements Action {
+public class AccountsAction implements Action {
 
-    /** An instance of the Logger class which performs logging for the EditApplicationAction class. */
-    private static final Logger logger = LoggerFactory.getLogger(EditApplicationsAction.class);
+    /** An instance of the Logger class which performs logging for the AccountsAction class. */
+    private static final Logger logger = LoggerFactory.getLogger(AccountsAction.class);
 
     /**
-     * This method executes the business logic to load applications (moderator resources) from the server.
+     * This method executes the business logic to edit (lock/delete) accounts (moderator resources) from the server.
      *
      * @param requestContext The context of the request for which the execution is triggered.
      * @return Returns the status that is used to determine the view that should be displayed after execution.
      * @throws SessionIsExpiredException If the session of the user is expired.
      */
     public String execute(RequestContextManager requestContext) throws SessionIsExpiredException, ServerException {
-        logger.debug("In EditApplicationsAction");
+        logger.debug("In AccountsAction");
         Moderator activeModerator = requestContext.retrieveRequestor();
 
         // Get currently selected moderator.
@@ -42,23 +42,23 @@ public class EditApplicationsAction implements Action {
                 if (button != null) {
                     Moderator m = new Moderator();
                     String message;
-                    if (button.equals("accept")) {
-                        logger.debug("Accept {}", currentModerator.toString());
+                    if (button.equals("lock")) {
+                        logger.debug("Lock {}", currentModerator.toString());
                         m.setId(currentModerator.getId());
-                        m.setLocked(false);
+                        m.setLocked(true);
                         Moderator moderator = new ModeratorAPI().changeModerator(
                                 activeModerator.getServerAccessToken(), m);
                         message = Translator.getInstance().getText(requestContext.retrieveLocale(),
-                                "application.accept.success", moderator.getFirstName() + " " + moderator.getLastName());
-                        requestContext.storeInSession("applicationEditSuccess", message);
-                    } else if (button.equals("decline")) {
-                        logger.debug("Decline {}", currentModerator.toString());
+                                "account.lock.success", moderator.getFirstName() + " " + moderator.getLastName());
+                        requestContext.storeInSession("editSuccess", message);
+                    } else if (button.equals("delete")) {
+                        logger.debug("Delete {}", currentModerator.toString());
                         new ModeratorAPI().deleteModerator(activeModerator.getServerAccessToken(),
                                 currentModerator.getId());
                         message = Translator.getInstance().getText(requestContext.retrieveLocale(),
-                                "application.decline.success", currentModerator.getFirstName() + " "
+                                "accounts.delete.success", currentModerator.getFirstName() + " "
                                         + currentModerator.getLastName());
-                        requestContext.storeInSession("applicationEditInfo", message);
+                        requestContext.storeInSession("editInfo", message);
                     }
                 }
             } catch (APIException e) {
@@ -78,12 +78,12 @@ public class EditApplicationsAction implements Action {
                                 "general.message.error.fatal");
                 }
 
-                requestContext.addToRequestContext("applicationEditError", errorMessage);
-                return Constants.APPLICATIONS_EDIT_FAILED;
+                requestContext.storeInSession("editError", errorMessage);
+                return Constants.ACCOUNTS_EDIT_FAILED;
             }
         }
 
-        return Constants.APPLICATIONS_EDITED;
+        return Constants.ACCOUNTS_EDITED;
     }
 
     /**

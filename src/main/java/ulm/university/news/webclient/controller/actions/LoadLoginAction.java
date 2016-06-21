@@ -1,4 +1,4 @@
-package ulm.university.news.webclient.controller;
+package ulm.university.news.webclient.controller.actions;
 
 import ulm.university.news.webclient.controller.context.RequestContextManager;
 import ulm.university.news.webclient.controller.interfaces.Action;
@@ -6,22 +6,21 @@ import ulm.university.news.webclient.util.Constants;
 import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
-import java.awt.*;
-
 /**
- * Created by Philipp on 26.05.2016.
+ * TODO
+ *
+ * @author Matthias Mak
+ * @author Philipp Speidel
  */
-public class HomeAction implements Action {
+public class LoadLoginAction implements Action {
     /**
-     * This method determines whether the home screen view should be displayed in logged in status or
-     * in logged out status.
+     * This method executes the business logic for loading the login screen.
      *
      * @param requestContext The context of the request for which the execution is triggered.
      * @return Returns the status that is used to determine the view that should be displayed after execution.
      * @throws SessionIsExpiredException If the session of the user is expired.
      */
     public String execute(RequestContextManager requestContext) throws SessionIsExpiredException, ServerException {
-
         String status;
 
         // Check whether the player is currently logged in or not.

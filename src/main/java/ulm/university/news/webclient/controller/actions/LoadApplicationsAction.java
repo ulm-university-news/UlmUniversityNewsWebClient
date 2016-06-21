@@ -1,4 +1,4 @@
-package ulm.university.news.webclient.controller;
+package ulm.university.news.webclient.controller.actions;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +21,9 @@ import java.util.List;
  * @author Matthias Mak
  * @author Philipp Speidel
  */
-public class ApplicationsAction implements Action {
-    /** An instance of the Logger class which performs logging for the ApplicationAction class. */
-    private static final Logger logger = LoggerFactory.getLogger(ApplicationsAction.class);
+public class LoadApplicationsAction implements Action {
+    /** An instance of the Logger class which performs logging for the LoadApplicationAction class. */
+    private static final Logger logger = LoggerFactory.getLogger(LoadApplicationsAction.class);
 
     /**
      * This method executes the business logic to load applications (moderator resources) from the server.
@@ -58,7 +58,7 @@ public class ApplicationsAction implements Action {
                                 "general.message.error.fatal");
                 }
 
-                requestContext.addToRequestContext("applicationLoadError", errorMessage);
+                requestContext.storeInSession("applicationLoadError", errorMessage);
                 return Constants.APPLICATIONS_LOAD_FAILED;
             }
         }

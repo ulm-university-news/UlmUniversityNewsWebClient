@@ -2,7 +2,7 @@ package ulm.university.news.webclient.controller.factory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulm.university.news.webclient.controller.*;
+import ulm.university.news.webclient.controller.actions.*;
 import ulm.university.news.webclient.controller.interfaces.Action;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,9 +48,13 @@ public abstract class ActionFactory {
         // Main page / index.
         _actionMap.put("GET/index", new HomeAction());
 
-        // Moderators page.
-        _actionMap.put("GET/applications", new ApplicationsAction());
-        _actionMap.put("POST/applications", new EditApplicationsAction());
+        // Applications page.
+        _actionMap.put("GET/applications", new LoadApplicationsAction());
+        _actionMap.put("POST/applications", new ApplicationsAction());
+
+        // Accounts page.
+        _actionMap.put("GET/accounts", new LoadAccountsAction());
+        _actionMap.put("POST/accounts", new AccountsAction());
 
         _actionMap.put("GET/channels", new GetMyChannelsAction());
 

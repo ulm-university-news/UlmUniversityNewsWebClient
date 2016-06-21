@@ -32,9 +32,9 @@ pageContext.request.locale}" scope="session"/>
 </head>
 <body>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="../jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../jquery/jquery-1.12.4.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -70,7 +70,8 @@ pageContext.request.locale}" scope="session"/>
                             <ul class="dropdown-menu">
                                 <li><a href="${base}webclient/applications">
                                     <fmt:message key="header.nav.label.admin.applications"/></a></li>
-                                <li><a href="#"><fmt:message key="header.nav.label.admin.accounts"/></a></li>
+                                <li><a href="${base}webclient/accounts"><fmt:message
+                                        key="header.nav.label.admin.accounts"/></a></li>
                                 <li><a href="#"><fmt:message key="header.nav.label.admin.channels"/></a></li>
                                 <li><a href="#"><fmt:message key="header.nav.label.admin.groups"/></a></li>
                             </ul>
@@ -86,6 +87,9 @@ pageContext.request.locale}" scope="session"/>
                     <a class="btn btn-primary navbar-btn" href="${base}webclient/login">
                         <fmt:message key="header.nav.button.login"/></a>
                 </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="${base}webclient/register"><fmt:message key="login.noaccount.button.label"/></a></li>
+                </ul>
             </c:if>
             <c:if test="${activeModerator != null}">
                 <!-- Logged in. -->
