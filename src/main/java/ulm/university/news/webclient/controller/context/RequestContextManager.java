@@ -162,12 +162,14 @@ public class RequestContextManager {
 
         // Set the locale again, i.e. the user's language settings keep up to date.
         // Set locale again in new session object.
-        try {
-            storeInSession("language", currentLocale);
-        } catch (SessionIsExpiredException e) {
-            logger.warn("SessionIsExpiredException occurred in create new session.");
-            logger.error("This should never happen.");
-        }
+        storeInSession("language", currentLocale);
+
+//        try {
+//            storeInSession("language", currentLocale);
+//        } catch (SessionIsExpiredException e) {
+//            logger.warn("SessionIsExpiredException occurred in create new session.");
+//            logger.error("This should never happen.");
+//        }
     }
 
     /**
@@ -209,14 +211,13 @@ public class RequestContextManager {
      * to identify the moderator during the session.
      *
      * @param moderator The moderator object.
-     * @throws SessionIsExpiredException If the session of the requestor is not active anymore.
      */
-    public void storeRequestorInSession(Moderator moderator) throws SessionIsExpiredException {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            // Moderator has no session. Session is probably expired.
-            throw new SessionIsExpiredException("Session is expired");
-        }
+    public void storeRequestorInSession(Moderator moderator){
+        HttpSession session = request.getSession(true);
+//        if (session == null) {
+//            // Moderator has no session. Session is probably expired.
+//            throw new SessionIsExpiredException("Session is expired");
+//        }
 
         session.setAttribute(REQUESTOR_KEY, moderator);
     }
@@ -227,14 +228,13 @@ public class RequestContextManager {
      *
      * @param key The key which identifies the data object in the session.
      * @param obj The data object.
-     * @throws SessionIsExpiredException If the session of the requestor is not active anymore.
      */
-    public void storeInSession(String key, Object obj) throws SessionIsExpiredException {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            // Moderator has no session. Session is probably expired.
-            throw new SessionIsExpiredException("Session is expired");
-        }
+    public void storeInSession(String key, Object obj){
+        HttpSession session = request.getSession(true);
+//        if (session == null) {
+//            // Moderator has no session. Session is probably expired.
+//            throw new SessionIsExpiredException("Session is expired");
+//        }
 
         session.setAttribute(key, obj);
     }
@@ -245,14 +245,13 @@ public class RequestContextManager {
      *
      * @param key The key for the data object.
      * @return The data object, or null if data object couldn't be localized.
-     * @throws SessionIsExpiredException If the session of the requestor is not active anymore.
      */
-    public Object retrieveFromSession(String key) throws SessionIsExpiredException {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            // Moderator has no session. Session is probably expired.
-            throw new SessionIsExpiredException("Session is expired");
-        }
+    public Object retrieveFromSession(String key) {
+        HttpSession session = request.getSession(true);
+//        if (session == null) {
+//            // Moderator has no session. Session is probably expired.
+//            throw new SessionIsExpiredException("Session is expired");
+//        }
 
         return session.getAttribute(key);
     }
