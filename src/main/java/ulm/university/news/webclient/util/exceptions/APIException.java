@@ -12,6 +12,9 @@ public class APIException extends Exception{
     /** The error code associated with the API failure. */
     private int errorCode;
 
+    /** The status code returned from the server. */
+    private  int statusCode;
+
     /**
      * Creates an instance of APIException.
      *
@@ -39,6 +42,33 @@ public class APIException extends Exception{
      * Creates an instance of APIException.
      *
      * @param errorCode The error code associated with the API failure.
+     * @param statusCode The status code that was returned by the server.
+     */
+    public APIException(int errorCode, int statusCode)
+    {
+        super();
+        this.statusCode = statusCode;
+        this.errorCode = errorCode;
+    }
+
+    /**
+     * Creates an instance of APIException.
+     *
+     * @param errorCode The error code associated with the API failure.
+     * @param responseCode The response code returned by the server.
+     * @param message The error message.
+     */
+    public APIException(int errorCode, int responseCode, String message)
+    {
+        super(message);
+        this.statusCode = responseCode;
+        this.errorCode = errorCode;
+    }
+
+    /**
+     * Creates an instance of APIException.
+     *
+     * @param errorCode The error code associated with the API failure.
      * @param cause A throwable instance if this exception was caused by other exception.
      */
     public APIException(int errorCode, Throwable cause)
@@ -59,7 +89,6 @@ public class APIException extends Exception{
         this.errorCode = errorCode;
     }
 
-
     public int getErrorCode() {
         return errorCode;
     }
@@ -68,4 +97,11 @@ public class APIException extends Exception{
         this.errorCode = errorCode;
     }
 
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
 }

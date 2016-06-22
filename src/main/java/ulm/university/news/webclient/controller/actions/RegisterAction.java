@@ -114,6 +114,13 @@ public class RegisterAction implements Action {
                                 "register.form.validationError.nameAlreadyExists");
                         setValidationError(e.getErrorCode(), errorMsg);
                         status = Constants.VALIDATION_FAILED;
+                    } else if (e.getErrorCode() == Constants.CONNECTION_FAILURE) {
+                        // Don't leave dialog on connection failure.
+                        Translator translator = Translator.getInstance();
+                        String errorMsg = translator.getText(requestContext.retrieveLocale(),
+                                "register.info.connectionFailure");
+                        requestContext.addToRequestContext("registerRequestFailure", errorMsg);
+                        status = Constants.CONNECTION_FAILED_STATUS;
                     } else {
                         logger.error("Cannot handle the error in RegisterAction. Passing it to FrontController.");
                         // Map to ServerException.

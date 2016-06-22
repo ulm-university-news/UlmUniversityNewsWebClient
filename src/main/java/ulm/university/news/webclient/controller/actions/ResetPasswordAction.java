@@ -38,7 +38,7 @@ public class ResetPasswordAction implements Action {
         String username = requestContext.getRequestParameter("username");
 
         if (task.equals("reset")) {
-            try{
+            try {
                 ModeratorAPI moderatorAPI = new ModeratorAPI();
 
                 // Perform request to reset the password.
@@ -47,11 +47,18 @@ public class ResetPasswordAction implements Action {
                 logger.info("Password reset performed for moderator account with username {}", username);
                 status = Constants.PASSWORD_RESET_SUCCESSFUL;
             } catch (APIException ex) {
-                if (ex.getErrorCode() == Constants.MODERATOR_NOT_FOUND){
+                if (ex.getErrorCode() == Constants.MODERATOR_NOT_FOUND) {
                     Translator translator = Translator.getInstance();
                     String errorMsg = translator.getText(requestContext.retrieveLocale(),
                             "resetPassword.failure.accountNotFound");
                     requestContext.addToRequestContext("resetPasswordNameValidationError", errorMsg);
+                    status = Constants.PASSWORD_RESET_FAILED;
+                } else if (ex.getErrorCode() == Constants.EMAIL_FAILURE) {
+                    Translator translator = Translator.getInstance();
+                    String errorMsg = translator.getText(requestContext.retrieveLocale(),
+                            "resetPassword.failure.emailFailure");
+                    requestContext.addToRequestContext("successful", false);
+                    requestContext.addToRequestContext("errorMsg", errorMsg);
                     status = Constants.PASSWORD_RESET_FAILED;
                 } else {
                     logger.error("Cannot handle the error in RegisterAction. Passing it to FrontController.");

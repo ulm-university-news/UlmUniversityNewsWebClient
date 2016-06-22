@@ -17,6 +17,12 @@
                     <fmt:message key="register.info.success" />
                 </div>
             </c:if>
+            <c:if test="${registerRequestFailure != null}">
+                <div class="alert alert-danger">
+                    <strong><fmt:message key="general.alert.failure" /></strong>
+                    <p>${registerRequestFailure}</p>
+                </div>
+            </c:if>
 
             <form class="form-horizontal" role="form" method="post" action="${base}webclient/register">
                 <!-- Name of the new moderator account -->
@@ -196,7 +202,7 @@
                 <br>
                 <button class="btn btn-lg btn-primary btn-block"
                         type="submit" name="task" value="register"><fmt:message key="register.form.button"/></button>
-
+                <br>
             </form>
         </div>
 

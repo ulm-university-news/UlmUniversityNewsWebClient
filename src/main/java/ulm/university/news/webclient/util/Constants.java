@@ -236,6 +236,9 @@ public class Constants {
     // Login required.
     public static final String REQUIRES_LOGIN = "RequiresLogin";
 
+    // Connection to REST server failed.
+    public static final String CONNECTION_FAILED_STATUS = "ConnectionFailure";
+
 
     // General:
     public static final int DATABASE_FAILURE = 5000;

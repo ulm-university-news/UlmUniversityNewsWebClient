@@ -11,7 +11,26 @@
             <p>
                 <fmt:message key="resetPassword.description"/>
             </p>
-            <form class="form-horizontal" method="post" action="${base}webclient/resetPassword">
+
+            <br>
+
+            <c:if test="${param.successful}">
+                <div class="alert alert-success">
+                    <strong><fmt:message key="general.alert.success" /></strong>
+                    <fmt:message key="resetPassword.info.success" />
+                </div>
+            </c:if>
+
+            <c:if test="${param.successful == false}">
+                <div class="alert alert-danger">
+                    <strong><fmt:message key="general.alert.failure" /></strong>
+                    <fmt:message key="resetPassword.info.failure" />
+                    ${errorMsg}
+                </div>
+            </c:if>
+
+
+            <form class="form-horizontal" method="post" action="${base}webclient/passwordReset">
                 <!-- Username for the password reset. -->
                 <c:if test="${resetPasswordNameValidationError == null}">
                     <div class="form-group">
@@ -20,7 +39,7 @@
                         </label>
                         <div class="col-sm-10">
                             <input class="form-control" name="username" id="name" type="text"
-                                   placeholder="<fmt:message key="register.form.label.name.desc" />"
+                                   placeholder="<fmt:message key="resetPassword.form.label.name.desc" />"
                                    value="${param.username}">
                         </div>
                     </div>

@@ -1,5 +1,6 @@
 package ulm.university.news.webclient.controller;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulm.university.news.webclient.controller.context.RequestContextManager;
@@ -72,13 +73,8 @@ public class FrontController extends HttpServlet {
                 return;
             }
 
-            // Handle page requests where no session is necessary.
-            if (!action.requiresSession())
-            {
-
-            }
-            else{
-                // Handle requests where session is necessary.
+            // Perform checks if session is required.
+            if (action.requiresSession()){
                 // First, check whether the requestor has an active session.
                 if (!contextManager.hasActiveSession()){
                     logger.info("Requestor has no active session! Request is rejected.");
@@ -94,8 +90,6 @@ public class FrontController extends HttpServlet {
                     logger.debug("User seems to have an active session.");
                     // TODO Check rights/permissions of the requestor.
                 }
-
-
             }
 
             // Execute the logic to handle the request.
@@ -103,19 +97,6 @@ public class FrontController extends HttpServlet {
 
             // Pass request context and status to dispatcher object.
             RequestDispatcher.dispatch(contextManager, status);
-
-
-//            // Trigger navigation to view.
-//            if (view.equals(request.getPathInfo().substring(1))) {
-//                // The target view has not changed during execution.
-//                contextManager.forwardRequestToView();
-//            }
-//            else
-//            {
-//                // Redirect to new target view.
-//                contextManager.redirectRequestToTarget(view);
-//            }
-
         }
         catch (SessionIsExpiredException sessionEx){
             logger.error("Session of the requestor is expired. Request is rejected.");
@@ -127,7 +108,12 @@ public class FrontController extends HttpServlet {
             RequestDispatcher.dispatch(contextManager, Constants.SESSION_EXPIRED);
         }
         catch (ServerException serverE){
-            // TODO
+            if (serverE.getErrorCode() == Constants.CONNECTION_FAILURE){
+                // Forward to error page.
+                RequestDispatcher.forwardRequestToErrorView(request, response, Constants.CONNECTION_FAILURE);
+            }
+
+            // TODO - further errors ?
         }
         catch (Exception ex){
             logger.error(ex.getMessage());

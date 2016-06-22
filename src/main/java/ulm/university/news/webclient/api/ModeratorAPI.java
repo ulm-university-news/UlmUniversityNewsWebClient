@@ -96,8 +96,8 @@ public class ModeratorAPI extends MainAPI {
             throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
         } catch (IOException ioe) {
             ioe.printStackTrace();
-            logger.error("IO exception occurred.");
-            throw new APIException(Constants.FATAL_ERROR, "IO Exception");
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Failed to connect to server.");
         }
 
         return moderators;
@@ -155,8 +155,8 @@ public class ModeratorAPI extends MainAPI {
             throw new APIException(Constants.FATAL_ERROR, "Url malformed.");
         } catch (IOException e) {
             e.printStackTrace();
-            logger.error("IO exception occurred.");
-            throw new APIException(Constants.FATAL_ERROR, "IO exception occurred.");
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Couldn't connect to server.");
         }
 
         return m;
@@ -209,8 +209,8 @@ public class ModeratorAPI extends MainAPI {
             throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
         } catch (IOException e) {
             e.printStackTrace();
-            logger.error("IO exception occurred.");
-            throw new APIException(Constants.FATAL_ERROR, "IO exception occurred.");
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Couldn't connect to server.");
         }
     }
 
@@ -263,8 +263,8 @@ public class ModeratorAPI extends MainAPI {
             throw new APIException(Constants.FATAL_ERROR, "Url malformed.");
         } catch (IOException e) {
             e.printStackTrace();
-            logger.error("IO exception occurred.");
-            throw new APIException(Constants.FATAL_ERROR, "IO exception occurred.");
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Couldn't connect to server.");
         }
 
         return moderator;
@@ -307,8 +307,8 @@ public class ModeratorAPI extends MainAPI {
             throw new APIException(Constants.FATAL_ERROR, "Url malformed.");
         } catch (IOException e) {
             e.printStackTrace();
-            logger.error("IO exception occurred.");
-            throw new APIException(Constants.FATAL_ERROR, "IO exception occurred.");
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure.");
         }
     }
 
@@ -327,7 +327,7 @@ public class ModeratorAPI extends MainAPI {
         // Create content for the password reset.
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("name", username);
-        String jsonContent = jsonObject.getAsString();
+        String jsonContent = jsonObject.toString();
 
         URL obj;
         try {
@@ -352,7 +352,8 @@ public class ModeratorAPI extends MainAPI {
                 String serverResponse = getErrorResponse(connection);
                 ServerError se = gson.fromJson(serverResponse, ServerError.class);
                 // Map to API exception.
-                throw new APIException(se.getErrorCode(), "Reset password request failed.");
+                throw new APIException(se.getErrorCode(), connection.getResponseCode(),
+                        "Reset password request failed.");
             }
         }
         catch (MalformedURLException e) {
@@ -364,8 +365,8 @@ public class ModeratorAPI extends MainAPI {
             throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
         } catch (IOException e) {
             e.printStackTrace();
-            logger.error("IO exception occurred.");
-            throw new APIException(Constants.FATAL_ERROR, "IO exception occurred.");
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Couldn't connect to the server.");
         }
     }
 }
