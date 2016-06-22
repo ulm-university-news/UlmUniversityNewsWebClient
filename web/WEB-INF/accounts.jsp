@@ -133,11 +133,15 @@
                             <button type="submit" name="button" value="lock" class="btn btn-primary">
                                 <fmt:message key="accounts.lock"/>
                             </button>
-                            <button type="submit" name="button" value="delete" class="btn btn-primary pull-right">
-                                <fmt:message key="accounts.delete"/>
-                            </button>
+                            <button id="btn-lock" class="btn btn-primary" data-toggle="confirmation"
+                                    data-btn-ok-label="<fmt:message key="general.confirmation.yes"/>"
+                                    data-btn-cancel-label="<fmt:message key="general.confirmation.no"/>"
+                                    title="<fmt:message key="general.confirmation.title"/>">
+                                <fmt:message key="accounts.delete"/></button>
                         </form>
-                        <button class="btn btn-default" data-toggle="confirmation">Confirmation</button>
+                        <form id="form-delete" action="${base}webclient/accounts" method="post">
+                            <input type="hidden" name="button" value="delete" class="pull-right">
+                        </form>
                     </div>
                 </c:if>
             </div>
@@ -145,10 +149,13 @@
     </div>
 </div>
 
-<script src="../bootstrap/js/bootstrap-confirmation.min.js"></script>
-
-<script>
-    $('[data-toggle=confirmation]').confirmation();
+<script src="../bootstrap/js/bootstrap-confirmation.min.js">
+    $('[data-toggle="confirmation"]').confirmation({
+        placement: 'top',
+        onConfirm: function () {
+            document.getElementById("form-delete").submit();
+        }
+    });
 </script>
 
 <!-- Page footer. -->

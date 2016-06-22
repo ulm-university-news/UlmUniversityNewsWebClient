@@ -1,4 +1,4 @@
-package ulm.university.news.webclient.controller.actions;
+package ulm.university.news.webclient.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
