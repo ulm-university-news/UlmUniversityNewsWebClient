@@ -133,10 +133,38 @@
                             <button type="submit" name="button" value="accept" class="btn btn-primary">
                                 <fmt:message key="application.accept"/>
                             </button>
-                            <button type="submit" name="button" value="decline" class="btn btn-primary pull-right">
+                            <!-- Trigger confirmation dialog. -->
+                            <button type="button" class="btn btn-primary pull-right" data-toggle="modal"
+                                    data-target="#confirm">
                                 <fmt:message key="application.decline"/>
                             </button>
                         </form>
+                    </div>
+                    <!-- Modal confirm dialog. -->
+                    <div id="confirm" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title"><fmt:message key="general.confirmation.title"/></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p><fmt:message key="application.warning.decline"/></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
+                                        <fmt:message key="general.no"/>
+                                    </button>
+                                    <form name="form" class="form-inline" method="post"
+                                          action="${base}webclient/applications">
+                                        <button type="submit" name="button" value="decline"
+                                                class="btn btn-primary pull-left">
+                                            <fmt:message key="general.yes"/>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </c:if>
             </div>
