@@ -1,5 +1,6 @@
 <!-- Page header. -->
 <%@include file="header.jsp"%>
+
 <c:set var="channelId" value="${param.channelId}" scope="session"/>
 <c:set var="typeLecture" value="LECTURE" scope="page" />
 <c:set var="typeEvent" value="EVENT" scope="page" />
@@ -142,11 +143,13 @@
                             <div class="row">
                                 <div class="col-md-5">
                                     <h4><fmt:message key="myChannel.panel.creationDate"/> </h4>
-                                    <p>${currentChannel.getCreationDate()}</p>
+                                    <p><joda:format value="${currentChannel.getCreationDate()}"
+                                                       pattern="yyyy-MM-dd HH:mm:ss" /></p>
                                 </div>
                                 <div class="col-md-5">
                                     <h4><fmt:message key="myChannel.panel.modificationDate"/> </h4>
-                                    <p>${currentChannel.getModificationDate()}</p>
+                                    <p><joda:format value="${currentChannel.getModificationDate()}"
+                                                       pattern="yyyy-MM-dd HH:mm:ss" /></p>
                                 </div>
                             </div>
                             <c:if test="${currentChannel.getType() == typeLecture}" >
