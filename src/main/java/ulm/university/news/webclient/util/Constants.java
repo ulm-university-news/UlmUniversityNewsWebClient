@@ -225,6 +225,10 @@ public class Constants {
     public static final String ACCOUNTS_EDITED = "AccountsEdited"; // POST
     public static final String ACCOUNTS_EDIT_FAILED = "AccountsEditedFailed"; // POST
 
+    // MyChannels page:
+    public static final String MY_CHANNELS_LOADED = "MyChannelsLoaded"; // Get
+    public static final String MY_CHANNELS_LOAD_FAILED = "MyChannelsLoadFailed"; // Get
+
     // Validation:
     // Validation error state:
     public static final String VALIDATION_FAILED = "ValidationFailed"; // POST

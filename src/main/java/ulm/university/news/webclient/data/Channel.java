@@ -2,8 +2,10 @@ package ulm.university.news.webclient.data;
 
 import org.joda.time.DateTime;
 import ulm.university.news.webclient.data.enums.ChannelType;
+import ulm.university.news.webclient.util.Translator;
 
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -23,6 +25,8 @@ public class Channel {
     String description;
     /** The type of the channel. */
     ChannelType type;
+    /** The type of the channel as a string. */
+    String typeString;
     /** The date on which the channel was created. */
     DateTime creationDate;
     /** The date on which the channel was modified. */
@@ -93,6 +97,37 @@ public class Channel {
                 ", deleted=" + deleted +
                 ", deletedRead=" + deletedRead +
                 '}';
+    }
+
+    /**
+     * Sets the string that describes the channel type depending on the
+     * language that is specified with the current locale.
+     *
+     * @param currentLocale The current locale.
+     */
+    public void setLocalizedTypeString(Locale currentLocale){
+        Translator translator = Translator.getInstance();
+        String channelTypeString = "";
+
+        switch (getType()){
+            case LECTURE:
+                channelTypeString = translator.getText(currentLocale, "general.channelType.lecture");
+                break;
+            case EVENT:
+                channelTypeString = translator.getText(currentLocale, "general.channelType.event");
+                break;
+            case OTHER:
+                channelTypeString = translator.getText(currentLocale, "general.channelType.other");
+                break;
+            case SPORTS:
+                channelTypeString = translator.getText(currentLocale, "general.channelType.sports");
+                break;
+            case STUDENT_GROUP:
+                channelTypeString = translator.getText(currentLocale, "general.channelType.studentGroup");
+                break;
+        }
+
+        setTypeString(channelTypeString);
     }
 
     public int getId() {
@@ -237,5 +272,13 @@ public class Channel {
 
     public void setNumberOfUnreadAnnouncements(Integer numberOfUnreadAnnouncements) {
         this.numberOfUnreadAnnouncements = numberOfUnreadAnnouncements;
+    }
+
+    public String getTypeString() {
+        return typeString;
+    }
+
+    public void setTypeString(String typeString) {
+        this.typeString = typeString;
     }
 }

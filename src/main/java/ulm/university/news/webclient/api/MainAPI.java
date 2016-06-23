@@ -56,7 +56,7 @@ public abstract class MainAPI {
 
         StringBuffer response = new StringBuffer();
         if (responseCode < 300) {
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
             String inputLine;
 
             while ((inputLine = in.readLine()) != null) {
@@ -86,7 +86,7 @@ public abstract class MainAPI {
 
         StringBuffer response = new StringBuffer();
         if (responseCode >= 400) {
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "UTF-8"));
             String inputLine;
 
             while ((inputLine = in.readLine()) != null) {

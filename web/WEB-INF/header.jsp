@@ -77,7 +77,7 @@ pageContext.request.locale}" scope="session"/>
                             </ul>
                         </li>
                     </c:if>
-                    <li><a href="${base}webclient/index"><fmt:message key="header.nav.label.myChannels"/></a></li>
+                    <li><a href="${base}webclient/myChannels"><fmt:message key="header.nav.label.myChannels"/></a></li>
                     <li><a href="${base}webclient/index"><fmt:message key="header.nav.label.myAccount"/></a></li>
                 </c:if>
             </ul>
@@ -99,7 +99,7 @@ pageContext.request.locale}" scope="session"/>
                             <fmt:message key="header.nav.button.logout"/></button>
                     </form>
                 </div>
-                <div class="nav navbar-nav navbar-right">
+                <div class="nav navbar-nav navbar-right hidden-xs hidden-sm">
                     <p class="navbar-text">
                         <fmt:message key="index.text.loggedIn"/> ${activeModerator.getFirstName()}
                             ${activeModerator.getLastName()} &emsp;

@@ -56,7 +56,8 @@ public abstract class ActionFactory {
         _actionMap.put("GET/accounts", new LoadAccountsAction());
         _actionMap.put("POST/accounts", new AccountsAction());
 
-        _actionMap.put("GET/channels", new GetMyChannelsAction());
+        // My channels page.
+        _actionMap.put("GET/myChannels", new LoadMyChannelsAction());
 
         logger.info("ActionFactory is initialized.");
     }

@@ -67,6 +67,10 @@ public abstract class RequestDispatcher {
         _getRequestStatusMapping.put("/accounts:" + Constants.ACCOUNTS_LOADED, "accounts");
         _getRequestStatusMapping.put("/accounts:" + Constants.ACCOUNTS_LOAD_FAILED, "accounts");
 
+        // My channels page.
+        _getRequestStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_LOADED, "myChannels");
+        _getRequestStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_LOAD_FAILED, "myChannels");
+
         // POST requests.
         // Login page.
         _postRequestStatusMapping.put("/login:" + Constants.LOGIN_SUCCESSFUL, "index");
@@ -104,6 +108,8 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping.put("/accounts:" + Constants.ACCOUNTS_EDIT_FAILED, true);
         _postRequestStatusMapping.put("/accounts:" + Constants.ACCOUNTS_EDITED, "accounts");
         _postForwardingStatusMapping.put("/accounts:" + Constants.ACCOUNTS_EDITED, false);
+
+
     }
 
     /**

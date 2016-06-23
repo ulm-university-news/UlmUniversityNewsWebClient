@@ -116,7 +116,8 @@ public class FrontController extends HttpServlet {
             // TODO - further errors ?
         }
         catch (Exception ex){
-            logger.error(ex.getMessage());
+            logger.error("General exception occurred " + ex.getMessage());
+
             ex.printStackTrace();
             throw new ServletException("Execution failed.");
         }
