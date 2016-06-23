@@ -140,6 +140,20 @@
                 <c:if test="${currentModerator != null}">
                     <div class="panel-footer">
                         <form name="form" class="form-inline" method="post" action="${base}webclient/accounts">
+                            <c:choose>
+                                <c:when test="${currentModerator.isAdmin()}">
+                                    <button type="submit" name="button" value="removeRights"
+                                            class="btn btn-primary">
+                                        <fmt:message key="accounts.adminRights.remove"/>
+                                    </button>
+                                </c:when>
+                                <c:otherwise>
+                                    <button type="submit" name="button" value="addRights"
+                                            class="btn btn-primary">
+                                        <fmt:message key="accounts.adminRights.add"/>
+                                    </button>
+                                </c:otherwise>
+                            </c:choose>
                             <button type="submit" name="button" value="lock" class="btn btn-primary">
                                 <fmt:message key="accounts.lock"/>
                             </button>

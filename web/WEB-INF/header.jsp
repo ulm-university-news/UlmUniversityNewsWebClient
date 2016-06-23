@@ -60,7 +60,7 @@ pageContext.request.locale}" scope="session"/>
                         <li><a href="?language=de">Deutsch</a></li>
                     </ul>
                 </li>
-                <c:if test="${activeModerator != null && activeModerator.isAdmin()}">
+                <c:if test="${activeModerator != null}">
                     <!-- Logged in as moderator. -->
                     <c:if test="${activeModerator.isAdmin()}">
                         <!-- Logged in as admin. -->

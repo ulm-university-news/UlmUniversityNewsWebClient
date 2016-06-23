@@ -59,6 +59,27 @@ public class AccountsAction implements Action {
                                 "accounts.delete.success", currentModerator.getFirstName() + " "
                                         + currentModerator.getLastName());
                         requestContext.storeInSession("editInfo", message);
+                    } else if (button.equals("addRights")) {
+                        logger.debug("Add rights to {}", currentModerator.toString());
+                        m.setId(currentModerator.getId());
+                        m.setAdmin(true);
+                        Moderator moderator = new ModeratorAPI().changeModerator(
+                                activeModerator.getServerAccessToken(), m);
+                        message = Translator.getInstance().getText(requestContext.retrieveLocale(),
+                                "accounts.adminRights.add.success", moderator.getFirstName() + " "
+                                        + moderator.getLastName());
+                        requestContext.storeInSession("editSuccess", message);
+                    } else if (button.equals("removeRights")) {
+                        logger.debug("Remove rights from {}", currentModerator.toString());
+                        logger.debug("Add rights to {}", currentModerator.toString());
+                        m.setId(currentModerator.getId());
+                        m.setAdmin(false);
+                        Moderator moderator = new ModeratorAPI().changeModerator(
+                                activeModerator.getServerAccessToken(), m);
+                        message = Translator.getInstance().getText(requestContext.retrieveLocale(),
+                                "accounts.adminRights.remove.success", moderator.getFirstName() + " "
+                                        + moderator.getLastName());
+                        requestContext.storeInSession("editSuccess", message);
                     }
                 }
             } catch (APIException e) {
