@@ -32,9 +32,9 @@ pageContext.request.locale}" scope="session"/>
 </head>
 <body>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script type="text/javascript" src="../jquery/jquery-1.12.4.min.js"></script>
+<script src="../jquery/jquery-1.12.4.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">

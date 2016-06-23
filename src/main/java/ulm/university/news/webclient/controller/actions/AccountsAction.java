@@ -49,7 +49,7 @@ public class AccountsAction implements Action {
                         Moderator moderator = new ModeratorAPI().changeModerator(
                                 activeModerator.getServerAccessToken(), m);
                         message = Translator.getInstance().getText(requestContext.retrieveLocale(),
-                                "account.lock.success", moderator.getFirstName() + " " + moderator.getLastName());
+                                "accounts.lock.success", moderator.getFirstName() + " " + moderator.getLastName());
                         requestContext.storeInSession("editSuccess", message);
                     } else if (button.equals("delete")) {
                         logger.debug("Delete {}", currentModerator.toString());
