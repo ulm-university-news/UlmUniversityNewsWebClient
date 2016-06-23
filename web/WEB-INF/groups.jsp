@@ -1,14 +1,15 @@
 <!-- Page header. -->
 <%@ include file="header.jsp" %>
-<c:set var="moderatorId" value="${param.moderatorId}" scope="session"/>
+<c:set var="groupId" value="${param.groupId}" scope="session"/>
+<c:set var="typeTutorial" value="TUTORIAL" scope="page"/>
 
 <!-- Page content. -->
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h3><fmt:message key="accounts.title"/></h3>
+            <h3><fmt:message key="groups.title"/></h3>
 
-            <p><fmt:message key="accounts.info"/></p>
+            <p><fmt:message key="groups.info"/></p>
             <br>
         </div>
     </div>
@@ -48,25 +49,25 @@
         <div class="col-md-3">
             <div class="list-group">
                 <div class="list-group-item active">
-                    <h4 class="list-group-item-heading"><fmt:message key="accounts.list.heading"/></h4>
+                    <h4 class="list-group-item-heading"><fmt:message key="groups.list.heading"/></h4>
                 </div>
                 <c:choose>
-                    <c:when test="${moderators != null && !moderators.isEmpty()}">
-                        <c:forEach items="${moderators}" var="moderator">
-                            <c:if test="${moderatorId == null && moderator != null}">
-                                <c:set var="moderatorId" value="${moderator.getId()}"/>
+                    <c:when test="${groups != null && !groups.isEmpty()}">
+                        <c:forEach items="${groups}" var="group">
+                            <c:if test="${groupId == null && group != null}">
+                                <c:set var="groupId" value="${group.getId()}"/>
                             </c:if>
                             <c:choose>
-                                <c:when test="${moderatorId != null && moderatorId == moderator.getId()}">
-                                    <a href="?moderatorId=${moderator.getId()}"
+                                <c:when test="${groupId != null && groupId == group.getId()}">
+                                    <a href="?groupId=${group.getId()}"
                                        class="list-group-item list-group-item-info">
-                                            ${moderator.getLastName()}, ${moderator.getFirstName()}
+                                            ${group.getName()}
                                     </a>
-                                    <c:set var="currentModerator" value="${moderator}" scope="session"/>
+                                    <c:set var="currentGroup" value="${group}" scope="session"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="?moderatorId=${moderator.getId()}" class="list-group-item">
-                                            ${moderator.getLastName()}, ${moderator.getFirstName()}
+                                    <a href="?groupId=${group.getId()}" class="list-group-item">
+                                            ${group.getName()}
                                     </a>
                                 </c:otherwise>
                             </c:choose>
@@ -76,7 +77,7 @@
                         <div class="list-group-item">
                             <fmt:message key="general.none"/>
                         </div>
-                        ${currentModerator = null}
+                        ${currentGroup = null}
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -85,80 +86,69 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <c:choose>
-                        <c:when test="${currentModerator != null}">
-                            <h4>${currentModerator.getFirstName()} ${currentModerator.getLastName()}</h4>
+                        <c:when test="${currentGroup != null}">
+                            <h4>${currentGroup.getName()}</h4>
                         </c:when>
                         <c:otherwise>
-                            <fmt:message key="accounts.nodata"/>
+                            <fmt:message key="groups.nodata"/>
                         </c:otherwise>
                     </c:choose>
                 </div>
                 <div class="panel-body">
                     <c:choose>
-                        <c:when test="${currentModerator != null}">
+                        <c:when test="${currentGroup != null}">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h4><fmt:message key="moderator.firstname"/></h4>
-                                        ${currentModerator.getFirstName()}
+                                    <h4><fmt:message key="group.type"/></h4>
+                                    <c:choose>
+                                        <c:when test="${currentGroup.getGroupType() == typeTutorial}">
+                                            <fmt:message key="group.type.tutorial"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <fmt:message key="group.type.working"/>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                                 <div class="col-md-6">
-                                    <h4><fmt:message key="moderator.lastname"/></h4>
-                                        ${currentModerator.getLastName()}
+                                    <h4><fmt:message key="general.description"/></h4>
+                                        ${currentGroup.getDescription()}
                                 </div>
                             </div>
                             <br>
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h4><fmt:message key="moderator.name"/></h4>
-                                        ${currentModerator.getName()}
+                                    <h4><fmt:message key="general.term"/></h4>
+                                        ${currentGroup.getTerm()}
                                 </div>
                                 <div class="col-md-6">
-                                    <h4><fmt:message key="moderator.email"/></h4>
-                                        ${currentModerator.getEmail()}
+                                    <h4><fmt:message key="group.admin"/></h4>
+                                        ${currentGroup.getGroupAdmin()}
                                 </div>
                             </div>
                             <br>
-                            <h4><fmt:message key="moderator.isAdmin"/></h4>
-                            <c:choose>
-                                <c:when test="${currentModerator.isAdmin()}">
-                                    <fmt:message key="general.yes"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <fmt:message key="general.no"/>
-                                </c:otherwise>
-                            </c:choose>
-                            <br><br>
-                            <h4><fmt:message key="moderator.motivation"/></h4>
-                            ${currentModerator.getMotivation()}
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4><fmt:message key="general.creationDate"/></h4>
+                                        ${currentGroup.getCreationDate()}
+                                </div>
+                                <div class="col-md-6">
+                                    <h4><fmt:message key="general.modificationDate"/></h4>
+                                        ${currentGroup.getModificationDate()}
+                                </div>
+                            </div>
                         </c:when>
                         <c:otherwise>
-                            <fmt:message key="accounts.nodata.info"/>
+                            <fmt:message key="groups.nodata.info"/>
                         </c:otherwise>
                     </c:choose>
                 </div>
-                <c:if test="${currentModerator != null}">
+                <c:if test="${currentGroup != null}">
                     <div class="panel-footer">
-                        <form name="form" class="form-inline" method="post" action="${base}webclient/accounts">
-                            <c:choose>
-                                <c:when test="${currentModerator.isAdmin()}">
-                                    <button type="submit" name="button" value="removeRights"
-                                            class="btn btn-primary">
-                                        <fmt:message key="accounts.adminRights.remove"/>
-                                    </button>
-                                </c:when>
-                                <c:otherwise>
-                                    <button type="submit" name="button" value="addRights"
-                                            class="btn btn-primary">
-                                        <fmt:message key="accounts.adminRights.add"/>
-                                    </button>
-                                </c:otherwise>
-                            </c:choose>
-                            <button type="submit" name="button" value="lock" class="btn btn-primary">
-                                <fmt:message key="accounts.lock"/>
-                            </button>
+                        <form name="form" class="form-inline" method="post" action="${base}webclient/groups">
                             <!-- Trigger confirmation dialog. -->
-                            <button type="button" class="btn btn-primary pull-right" data-toggle="modal"
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#confirm">
                                 <fmt:message key="general.delete"/>
                             </button>
@@ -173,14 +163,14 @@
                                     <h4 class="modal-title"><fmt:message key="general.confirmation.title"/></h4>
                                 </div>
                                 <div class="modal-body">
-                                    <p><fmt:message key="accounts.warning.delete"/></p>
+                                    <p><fmt:message key="groups.warning.delete"/></p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
                                         <fmt:message key="general.no"/>
                                     </button>
                                     <form name="form" class="form-inline" method="post"
-                                          action="${base}webclient/accounts">
+                                          action="${base}webclient/groups">
                                         <button type="submit" name="button" value="delete"
                                                 class="btn btn-primary pull-left">
                                             <fmt:message key="general.yes"/>

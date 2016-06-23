@@ -295,6 +295,7 @@ public class ModeratorAPI extends MainAPI {
 
             if (connection.getResponseCode() == HttpURLConnection.HTTP_NO_CONTENT) {
                 // Do nothing.
+                logger.debug("Moderator {} has been deleted.", moderatorId);
             } else {
                 String serverResponse = getErrorResponse(connection);
                 ServerError se = gson.fromJson(serverResponse, ServerError.class);

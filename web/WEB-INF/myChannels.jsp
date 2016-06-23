@@ -113,7 +113,7 @@
                                     <p>${currentChannel.getTypeString()}</p>
                                 </div>
                                 <div class="col-md-5">
-                                    <h4><fmt:message key="myChannel.panel.term"/> </h4>
+                                    <h4><fmt:message key="general.term"/> </h4>
                                     <p>${currentChannel.getTerm()}</p>
                                 </div>
                             </div>
@@ -142,12 +142,12 @@
                             <!-- Creation date and Modification date -->
                             <div class="row">
                                 <div class="col-md-5">
-                                    <h4><fmt:message key="myChannel.panel.creationDate"/> </h4>
+                                    <h4><fmt:message key="general.creationDate"/> </h4>
                                     <p><joda:format value="${currentChannel.getCreationDate()}"
                                                        pattern="yyyy-MM-dd HH:mm:ss" /></p>
                                 </div>
                                 <div class="col-md-5">
-                                    <h4><fmt:message key="myChannel.panel.modificationDate"/> </h4>
+                                    <h4><fmt:message key="general.modificationDate"/> </h4>
                                     <p><joda:format value="${currentChannel.getModificationDate()}"
                                                        pattern="yyyy-MM-dd HH:mm:ss" /></p>
                                 </div>
@@ -215,7 +215,7 @@
                             <!-- Description -->
                             <div class="row">
                                 <div class="col-md-10">
-                                    <h4><fmt:message key="myChannel.panel.description"/> </h4>
+                                    <h4><fmt:message key="general.description"/> </h4>
                                     <p>${currentChannel.getDescription()}</p>
                                 </div>
                             </div>

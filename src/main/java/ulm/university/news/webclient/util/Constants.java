@@ -219,6 +219,12 @@ public class Constants {
     public static final String APPLICATIONS_EDITED = "ApplicationsEdited"; // POST
     public static final String APPLICATIONS_EDIT_FAILED = "ApplicationsEditedFailed"; // POST
 
+    // Groups page:
+    public static final String GROUPS_LOADED = "GroupsLoaded"; // GET
+    public static final String GROUPS_LOAD_FAILED = "GroupsLoadFailed"; // GET
+    public static final String GROUPS_EDITED = "GroupsEdited"; // POST
+    public static final String GROUPS_EDIT_FAILED = "GroupsEditedFailed"; // POST
+
     // Accounts page:
     public static final String ACCOUNTS_LOADED = "AccountsLoaded"; // GET
     public static final String ACCOUNTS_LOAD_FAILED = "AccountsLoadFailed"; // GET

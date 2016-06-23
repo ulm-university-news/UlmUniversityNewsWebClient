@@ -73,8 +73,10 @@ pageContext.request.locale}" scope="session"/>
                                     <fmt:message key="header.nav.label.admin.applications"/></a></li>
                                 <li><a href="${base}webclient/accounts"><fmt:message
                                         key="header.nav.label.admin.accounts"/></a></li>
-                                <li><a href="#"><fmt:message key="header.nav.label.admin.channels"/></a></li>
-                                <li><a href="#"><fmt:message key="header.nav.label.admin.groups"/></a></li>
+                                <li><a href="${base}webclient/channels">
+                                    <fmt:message key="header.nav.label.admin.channels"/></a></li>
+                                <li><a href="${base}webclient/groups">
+                                    <fmt:message key="header.nav.label.admin.groups"/></a></li>
                             </ul>
                         </li>
                     </c:if>

@@ -74,7 +74,7 @@
                     </c:when>
                     <c:otherwise>
                         <div class="list-group-item">
-                            <fmt:message key="application.none"/>
+                            <fmt:message key="general.none"/>
                         </div>
                         ${currentModerator = null}
                     </c:otherwise>
