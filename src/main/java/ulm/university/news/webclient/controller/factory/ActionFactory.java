@@ -63,6 +63,10 @@ public abstract class ActionFactory {
         // My channels page.
         _actionMap.put("GET/myChannels", new LoadMyChannelsAction());
 
+        // Responsible moderators page.
+        _actionMap.put("GET/manageChannelModerators", new LoadResponsibleModeratorsAction());
+        _actionMap.put("POST/manageChannelModerators", new ManageResponsibleModeratorsAction());
+
         logger.info("ActionFactory is initialized.");
     }
 

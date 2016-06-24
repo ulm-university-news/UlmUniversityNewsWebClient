@@ -21,9 +21,9 @@
         overflow-y: auto;
     }
 
-    .scrollTestEnabled {
-        position: absolute;
-        height: 100%;
+    .scrollEnabledPanel {
+        min-height: 100px;
+        max-height: 50vh;
         overflow-y: auto;
     }
 </style>
@@ -103,7 +103,7 @@
                         </c:otherwise>
                     </c:choose>
                 </div>
-                <div class="panel-body scrollEnabled">
+                <div class="panel-body scrollEnabledPanel">
                     <c:choose>
                         <c:when test="${currentChannel != null}">
                             <!-- Type and term -->
@@ -221,10 +221,32 @@
                             </div>
                         </c:when>
                         <c:otherwise>
-                            <fmt:message key="myChannels.nodata.into" />
+                            <fmt:message key="myChannels.nodata.info" />
                         </c:otherwise>
                     </c:choose>
                 </div>
+                <c:if test="${currentChannel != null}">
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <a class="btn btn-primary" href="#"
+                                   role="button">
+                                    <fmt:message key="myChannels.button.alterChannelData"/> </a>
+                                <a class="btn btn-primary" href="${base}webclient/manageChannelModerators"
+                                   role="button">
+                                    <fmt:message key="myChannels.button.alterChannelModerators"/> </a>
+                            </div>
+                            <div class="col-md-4">
+                                <form class="form-inline" method="post" action="${base}webclient/myChannels">
+                                    <button type="submit" name="task" value="deleteChannel"
+                                            class="btn btn-primary pull-right">
+                                        <fmt:message key="myChannels.button.deleteChannel"/>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>

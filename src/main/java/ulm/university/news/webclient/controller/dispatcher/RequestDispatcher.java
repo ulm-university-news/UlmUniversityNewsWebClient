@@ -75,6 +75,12 @@ public abstract class RequestDispatcher {
         _getRequestStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_LOADED, "myChannels");
         _getRequestStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_LOAD_FAILED, "myChannels");
 
+        // Responsible moderators page.
+        _getRequestStatusMapping.put("/manageChannelModerators:" + Constants.RESPONSIBLE_MODERATORS_LOADED,
+                "manageChannelModerators");
+        _getRequestStatusMapping.put("/manageChannelModerators:" + Constants.RESPONSIBLE_MODERATORS_LOAD_FAILED,
+                "manageChannelModerators");
+
         // POST requests.
         // Login page.
         _postRequestStatusMapping.put("/login:" + Constants.LOGIN_SUCCESSFUL, "index");
@@ -118,6 +124,24 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping.put("/groups:" + Constants.GROUPS_EDIT_FAILED, true);
         _postRequestStatusMapping.put("/groups:" + Constants.GROUPS_EDITED, "groups");
         _postForwardingStatusMapping.put("/groups:" + Constants.GROUPS_EDITED, false);
+        // Manage moderators page.
+        _postRequestStatusMapping.put("/manageChannelModerators:" + Constants
+                .RESPONSIBLE_MODERATORS_REVOKED_PRIVILEGES, "manageChannelModerators?successful=true");
+        _postForwardingStatusMapping.put("/manageChannelModerators:" + Constants
+                .RESPONSIBLE_MODERATORS_REVOKED_PRIVILEGES, false); // Redirect
+        _postRequestStatusMapping.put("/manageChannelModerators:" + Constants
+                .RESPONSIBLE_MODERATORS_REACTIVATED_STATUS, "manageChannelModerators?successful=true");
+        _postForwardingStatusMapping.put("/manageChannelModerators:" + Constants
+                .RESPONSIBLE_MODERATORS_REACTIVATED_STATUS, false); // Redirect
+        _postRequestStatusMapping.put("/manageChannelModerators:" + Constants
+                .RESPONSIBLE_MODERATORS_ADDED_MODERATOR, "manageChannelModerators?successful=true");
+        _postForwardingStatusMapping.put("/manageChannelModerators:" + Constants
+                .RESPONSIBLE_MODERATORS_ADDED_MODERATOR, false); // Redirect
+        _postRequestStatusMapping.put("/manageChannelModerators:" + Constants
+                .RESPONSIBLE_MODERATORS_OPERATION_FAILED, "manageChannelModerators");
+        _postForwardingStatusMapping.put("/manageChannelModerators:" + Constants
+                .RESPONSIBLE_MODERATORS_OPERATION_FAILED, true); // Forwarding
+
     }
 
     /**

@@ -235,6 +235,14 @@ public class Constants {
     public static final String MY_CHANNELS_LOADED = "MyChannelsLoaded"; // Get
     public static final String MY_CHANNELS_LOAD_FAILED = "MyChannelsLoadFailed"; // Get
 
+    // Manage moderators for channel page:
+    public static final String RESPONSIBLE_MODERATORS_LOADED = "ResponsibleModeratorsLoaded"; // Get
+    public static final String RESPONSIBLE_MODERATORS_LOAD_FAILED = "ResponsibleModeratorsLoadFailed"; // Get
+    public static final String RESPONSIBLE_MODERATORS_REVOKED_PRIVILEGES = "ResponsibleModeratorsRevokedPrivileges";
+    public static final String RESPONSIBLE_MODERATORS_REACTIVATED_STATUS = "ResponsibleModeratorsReactivatedSatus";
+    public static final String RESPONSIBLE_MODERATORS_ADDED_MODERATOR = "ResponsibleModeratorsAddedModerator";
+    public static final String RESPONSIBLE_MODERATORS_OPERATION_FAILED = "ResponsibleModeratorsOperationFailed";
+
     // Validation:
     // Validation error state:
     public static final String VALIDATION_FAILED = "ValidationFailed"; // POST

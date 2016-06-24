@@ -85,7 +85,7 @@ public class RequestContextManager {
      *
      * @return The current locale, or English if not specified.
      */
-    public Locale retrieveLocale() throws SessionIsExpiredException {
+    public Locale retrieveLocale() {
         if (request != null) {
             Object object = retrieveFromSession("language");
             if (object != null) {
@@ -143,13 +143,14 @@ public class RequestContextManager {
      */
     public void createNewSession() {
         // Get the local that is currently sent with the request.
-        Locale currentLocale;
-        try {
-            currentLocale = retrieveLocale();
-        } catch (SessionIsExpiredException e) {
-            logger.warn("Failed to retrieve locale in createNewSession. Set it to english per default.");
-            currentLocale = Locale.ENGLISH;
-        }
+        Locale currentLocale = retrieveLocale();;
+
+//        try {
+//            currentLocale = retrieveLocale();;
+//        } catch (SessionIsExpiredException e) {
+//            logger.warn("Failed to retrieve locale in createNewSession. Set it to english per default.");
+//            currentLocale = Locale.ENGLISH;
+//        }
 
         HttpSession session = request.getSession(false);
         if (session != null) {
