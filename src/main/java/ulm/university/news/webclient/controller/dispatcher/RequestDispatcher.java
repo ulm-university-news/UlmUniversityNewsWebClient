@@ -124,6 +124,7 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping.put("/groups:" + Constants.GROUPS_EDIT_FAILED, true);
         _postRequestStatusMapping.put("/groups:" + Constants.GROUPS_EDITED, "groups");
         _postForwardingStatusMapping.put("/groups:" + Constants.GROUPS_EDITED, false);
+
         // Manage moderators page.
         _postRequestStatusMapping.put("/manageChannelModerators:" + Constants
                 .RESPONSIBLE_MODERATORS_REVOKED_PRIVILEGES, "manageChannelModerators?successful=true");
@@ -142,6 +143,12 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping.put("/manageChannelModerators:" + Constants
                 .RESPONSIBLE_MODERATORS_OPERATION_FAILED, true); // Forwarding
 
+        // My channels page.
+        _postRequestStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_DELETED_CHANNEL,
+                "myChannels?successful=true");
+        _postForwardingStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_DELETED_CHANNEL, false); // redirect
+        _postRequestStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_OPERATION_FAILED, "myChannels");
+        _postForwardingStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_OPERATION_FAILED, true); // forward
     }
 
     /**

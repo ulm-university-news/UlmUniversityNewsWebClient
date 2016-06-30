@@ -268,4 +268,49 @@ public class ChannelAPI extends MainAPI {
             throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Failed to connect to server.");
         }
     }
+
+    /**
+     * Deletes the channel with the specified id.
+     *
+     * @param accessToken The access token of the requestor.
+     * @param channelId The id of the channel.
+     * @throws APIException Throws an APIException when the request fails or the server rejects the request.
+     */
+    public void deleteChannel(String accessToken, int channelId) throws APIException {
+        String url = channelUrl + "/" + channelId;
+
+        try {
+            URL obj = new URL(url);
+
+            // Set http method.
+            connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("DELETE");
+            setAuthorization(accessToken);
+
+            logger.info("Sending DELETE request to URL: {}", url);
+
+            int statusCode = connection.getResponseCode();
+            if (statusCode == HttpURLConnection.HTTP_NO_CONTENT) {
+                // Do nothing.
+                logger.info("Deleted channel with id {}.", channelId);
+            } else {
+                String serverResponse = getErrorResponse(connection);
+                ServerError se = gson.fromJson(serverResponse, ServerError.class);
+                // Map to API exception.
+                throw new APIException(se.getErrorCode(), connection.getResponseCode(),
+                        "Deleting channel with id " + channelId + " failed.");
+            }
+        } catch (MalformedURLException malEx) {
+            malEx.printStackTrace();
+            logger.error("Malformed URL discovered.");
+            throw new APIException(Constants.FATAL_ERROR, "URL malformed.");
+        } catch (ProtocolException pe) {
+            pe.printStackTrace();
+            throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Failed to connect to server.");
+        }
+    }
 }

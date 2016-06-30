@@ -120,6 +120,8 @@ public class ManageResponsibleModeratorsAction implements Action {
                 case Constants.DATABASE_FAILURE:
                     errorMessage = translator.getText(currentLocale, "general.message.error.databaseFailure");
                     break;
+                default:
+                    throw new ServerException(ex.getErrorCode(), "Unexpected error occurred.");
             }
 
             // Add to request context.

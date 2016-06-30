@@ -47,6 +47,23 @@
         </div>
         ${myChannelsLoadingFailure = null}
     </c:if>
+    <c:if test="${myChannelsOperationFailure}">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger" role="alert">${myChannelsOperationFailure}</div>
+            </div>
+        </div>
+    </c:if>
+    <c:if test="${param.successful != null}">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert">
+                    <strong><fmt:message key="general.alert.success" /></strong>
+                    <p><fmt:message key="general.alert.success.info" /> </p>
+                </div>
+            </div>
+        </div>
+    </c:if>
 
     <div class="row">
         <div class="col-md-3">
@@ -237,12 +254,41 @@
                                     <fmt:message key="myChannels.button.alterChannelModerators"/> </a>
                             </div>
                             <div class="col-md-4">
-                                <form class="form-inline" method="post" action="${base}webclient/myChannels">
-                                    <button type="submit" name="task" value="deleteChannel"
-                                            class="btn btn-primary pull-right">
-                                        <fmt:message key="myChannels.button.deleteChannel"/>
+                                <button type="button" name="task" value="deleteChannel" data-toggle="modal"
+                                        data-target="#confirmDelete"
+                                        class="btn btn-primary pull-right">
+                                    <fmt:message key="myChannels.button.deleteChannel"/>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal confirm dialog. -->
+                    <div id="confirmDelete" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title"><fmt:message key="general.confirmation.title"/></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>
+                                        <fmt:message key="myChannels.warning.delete">
+                                            <fmt:param value="${currentChannel.getName()}" />
+                                        </fmt:message>
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
+                                        <fmt:message key="general.no"/>
                                     </button>
-                                </form>
+                                    <form name="form" class="form-inline" method="post"
+                                          action="${base}webclient/myChannels">
+                                        <button type="submit" name="task" value="delete"
+                                                class="btn btn-primary pull-left">
+                                            <fmt:message key="general.yes"/>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

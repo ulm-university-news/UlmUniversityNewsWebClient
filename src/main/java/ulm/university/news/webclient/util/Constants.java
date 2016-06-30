@@ -234,6 +234,8 @@ public class Constants {
     // MyChannels page:
     public static final String MY_CHANNELS_LOADED = "MyChannelsLoaded"; // Get
     public static final String MY_CHANNELS_LOAD_FAILED = "MyChannelsLoadFailed"; // Get
+    public static final String MY_CHANNELS_DELETED_CHANNEL = "MyChannelsDeletedChannel";
+    public static final String MY_CHANNELS_OPERATION_FAILED = "MyChannelsOperationFailed";
 
     // Manage moderators for channel page:
     public static final String RESPONSIBLE_MODERATORS_LOADED = "ResponsibleModeratorsLoaded"; // Get
