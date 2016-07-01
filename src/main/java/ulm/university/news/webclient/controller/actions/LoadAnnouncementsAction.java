@@ -63,7 +63,7 @@ public class LoadAnnouncementsAction implements Action {
             }
 
             // Add error message to request context.
-            requestContext.addToRequestContext("loadingChannelDetailsFailure", errorMessage);
+            requestContext.addToRequestContext("loadingAnnouncementsFailure", errorMessage);
         }
 
         return status;

@@ -85,17 +85,17 @@ public class SendAnnouncementAction implements Action {
                     switch (ex.getErrorCode()) {
                         case Constants.ANNOUNCEMENT_DATA_INCOMPLETE:
                             errorMessage = translator.getText(currentLocale,
-                                    "channelDetails.createAnnouncement.error.generalValidationError");
+                                    "announcements.createAnnouncement.error.generalValidationError");
                             setValidationError(Constants.ANNOUNCEMENT_DATA_INCOMPLETE, errorMessage);
                             break;
                         case Constants.ANNOUNCEMENT_INVALID_TITLE:
                             errorMessage = translator.getText(currentLocale,
-                                    "channelDetails.createAnnouncement.error.titleInvalid");
+                                    "announcements.createAnnouncement.error.titleInvalid");
                             setValidationError(Constants.ANNOUNCEMENT_INVALID_TITLE, errorMessage);
                             break;
                         case Constants.ANNOUNCEMENT_INVALID_TEXT:
                             errorMessage = translator.getText(currentLocale,
-                                    "channelDetails.createAnnouncement.error.textInvalid");
+                                    "announcements.createAnnouncement.error.textInvalid");
                             setValidationError(Constants.ANNOUNCEMENT_INVALID_TEXT, errorMessage);
                             break;
                         case Constants.CHANNEL_NOT_FOUND:
@@ -137,7 +137,7 @@ public class SendAnnouncementAction implements Action {
             logger.debug("Validation error regarding announcement title.");
             status = false;
             String errorMsg = translator.getText(requestContext.retrieveLocale(),
-                    "channelDetails.dialog.newMessage.validation.announcementTitle.empty");
+                    "announcements.dialog.newMessage.validation.announcementTitle.empty");
             setValidationError(Constants.ANNOUNCEMENT_INVALID_TITLE, errorMsg);
         }
 
@@ -145,7 +145,7 @@ public class SendAnnouncementAction implements Action {
             logger.debug("Validation error regarding announcement text.");
             status = false;
             String errorMsg = translator.getText(requestContext.retrieveLocale(),
-                    "channelDetails.dialog.newMessage.validation.announcementText.empty");
+                    "announcements.dialog.newMessage.validation.announcementText.empty");
             setValidationError(Constants.ANNOUNCEMENT_INVALID_TEXT, errorMsg);
         }
 
@@ -153,7 +153,7 @@ public class SendAnnouncementAction implements Action {
             logger.debug("Validation error regarding length of title.");
             status = false;
             String errorMsg = translator.getText(requestContext.retrieveLocale(),
-                    "channelDetails.dialog.newMessage.validation.announcementTitle.length");
+                    "announcements.dialog.newMessage.validation.announcementTitle.length");
             setValidationError(Constants.ANNOUNCEMENT_INVALID_TITLE, errorMsg);
         }
 
@@ -161,7 +161,7 @@ public class SendAnnouncementAction implements Action {
             logger.debug("Validation error regarding announcement text length.");
             status = false;
             String errorMsg = translator.getText(requestContext.retrieveLocale(),
-                    "channelDetails.dialog.newMessage.validation.announcementText.length");
+                    "announcements.dialog.newMessage.validation.announcementText.length");
             setValidationError(Constants.ANNOUNCEMENT_INVALID_TEXT, errorMsg);
         }
 
