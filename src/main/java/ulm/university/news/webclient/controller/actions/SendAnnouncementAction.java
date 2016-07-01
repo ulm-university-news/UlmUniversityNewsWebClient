@@ -40,7 +40,7 @@ public class SendAnnouncementAction implements Action {
      * @throws SessionIsExpiredException If the session of the user is expired.
      */
     public String execute(RequestContextManager requestContext) throws SessionIsExpiredException, ServerException {
-        String status = Constants.CHANNEL_DETAILS_ANNOUNCEMENT_CREATED;
+        String status = Constants.ANNOUNCEMENT_CREATED;
         this.requestContext = requestContext;
 
         Moderator activeModerator = requestContext.retrieveRequestor();
@@ -54,7 +54,7 @@ public class SendAnnouncementAction implements Action {
 
             boolean validateData = validateAnnouncementParameters(title, text);
             if (!validateData) {
-                status = Constants.CHANNEL_DETAILS_ANNOUNCEMENT_VALIDATION_ERROR;
+                status = Constants.SEND_ANNOUNCEMENT_VALIDATION_ERROR;
             } else {
                 // Parse priority value.
                 Priority priorityValue = Priority.NORMAL;
@@ -80,7 +80,7 @@ public class SendAnnouncementAction implements Action {
                     Locale currentLocale = requestContext.retrieveLocale();
                     String errorMessage;
 
-                    status = Constants.CHANNEL_DETAILS_ANNOUNCEMENT_CREATION_FAILED;
+                    status = Constants.ANNOUNCEMENT_CREATION_FAILED;
 
                     switch (ex.getErrorCode()) {
                         case Constants.ANNOUNCEMENT_DATA_INCOMPLETE:

@@ -76,7 +76,7 @@ public abstract class RequestDispatcher {
         _getRequestStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_LOAD_FAILED, "myChannels");
 
         // Channel details page.
-        _getRequestStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_DATA_LOADED, "channelDetails");
+        _getRequestStatusMapping.put("/announcements:" + Constants.ANNOUNCEMENTS_DATA_LOADED, "announcements");
 
         // Responsible moderators page.
         _getRequestStatusMapping.put("/manageChannelModerators:" + Constants.RESPONSIBLE_MODERATORS_LOADED,
@@ -154,17 +154,18 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_OPERATION_FAILED, true); // forward
 
         // Channel details page.
-        _postRequestStatusMapping.put("/sendAnnouncement:" + Constants.CHANNEL_DETAILS_ANNOUNCEMENT_VALIDATION_ERROR,
-                "channelDetails");
-        _postForwardingStatusMapping.put("/sendAnnouncement:" + Constants.CHANNEL_DETAILS_ANNOUNCEMENT_VALIDATION_ERROR,
-                true);  // forwarding
-        _postRequestStatusMapping.put("/sendAnnouncement:" + Constants.CHANNEL_DETAILS_ANNOUNCEMENT_CREATED,
-                "channelDetails?successful=true");
-        _postForwardingStatusMapping.put("/sendAnnouncement:" + Constants.CHANNEL_DETAILS_ANNOUNCEMENT_CREATED, false);
-        _postRequestStatusMapping.put("/sendAnnouncement:" + Constants.CHANNEL_DETAILS_ANNOUNCEMENT_CREATION_FAILED,
-                "channelDetails");
-        _postForwardingStatusMapping.put("/sendAnnouncement:" + Constants.CHANNEL_DETAILS_ANNOUNCEMENT_CREATION_FAILED,
-                true);   // forwarding
+        _postRequestStatusMapping.put("/sendAnnouncement:" +
+                        Constants.SEND_ANNOUNCEMENT_VALIDATION_ERROR, "announcements");
+        _postForwardingStatusMapping.put("/sendAnnouncement:" +
+                        Constants.SEND_ANNOUNCEMENT_VALIDATION_ERROR, true);  // forwarding
+        _postRequestStatusMapping.put("/sendAnnouncement:" +
+                        Constants.ANNOUNCEMENT_CREATED, "announcements?successful=true");
+        _postForwardingStatusMapping.put("/sendAnnouncement:" +
+                        Constants.ANNOUNCEMENT_CREATED, false); // redirect
+        _postRequestStatusMapping.put("/sendAnnouncement:" +
+                        Constants.ANNOUNCEMENT_CREATION_FAILED, "announcements");
+        _postForwardingStatusMapping.put("/sendAnnouncement:" +
+                        Constants.ANNOUNCEMENT_CREATION_FAILED, true);   // forwarding
     }
 
     /**

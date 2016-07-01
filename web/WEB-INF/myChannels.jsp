@@ -246,12 +246,17 @@
                     <div class="panel-footer">
                         <div class="row">
                             <div class="col-md-8">
+                                <a class="btn btn-primary" href="${base}webclient/announcements" role="button">
+                                    <fmt:message key="myChannels.button.announcements" />
+                                </a>
                                 <a class="btn btn-primary" href="${base}webclient/channelDetails"
                                    role="button">
-                                    <fmt:message key="myChannels.button.alterChannelData"/> </a>
+                                    <fmt:message key="myChannels.button.alterChannelData"/>
+                                </a>
                                 <a class="btn btn-primary" href="${base}webclient/manageChannelModerators"
                                    role="button">
-                                    <fmt:message key="myChannels.button.alterChannelModerators"/> </a>
+                                    <fmt:message key="myChannels.button.alterChannelModerators"/>
+                                </a>
                             </div>
                             <div class="col-md-4">
                                 <button type="button" name="task" value="deleteChannel" data-toggle="modal"

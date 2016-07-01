@@ -1,6 +1,5 @@
 package ulm.university.news.webclient.controller.actions;
 
-import org.apache.tomcat.util.bcel.classfile.Constant;
 import ulm.university.news.webclient.api.ChannelAPI;
 import ulm.university.news.webclient.controller.context.RequestContextManager;
 import ulm.university.news.webclient.controller.interfaces.Action;
@@ -22,7 +21,7 @@ import java.util.Locale;
  * @author Matthias Mak
  * @author Philipp Speidel
  */
-public class LoadChannelDetailsAction implements Action {
+public class LoadAnnouncementsAction implements Action {
     /**
      * This method executes the business logic to load channel details and announcements of the selected channel.
      *
@@ -31,7 +30,7 @@ public class LoadChannelDetailsAction implements Action {
      * @throws SessionIsExpiredException If the session of the user is expired.
      */
     public String execute(RequestContextManager requestContext) throws SessionIsExpiredException, ServerException {
-        String status = Constants.CHANNEL_DETAILS_DATA_LOADED;
+        String status = Constants.ANNOUNCEMENTS_DATA_LOADED;
 
         Moderator activeModerator = requestContext.retrieveRequestor();
         Channel selectedChannel = (Channel) requestContext.retrieveFromSession("currentChannel");

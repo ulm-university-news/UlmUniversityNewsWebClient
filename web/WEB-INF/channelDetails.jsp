@@ -71,7 +71,7 @@
 
     <div class="row">
         <!-- Messages -->
-        <div class="col-md-6" id="messageCol">
+        <div class="col-md-12" id="messageCol">
             <div class="wrapper">
                 <div class="panel panel-info">
                     <!-- Header -->
@@ -238,25 +238,25 @@
         </div>
 
         <!-- Edit channel details form. -->
-        <div class="col-md-6" id="channelDetailsCol">
-            <div class="panel panel-info">
-                <!-- Header -->
-                <div class="panel-heading">
-                    <h4><fmt:message key="channelDetails.details.panel.header" /></h4>
-                </div>
+        <%--<div class="col-md-6" id="channelDetailsCol">--%>
+            <%--<div class="panel panel-info">--%>
+                <%--<!-- Header -->--%>
+                <%--<div class="panel-heading">--%>
+                    <%--<h4><fmt:message key="channelDetails.details.panel.header" /></h4>--%>
+                <%--</div>--%>
 
-                <!-- Body -->
-                <div class="panel-body">
+                <%--<!-- Body -->--%>
+                <%--<div class="panel-body">--%>
 
-                </div>
+                <%--</div>--%>
 
 
-                <!-- Footer -->
-                <div class="panel-footer">
+                <%--<!-- Footer -->--%>
+                <%--<div class="panel-footer">--%>
 
-                </div>
-            </div>
-        </div>
+                <%--</div>--%>
+            <%--</div>--%>
+        <%--</div>--%>
     </div>
 </div>
 

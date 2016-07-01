@@ -238,12 +238,12 @@ public class Constants {
     public static final String MY_CHANNELS_OPERATION_FAILED = "MyChannelsOperationFailed";
 
     // Channel details page:
-    public static final String CHANNEL_DETAILS_DATA_LOADED = "ChannelDetailsDataLoaded"; // Get
+    public static final String ANNOUNCEMENTS_DATA_LOADED = "ChannelDetailsDataLoaded"; // Get
     public static final String CHANNEL_DETAILS_LOADING_FAILED = "ChannelDetailsLoadingFailed"; // Get
-    public static final String CHANNEL_DETAILS_ANNOUNCEMENT_VALIDATION_ERROR =
+    public static final String SEND_ANNOUNCEMENT_VALIDATION_ERROR =
             "ChannelDetailsAnnouncementValidationError";
-    public static final String CHANNEL_DETAILS_ANNOUNCEMENT_CREATED = "ChannelDetailsAnnouncementCreated";
-    public static final String CHANNEL_DETAILS_ANNOUNCEMENT_CREATION_FAILED =
+    public static final String ANNOUNCEMENT_CREATED = "ChannelDetailsAnnouncementCreated";
+    public static final String ANNOUNCEMENT_CREATION_FAILED =
             "ChannelDetailsAnnouncementCreationFailed";
 
     // Manage moderators for channel page:

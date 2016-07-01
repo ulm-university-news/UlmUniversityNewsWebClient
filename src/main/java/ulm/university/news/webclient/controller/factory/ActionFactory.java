@@ -65,7 +65,7 @@ public abstract class ActionFactory {
         _actionMap.put("POST/myChannels", new MyChannelsAction());
 
         // Channel details page.
-        _actionMap.put("GET/channelDetails", new LoadChannelDetailsAction());
+        _actionMap.put("GET/announcements", new LoadAnnouncementsAction());
         _actionMap.put("POST/sendAnnouncement", new SendAnnouncementAction());
 
         // Responsible moderators page.

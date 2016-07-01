@@ -113,6 +113,12 @@ public class FrontController extends HttpServlet {
                 RequestDispatcher.forwardRequestToErrorView(request, response, Constants.CONNECTION_FAILURE);
             }
 
+            if (serverE.getErrorCode() == Constants.DATABASE_FAILURE) {
+                // Forward to error page.
+                // TODO separate error page?
+                RequestDispatcher.forwardRequestToErrorView(request, response, Constants.FATAL_ERROR);
+            }
+
             // TODO - further errors ?
         }
         catch (Exception ex){
