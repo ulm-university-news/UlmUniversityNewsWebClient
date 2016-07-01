@@ -64,9 +64,12 @@ public abstract class ActionFactory {
         _actionMap.put("GET/myChannels", new LoadMyChannelsAction());
         _actionMap.put("POST/myChannels", new MyChannelsAction());
 
-        // Channel details page.
+        // Announcements page.
         _actionMap.put("GET/announcements", new LoadAnnouncementsAction());
         _actionMap.put("POST/sendAnnouncement", new SendAnnouncementAction());
+
+        // Channel details page.
+        _actionMap.put("GET/channelDetails", new LoadChannelDetailsAction());
 
         // Responsible moderators page.
         _actionMap.put("GET/manageChannelModerators", new LoadResponsibleModeratorsAction());

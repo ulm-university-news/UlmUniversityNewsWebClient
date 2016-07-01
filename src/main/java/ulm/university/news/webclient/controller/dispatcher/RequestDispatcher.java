@@ -75,8 +75,13 @@ public abstract class RequestDispatcher {
         _getRequestStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_LOADED, "myChannels");
         _getRequestStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_LOAD_FAILED, "myChannels");
 
-        // Channel details page.
+        // Announcements page.
         _getRequestStatusMapping.put("/announcements:" + Constants.ANNOUNCEMENTS_DATA_LOADED, "announcements");
+        _getRequestStatusMapping.put("/announcements:" + Constants.ANNOUNCEMENTS_LOADING_FAILED, "announcements");
+
+        // Channel details page.
+        _getRequestStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_LOADED, "channelDetails");
+        _getRequestStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_LOADING_FAILED, "channelDetails");
 
         // Responsible moderators page.
         _getRequestStatusMapping.put("/manageChannelModerators:" + Constants.RESPONSIBLE_MODERATORS_LOADED,

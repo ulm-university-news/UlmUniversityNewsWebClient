@@ -105,6 +105,56 @@ public class ChannelAPI extends MainAPI {
     }
 
     /**
+     * Requests the details of the channel which is identified by the specified id from the server.
+     *
+     * @param accessToken The access token of the requestor.
+     * @param channelId The id of the channel.
+     * @return An instance of class Channel with the data of the channel.
+     * @throws APIException Throws an API exception, if the request fails or is rejected from the server.
+     */
+    public Channel getChannel(String accessToken, int channelId) throws APIException{
+        Channel channel = null;
+        String url = channelUrl + "/" + channelId;
+
+        try{
+            URL obj = new URL(url);
+            // Set http method.
+            connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("GET");
+            setAuthorization(accessToken);
+
+            logger.info("Sending GET request to URL: {}", url);
+
+            int statusCode = connection.getResponseCode();
+            if (statusCode == HttpURLConnection.HTTP_OK) {
+                // Get request response as String.
+                String json = getResponse(connection);
+
+                channel = gson.fromJson(json, Channel.class);
+            } else {
+                String serverResponse = getErrorResponse(connection);
+                ServerError se = gson.fromJson(serverResponse, ServerError.class);
+                // Map to API exception.
+                throw new APIException(se.getErrorCode(), connection.getResponseCode(),
+                        "Get channel with id " + channelId + " failed.");
+            }
+        } catch (MalformedURLException malEx) {
+            malEx.printStackTrace();
+            logger.error("Malformed URL discovered.");
+            throw new APIException(Constants.FATAL_ERROR, "URL malformed.");
+        } catch (ProtocolException pe) {
+            pe.printStackTrace();
+            throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Failed to connect to server.");
+        }
+
+        return channel;
+    }
+
+    /**
      * Requests the responsible moderators of the channel that is identified by the specified id from the REST server.
      *
      * @param accessToken The access token of the requestor.

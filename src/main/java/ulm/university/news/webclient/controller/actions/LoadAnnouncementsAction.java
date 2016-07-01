@@ -49,7 +49,7 @@ public class LoadAnnouncementsAction implements Action {
             Locale currentLocale = requestContext.retrieveLocale();
             String errorMessage;
 
-            status = Constants.CHANNEL_DETAILS_LOADING_FAILED;
+            status = Constants.ANNOUNCEMENTS_LOADING_FAILED;
 
             switch (ex.getErrorCode()){
                 case Constants.CHANNEL_NOT_FOUND:

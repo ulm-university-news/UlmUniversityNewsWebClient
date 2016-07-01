@@ -237,14 +237,16 @@ public class Constants {
     public static final String MY_CHANNELS_DELETED_CHANNEL = "MyChannelsDeletedChannel";
     public static final String MY_CHANNELS_OPERATION_FAILED = "MyChannelsOperationFailed";
 
+    // Announcements page:
+    public static final String ANNOUNCEMENTS_DATA_LOADED = "AnnouncementsDataLoaded"; // Get
+    public static final String ANNOUNCEMENTS_LOADING_FAILED = "AnnouncementsLoadingFailed"; // Get
+    public static final String SEND_ANNOUNCEMENT_VALIDATION_ERROR = "SendAnnouncementValidationError";
+    public static final String ANNOUNCEMENT_CREATED = "AnnouncementCreated";
+    public static final String ANNOUNCEMENT_CREATION_FAILED = "AnnouncementCreationFailed";
+
     // Channel details page:
-    public static final String ANNOUNCEMENTS_DATA_LOADED = "ChannelDetailsDataLoaded"; // Get
-    public static final String CHANNEL_DETAILS_LOADING_FAILED = "ChannelDetailsLoadingFailed"; // Get
-    public static final String SEND_ANNOUNCEMENT_VALIDATION_ERROR =
-            "ChannelDetailsAnnouncementValidationError";
-    public static final String ANNOUNCEMENT_CREATED = "ChannelDetailsAnnouncementCreated";
-    public static final String ANNOUNCEMENT_CREATION_FAILED =
-            "ChannelDetailsAnnouncementCreationFailed";
+    public static final String CHANNEL_DETAILS_LOADED = "ChannelDetailsLoaded";
+    public static final String CHANNEL_DETAILS_LOADING_FAILED = "ChannelDetailsLoadingFailed";
 
     // Manage moderators for channel page:
     public static final String RESPONSIBLE_MODERATORS_LOADED = "ResponsibleModeratorsLoaded"; // Get
