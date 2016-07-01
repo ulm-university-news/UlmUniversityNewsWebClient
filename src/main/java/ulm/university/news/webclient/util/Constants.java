@@ -237,6 +237,15 @@ public class Constants {
     public static final String MY_CHANNELS_DELETED_CHANNEL = "MyChannelsDeletedChannel";
     public static final String MY_CHANNELS_OPERATION_FAILED = "MyChannelsOperationFailed";
 
+    // Channel details page:
+    public static final String CHANNEL_DETAILS_DATA_LOADED = "ChannelDetailsDataLoaded"; // Get
+    public static final String CHANNEL_DETAILS_LOADING_FAILED = "ChannelDetailsLoadingFailed"; // Get
+    public static final String CHANNEL_DETAILS_ANNOUNCEMENT_VALIDATION_ERROR =
+            "ChannelDetailsAnnouncementValidationError";
+    public static final String CHANNEL_DETAILS_ANNOUNCEMENT_CREATED = "ChannelDetailsAnnouncementCreated";
+    public static final String CHANNEL_DETAILS_ANNOUNCEMENT_CREATION_FAILED =
+            "ChannelDetailsAnnouncementCreationFailed";
+
     // Manage moderators for channel page:
     public static final String RESPONSIBLE_MODERATORS_LOADED = "ResponsibleModeratorsLoaded"; // Get
     public static final String RESPONSIBLE_MODERATORS_LOAD_FAILED = "ResponsibleModeratorsLoadFailed"; // Get

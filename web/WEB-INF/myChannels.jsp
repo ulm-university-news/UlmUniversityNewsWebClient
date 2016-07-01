@@ -246,7 +246,7 @@
                     <div class="panel-footer">
                         <div class="row">
                             <div class="col-md-8">
-                                <a class="btn btn-primary" href="#"
+                                <a class="btn btn-primary" href="${base}webclient/channelDetails"
                                    role="button">
                                     <fmt:message key="myChannels.button.alterChannelData"/> </a>
                                 <a class="btn btn-primary" href="${base}webclient/manageChannelModerators"

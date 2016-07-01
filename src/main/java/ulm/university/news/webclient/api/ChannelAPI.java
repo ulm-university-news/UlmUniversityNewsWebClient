@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ulm.university.news.webclient.data.Announcement;
 import ulm.university.news.webclient.data.Channel;
 import ulm.university.news.webclient.data.Moderator;
 import ulm.university.news.webclient.data.ServerError;
@@ -312,5 +313,131 @@ public class ChannelAPI extends MainAPI {
             logger.error("IO exception occurred. Probably due to a failed connection to the server.");
             throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Failed to connect to server.");
         }
+    }
+
+    /**
+     * Retrieves the announcements of the channel with the specified id. Requests all announcements
+     * with a higher message number than the specified one from the server. The announcements are returned
+     * in form of a list.
+     *
+     * @param accessToken The access token of the requestor.
+     * @param channelId The id of the channel.
+     * @param messageNr The message number that specifies a lower bound for the request.
+     * @return A list of objects of type Announcement.
+     * @throws APIException Throws an APIException when the request fails or the server rejects the request.
+     */
+    public List<Announcement> getAnnouncementsOfChannel(String accessToken, int channelId, int messageNr)
+            throws APIException {
+        String url = channelUrl + "/" + channelId + "/announcement";
+        List<Announcement> announcements = null;
+
+        // Add parameters to url.
+        HashMap<String, String> params = new HashMap<String, String>();
+        if (messageNr >= 0) {
+            params.put("messageNr", Integer.toString(messageNr));
+        }
+        url += getUrlParams(params);
+
+        try {
+            URL obj = new URL(url);
+            // Set http method.
+            connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("GET");
+            setAuthorization(accessToken);
+
+            logger.info("Sending GET request to URL: {}", url);
+
+            int statusCode = connection.getResponseCode();
+            if (statusCode == HttpURLConnection.HTTP_OK) {
+                // Get request response as String.
+                String json = getResponse(connection);
+
+                // Use a list of announcements as deserialization type.
+                Type listType = new TypeToken<List<Announcement>>() {
+                }.getType();
+
+                announcements = gson.fromJson(json, listType);
+            } else {
+                String serverResponse = getErrorResponse(connection);
+                ServerError se = gson.fromJson(serverResponse, ServerError.class);
+                // Map to API exception.
+                throw new APIException(se.getErrorCode(), connection.getResponseCode(),
+                        "Get responsible moderators failed.");
+            }
+        } catch (MalformedURLException malEx) {
+            malEx.printStackTrace();
+            logger.error("Malformed URL discovered.");
+            throw new APIException(Constants.FATAL_ERROR, "URL malformed.");
+        } catch (ProtocolException pe) {
+            pe.printStackTrace();
+            throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Failed to connect to server.");
+        }
+
+        return announcements;
+    }
+
+    /**
+     * Sends a request to create a new announcement. The announcement contains to the specified channel and
+     * all subscribers will be notified about the new announcement.
+     *
+     * @param accessToken The access token of the requestor.
+     * @param channelId The id of the channel.
+     * @param announcement The data of the new announcements in form of an announcement object.
+     * @return An object of type Announcement. It contains the data provided by the server in the response.
+     * @throws APIException Throws an APIException when the request fails or the server rejects the request.
+     */
+    public Announcement sendAnnouncement(String accessToken, int channelId, Announcement announcement)
+            throws APIException{
+        String url = channelUrl + "/" + channelId + "/announcement";
+        String jsonContent = gson.toJson(announcement, Announcement.class);
+        Announcement announcementResponse;
+
+        try {
+            URL obj = new URL(url);
+            // Set http method.
+            connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("POST");
+            connection.addRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+            setAuthorization(accessToken);
+
+            logger.info("Sending POST request to URL: {}", url);
+
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+            out.write(jsonContent);
+            out.flush();
+            out.close();
+
+            int statusCode = connection.getResponseCode();
+            if (statusCode == HttpURLConnection.HTTP_CREATED) {
+                // Get request response as String.
+                String json = getResponse(connection);
+
+                announcementResponse = gson.fromJson(json, Announcement.class);
+            } else {
+                String serverResponse = getErrorResponse(connection);
+                ServerError se = gson.fromJson(serverResponse, ServerError.class);
+                // Map to API exception.
+                throw new APIException(se.getErrorCode(), connection.getResponseCode(),
+                        "Create announcement failed.");
+            }
+        } catch (MalformedURLException malEx) {
+            malEx.printStackTrace();
+            logger.error("Malformed URL discovered.");
+            throw new APIException(Constants.FATAL_ERROR, "URL malformed.");
+        } catch (ProtocolException pe) {
+            pe.printStackTrace();
+            throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Failed to connect to server.");
+        }
+
+        return announcementResponse;
     }
 }

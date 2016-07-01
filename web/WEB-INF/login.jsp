@@ -62,7 +62,9 @@
 
 <script>
     function encryptPass() {
+
         var password = document.getElementById("inputPassword").value;
+
         var bitArray = sjcl.hash.sha256.hash(password);
         var digest_sha256 = sjcl.codec.hex.fromBits(bitArray);
 
