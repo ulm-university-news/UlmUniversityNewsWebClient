@@ -217,19 +217,31 @@ public class Constants {
     public static final String APPLICATIONS_LOADED = "ApplicationsLoaded"; // GET
     public static final String APPLICATIONS_LOAD_FAILED = "ApplicationsLoadFailed"; // GET
     public static final String APPLICATIONS_EDITED = "ApplicationsEdited"; // POST
-    public static final String APPLICATIONS_EDIT_FAILED = "ApplicationsEditedFailed"; // POST
+    public static final String APPLICATIONS_EDIT_FAILED = "ApplicationsEditFailed"; // POST
 
     // Groups page:
     public static final String GROUPS_LOADED = "GroupsLoaded"; // GET
     public static final String GROUPS_LOAD_FAILED = "GroupsLoadFailed"; // GET
     public static final String GROUPS_EDITED = "GroupsEdited"; // POST
-    public static final String GROUPS_EDIT_FAILED = "GroupsEditedFailed"; // POST
+    public static final String GROUPS_EDIT_FAILED = "GroupsEditFailed"; // POST
 
     // Accounts page:
     public static final String ACCOUNTS_LOADED = "AccountsLoaded"; // GET
     public static final String ACCOUNTS_LOAD_FAILED = "AccountsLoadFailed"; // GET
     public static final String ACCOUNTS_EDITED = "AccountsEdited"; // POST
-    public static final String ACCOUNTS_EDIT_FAILED = "AccountsEditedFailed"; // POST
+    public static final String ACCOUNTS_EDIT_FAILED = "AccountsEditFailed"; // POST
+
+    // MyAccount page:
+    public static final String MY_ACCOUNT_LOADED = "MyAccountLoaded"; // GET
+    public static final String MY_ACCOUNT_LOAD_FAILED = "MyAccountLoadFailed"; // GET
+    public static final String MY_ACCOUNT_DELETED = "MyAccountDeleted"; // GET
+    public static final String MY_ACCOUNT_DELETE_FAILED = "MyAccountDeleteFailed"; // GET
+
+    // MyAccount page:
+    public static final String MY_ACCOUNT_EDIT_LOADED = "MyAccountEditLoaded"; // GET
+    public static final String MY_ACCOUNT_EDIT_LOAD_FAILED = "MyAccountEditLoadFailed"; // GET
+    public static final String MY_ACCOUNT_EDIT_EDITED = "MyAccountEditEdited"; // POST
+    public static final String MY_ACCOUNT_EDIT_EDIT_FAILED = "MyAccountEditEditFailed"; // POST
 
     // MyChannels page:
     public static final String MY_CHANNELS_LOADED = "MyChannelsLoaded"; // Get

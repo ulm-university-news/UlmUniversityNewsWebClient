@@ -146,13 +146,17 @@
                 </div>
                 <c:if test="${currentGroup != null}">
                     <div class="panel-footer">
-                        <form name="form" class="form-inline" method="post" action="${base}webclient/groups">
-                            <!-- Trigger confirmation dialog. -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#confirm">
-                                <fmt:message key="general.delete"/>
-                            </button>
-                        </form>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form name="form" class="form-inline" method="post" action="${base}webclient/groups">
+                                    <!-- Trigger confirmation dialog. -->
+                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal"
+                                            data-target="#confirm">
+                                        <fmt:message key="general.delete"/>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                     <!-- Modal confirm dialog. -->
                     <div id="confirm" class="modal fade" role="dialog">

@@ -67,6 +67,14 @@ public abstract class RequestDispatcher {
         _getRequestStatusMapping.put("/accounts:" + Constants.ACCOUNTS_LOADED, "accounts");
         _getRequestStatusMapping.put("/accounts:" + Constants.ACCOUNTS_LOAD_FAILED, "accounts");
 
+        // MyAccount page.
+        _getRequestStatusMapping.put("/myAccount:" + Constants.MY_ACCOUNT_LOADED, "myAccount");
+        _getRequestStatusMapping.put("/myAccount:" + Constants.MY_ACCOUNT_LOAD_FAILED, "myAccount");
+
+        // MyAccountEdit page.
+        _getRequestStatusMapping.put("/myAccountEdit:" + Constants.MY_ACCOUNT_EDIT_LOADED, "myAccountEdit");
+        _getRequestStatusMapping.put("/myAccountEdit:" + Constants.MY_ACCOUNT_EDIT_LOAD_FAILED, "myAccountEdit");
+
         // Groups page.
         _getRequestStatusMapping.put("/groups:" + Constants.GROUPS_LOADED, "groups");
         _getRequestStatusMapping.put("/groups:" + Constants.GROUPS_LOAD_FAILED, "groups");
@@ -126,6 +134,18 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping.put("/accounts:" + Constants.ACCOUNTS_EDIT_FAILED, true);
         _postRequestStatusMapping.put("/accounts:" + Constants.ACCOUNTS_EDITED, "accounts");
         _postForwardingStatusMapping.put("/accounts:" + Constants.ACCOUNTS_EDITED, false);
+
+        // MyAccountEdit page.
+        _postRequestStatusMapping.put("/myAccount:" + Constants.MY_ACCOUNT_DELETE_FAILED, "myAccount");
+        _postForwardingStatusMapping.put("/myAccount:" + Constants.MY_ACCOUNT_DELETE_FAILED, true);
+        _postRequestStatusMapping.put("/myAccount:" + Constants.MY_ACCOUNT_DELETED, "index");
+        _postForwardingStatusMapping.put("/myAccount:" + Constants.MY_ACCOUNT_DELETED, false);
+
+        // MyAccountEdit page.
+        _postRequestStatusMapping.put("/myAccountEdit:" + Constants.MY_ACCOUNT_EDIT_EDIT_FAILED, "myAccountEdit");
+        _postForwardingStatusMapping.put("/myAccountEdit:" + Constants.MY_ACCOUNT_EDIT_EDIT_FAILED, true);
+        _postRequestStatusMapping.put("/myAccountEdit:" + Constants.MY_ACCOUNT_EDIT_EDITED, "myAccount");
+        _postForwardingStatusMapping.put("/myAccountEdit:" + Constants.MY_ACCOUNT_EDIT_EDITED, false);
 
         // Groups page.
         _postRequestStatusMapping.put("/groups:" + Constants.GROUPS_EDIT_FAILED, "groups");

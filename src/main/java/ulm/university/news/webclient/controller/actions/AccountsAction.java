@@ -83,7 +83,7 @@ public class AccountsAction implements Action {
                     }
                 }
             } catch (APIException e) {
-                logger.error("Edit application request failed. Error code is {}.", e.getErrorCode());
+                logger.error("Edit account request failed. Error code is {}.", e.getErrorCode());
                 String errorMessage;
                 switch (e.getErrorCode()) {
                     case Constants.MODERATOR_NOT_FOUND:

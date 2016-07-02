@@ -56,6 +56,14 @@ public abstract class ActionFactory {
         _actionMap.put("GET/accounts", new LoadAccountsAction());
         _actionMap.put("POST/accounts", new AccountsAction());
 
+        // MyAccount page.
+        _actionMap.put("GET/myAccount", new LoadMyAccountAction());
+        _actionMap.put("POST/myAccount", new MyAccountAction());
+
+        // MyAccountEdit page.
+        _actionMap.put("GET/myAccountEdit", new LoadMyAccountEditAction());
+        _actionMap.put("POST/myAccountEdit", new MyAccountEditAction());
+
         // Groups page.
         _actionMap.put("GET/groups", new LoadGroupsAction());
         _actionMap.put("POST/groups", new GroupsAction());

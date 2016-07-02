@@ -81,7 +81,7 @@ pageContext.request.locale}" scope="session"/>
                         </li>
                     </c:if>
                     <li><a href="${base}webclient/myChannels"><fmt:message key="header.nav.label.myChannels"/></a></li>
-                    <li><a href="${base}webclient/index"><fmt:message key="header.nav.label.myAccount"/></a></li>
+                    <li><a href="${base}webclient/myAccount"><fmt:message key="header.nav.label.myAccount"/></a></li>
                 </c:if>
             </ul>
             <c:if test="${activeModerator == null}">
