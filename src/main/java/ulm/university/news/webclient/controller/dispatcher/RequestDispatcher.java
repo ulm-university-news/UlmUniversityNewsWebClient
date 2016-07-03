@@ -178,7 +178,7 @@ public abstract class RequestDispatcher {
         _postRequestStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_OPERATION_FAILED, "myChannels");
         _postForwardingStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_OPERATION_FAILED, true); // forward
 
-        // Channel details page.
+        // Send Announcement page.
         _postRequestStatusMapping.put("/sendAnnouncement:" +
                         Constants.SEND_ANNOUNCEMENT_VALIDATION_ERROR, "announcements");
         _postForwardingStatusMapping.put("/sendAnnouncement:" +
@@ -191,6 +191,15 @@ public abstract class RequestDispatcher {
                         Constants.ANNOUNCEMENT_CREATION_FAILED, "announcements");
         _postForwardingStatusMapping.put("/sendAnnouncement:" +
                         Constants.ANNOUNCEMENT_CREATION_FAILED, true);   // forwarding
+
+        // Send channel details.
+        _postRequestStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_EDITED_CHANNEL,
+                "channelDetails?successful=true");
+        _postForwardingStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_EDITED_CHANNEL, false);
+        _postRequestStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_EDITING_FAILED, "channelDetails");
+        _postForwardingStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_EDITING_FAILED, true);
+        _postRequestStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_NO_UPDATE, "channelDetails");
+        _postForwardingStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_NO_UPDATE, true);
     }
 
     /**

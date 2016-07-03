@@ -78,6 +78,7 @@ public abstract class ActionFactory {
 
         // Channel details page.
         _actionMap.put("GET/channelDetails", new LoadChannelDetailsAction());
+        _actionMap.put("POST/channelDetails", new EditChannelAction());
 
         // Responsible moderators page.
         _actionMap.put("GET/manageChannelModerators", new LoadResponsibleModeratorsAction());

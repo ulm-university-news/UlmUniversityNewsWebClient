@@ -8,6 +8,7 @@ import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
 /**
@@ -49,6 +50,12 @@ public class RequestContextManager {
         this.response = response;
 
         logger.debug("Created request context for the request.");
+        try{
+            request.setCharacterEncoding("UTF-8");
+        } catch (UnsupportedEncodingException ex) {
+            logger.error("Unsupported encoding.");
+            ex.printStackTrace();
+        }
     }
 
     /**

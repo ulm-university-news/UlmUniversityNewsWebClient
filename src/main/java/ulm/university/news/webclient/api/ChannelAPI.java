@@ -4,10 +4,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulm.university.news.webclient.data.Announcement;
-import ulm.university.news.webclient.data.Channel;
-import ulm.university.news.webclient.data.Moderator;
-import ulm.university.news.webclient.data.ServerError;
+import ulm.university.news.webclient.data.*;
+import ulm.university.news.webclient.data.enums.ChannelType;
 import ulm.university.news.webclient.util.Constants;
 import ulm.university.news.webclient.util.exceptions.APIException;
 
@@ -137,6 +135,70 @@ public class ChannelAPI extends MainAPI {
                 // Map to API exception.
                 throw new APIException(se.getErrorCode(), connection.getResponseCode(),
                         "Get channel with id " + channelId + " failed.");
+            }
+        } catch (MalformedURLException malEx) {
+            malEx.printStackTrace();
+            logger.error("Malformed URL discovered.");
+            throw new APIException(Constants.FATAL_ERROR, "URL malformed.");
+        } catch (ProtocolException pe) {
+            pe.printStackTrace();
+            throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Failed to connect to server.");
+        }
+
+        return channel;
+    }
+
+    /**
+     * Sends a request to update the channel with the specified id. The updated data is sent to the
+     * server using a JSON Merge Patch format. It contains only the values that need to be updated.
+     *
+     * @param accessToken The access token of the requestor.
+     * @param channelId The id of the channel that needs to be updated.
+     * @param updatableChannel The object with the updated data.
+     * @return The channel object with the updated data after the request has been successfully updated.
+     * @throws APIException Throws an API exception, if the request fails or is rejected from the server.
+     */
+    public Channel updateChannel(String accessToken, int channelId, Channel updatableChannel) throws APIException {
+        Channel channel = null;
+        String url = channelUrl + "/" + channelId;
+
+        String jsonContent = serializeChannelToJson(updatableChannel);
+
+        try{
+            URL obj = new URL(url);
+            // Set http method.
+            connection = (HttpURLConnection) obj.openConnection();
+            // PATCH method is not allowed in HttpUrlConnection.
+            connection.setRequestMethod("POST");
+            // Use X-HTTP-Method-Override header to replace POST with PATCH on the REST server.
+            connection.setRequestProperty("X-HTTP-Method-Override", "PATCH");
+            connection.addRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+            setAuthorization(accessToken);
+
+            logger.info("Sending PATCH request to URL: {} with content: {}", url, jsonContent);
+
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
+            out.write(jsonContent);
+            out.flush();
+            out.close();
+
+            int statusCode = connection.getResponseCode();
+            if (statusCode == HttpURLConnection.HTTP_OK) {
+                // Get request response as String.
+                String json = getResponse(connection);
+
+                channel = gson.fromJson(json, Channel.class);
+            } else {
+                String serverResponse = getErrorResponse(connection);
+                ServerError se = gson.fromJson(serverResponse, ServerError.class);
+                // Map to API exception.
+                throw new APIException(se.getErrorCode(), connection.getResponseCode(),
+                        "Update channel with id " + channelId + " failed.");
             }
         } catch (MalformedURLException malEx) {
             malEx.printStackTrace();
@@ -489,5 +551,30 @@ public class ChannelAPI extends MainAPI {
         }
 
         return announcementResponse;
+    }
+
+    /**
+     * Serializes a channel object to a json string. The channel object
+     * is serialized depending on the channel type.
+     *
+     * @param channel The channel object to parse.
+     * @return The json string.
+     */
+    private String serializeChannelToJson(Channel channel){
+        String jsonContent = "";
+        if (channel.getType() == ChannelType.LECTURE) {
+            Lecture updatableLecture = (Lecture) channel;
+            jsonContent = gson.toJson(updatableLecture, Lecture.class);
+        } else if (channel.getType() == ChannelType.EVENT) {
+            Event updatableEvent = (Event) channel;
+            jsonContent = gson.toJson(updatableEvent, Event.class);
+        } else if (channel.getType() == ChannelType.SPORTS) {
+            Sports updatableSports = (Sports) channel;
+            jsonContent = gson.toJson(updatableSports, Sports.class);
+        } else {
+            jsonContent = gson.toJson(channel, Channel.class);
+        }
+
+        return jsonContent;
     }
 }

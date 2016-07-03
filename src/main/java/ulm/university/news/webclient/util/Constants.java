@@ -62,7 +62,7 @@ public class Constants {
      * A pattern which describes the valid form of a term string. The term is always noted in the form WS or SS plus
      * the year yyyy. In WS, the year can also be given as yyyy/yy, e.g. 2015/16.
      */
-    public static final String TERM_PATTERN = "^[W,S][S][0-9]{4}[/]?[0-9]{0,2}$";
+    public static final String TERM_PATTERN = "^[W,S][0-9]{4}$";
 
     /** The maximum length of a description field. */
     public static final int DESCRIPTION_MAX_LENGTH = 500;
@@ -259,6 +259,9 @@ public class Constants {
     // Channel details page:
     public static final String CHANNEL_DETAILS_LOADED = "ChannelDetailsLoaded";
     public static final String CHANNEL_DETAILS_LOADING_FAILED = "ChannelDetailsLoadingFailed";
+    public static final String CHANNEL_DETAILS_EDITED_CHANNEL = "ChannelDetailsEditedChannel";
+    public static final String CHANNEL_DETAILS_EDITING_FAILED = "ChannelDetailsEditingFailed";
+    public static final String CHANNEL_DETAILS_NO_UPDATE = "ChannelDetailsNoUpdate";
 
     // Manage moderators for channel page:
     public static final String RESPONSIBLE_MODERATORS_LOADED = "ResponsibleModeratorsLoaded"; // Get

@@ -8,6 +8,7 @@ import ulm.university.news.webclient.controller.interfaces.Action;
 import ulm.university.news.webclient.data.Channel;
 import ulm.university.news.webclient.data.Moderator;
 import ulm.university.news.webclient.util.Constants;
+import ulm.university.news.webclient.util.Translator;
 import ulm.university.news.webclient.util.exceptions.APIException;
 import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
@@ -47,8 +48,21 @@ public class LoadChannelDetailsAction implements Action {
                 requestContext.addToRequestContext("editableChannel", editableChannel);
             } catch (APIException ex) {
                 logger.debug("Error occurred. Error code is {}.", ex.getErrorCode());
+                String errorMessage;
 
                 status = Constants.CHANNEL_DETAILS_LOADING_FAILED;
+
+                switch (ex.getErrorCode()) {
+                    case Constants.CHANNEL_NOT_FOUND:
+                        errorMessage = Translator.getInstance().getText(requestContext.retrieveLocale(),
+                                "general.message.error.channelNotFound");
+                        break;
+                    default:
+                        throw new ServerException(ex.getErrorCode(), "Failed to get latest channel info.");
+                }
+
+                // Add error message to request context.
+                requestContext.addToRequestContext("channelDetailsLoadingFailed", errorMessage);
             }
         }
 
