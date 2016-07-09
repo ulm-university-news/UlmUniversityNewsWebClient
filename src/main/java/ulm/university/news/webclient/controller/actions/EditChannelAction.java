@@ -2,12 +2,12 @@ package ulm.university.news.webclient.controller.actions;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.plugin.javascript.ReflectUtil;
 import ulm.university.news.webclient.api.ChannelAPI;
 import ulm.university.news.webclient.controller.context.RequestContextManager;
 import ulm.university.news.webclient.controller.interfaces.Action;
 import ulm.university.news.webclient.data.*;
 import ulm.university.news.webclient.data.enums.ChannelType;
-import ulm.university.news.webclient.data.enums.Faculty;
 import ulm.university.news.webclient.util.Constants;
 import ulm.university.news.webclient.util.Translator;
 import ulm.university.news.webclient.util.exceptions.APIException;
@@ -50,8 +50,8 @@ public class EditChannelAction implements Action {
             Channel enteredData = extractChannelObjectFromRequestParameters(requestContext);
 
             // First of all, validate the data.
-            // TODO validate subclass properties.
-            boolean validationSuccessful = validateRegistrationParameters(enteredData);
+            boolean validationSuccessful = validateChannelParameters(enteredData);
+            validationSuccessful = validationSuccessful && validateChannelSubclassParameters(enteredData);
             if (!validationSuccessful) {
                 // TODO change to not return here. Remove line below.
                 requestContext.addToRequestContext("editableChannel", enteredData);
@@ -122,7 +122,7 @@ public class EditChannelAction implements Action {
      * @param enteredData The provided data in form of a channel object.
      * @return Returns true, if no validation error has occurred, otherwise false.
      */
-    private boolean validateRegistrationParameters(Channel enteredData){
+    private boolean validateChannelParameters(Channel enteredData){
         boolean validationStatus = true;
         Translator translator = Translator.getInstance();
 
@@ -205,6 +205,102 @@ public class EditChannelAction implements Action {
     }
 
     /**
+     * Evaluates the data fields of subclasses of the channel object against the validation rules. Returns
+     * the status of the validation. Possible validation errors are stored in the request context.
+     *
+     * @param channelObj The provided subclass object of a channel object.
+     * @return Returns true, if no validation error has occurred, otherwise false.
+     */
+    private boolean validateChannelSubclassParameters(Channel channelObj){
+        boolean validationStatus = true;
+        Translator translator = Translator.getInstance();
+
+        if (channelObj.getType() == ChannelType.LECTURE &&
+                channelObj instanceof Lecture) {
+            Lecture lecture = (Lecture)channelObj;
+
+            // Same length restrictions as contacts field.
+            if (lecture.getLecturer() != null &&
+                    lecture.getLecturer().length() > Constants.CHANNEL_CONTACTS_MAX_LENGTH) {
+                validationStatus = false;
+                String errorMsg = translator.getText(requestContext.retrieveLocale(),
+                        "channel.form.validationError.invalidLecturer");
+                setValidationError(Constants.CHANNEL_INVALID_LECTURER, errorMsg);
+            }
+
+            // Same length restrictions as contacts field.
+            if (lecture.getAssistant() != null &&
+                    lecture.getAssistant().length() > Constants.CHANNEL_CONTACTS_MAX_LENGTH) {
+                validationStatus = false;
+                String errorMsg = translator.getText(requestContext.retrieveLocale(),
+                        "channel.form.validationError.invalidAssistant");
+                setValidationError(Constants.CHANNEL_INVALID_ASSISTANT, errorMsg);
+            }
+
+            if (lecture.getStartDate() != null &&
+                    lecture.getStartDate().length() > Constants.CHANNEL_DATE_MAX_LENGTH) {
+                validationStatus = false;
+                String errorMsg = translator.getText(requestContext.retrieveLocale(),
+                        "channel.form.validationError.invalidStartDate");
+                setValidationError(Constants.CHANNEL_INVALID_START_DATE, errorMsg);
+            }
+
+            if (lecture.getEndDate() != null &&
+                    lecture.getEndDate().length() > Constants.CHANNEL_DATE_MAX_LENGTH) {
+                validationStatus = false;
+                String errorMsg = translator.getText(requestContext.retrieveLocale(),
+                        "channel.form.validationError.invalidEndDate");
+                setValidationError(Constants.CHANNEL_INVALID_END_DATE, errorMsg);
+            }
+        }
+
+        if (channelObj.getType() == ChannelType.EVENT &&
+                channelObj instanceof  Event) {
+            Event event = (Event)channelObj;
+
+            if (event.getCost() != null &&
+                    event.getCost().length() > Constants.CHANNEL_COST_MAX_LENGTH) {
+                validationStatus = false;
+                String errorMsg = translator.getText(requestContext.retrieveLocale(),
+                        "channel.form.validationError.invalidCost");
+                setValidationError(Constants.CHANNEL_INVALID_COST, errorMsg);
+            }
+
+            // Same length restrictions as contacts field.
+            if (event.getOrganizer() != null &&
+                    event.getOrganizer().length() > Constants.CHANNEL_CONTACTS_MAX_LENGTH) {
+                validationStatus = false;
+                String errorMsg = translator.getText(requestContext.retrieveLocale(),
+                        "channel.form.validationError.invalidOrganizer");
+                setValidationError(Constants.CHANNEL_INVALID_ORGANIZER, errorMsg);
+            }
+        }
+
+        if (channelObj.getType() == ChannelType.SPORTS &&
+                channelObj instanceof  Sports) {
+            Sports sportsObj = (Sports)channelObj;
+
+            if (sportsObj.getCost() != null &&
+                    sportsObj.getCost().length() > Constants.CHANNEL_COST_MAX_LENGTH) {
+                validationStatus = false;
+                String errorMsg = translator.getText(requestContext.retrieveLocale(),
+                        "channel.form.validationError.invalidCost");
+                setValidationError(Constants.CHANNEL_INVALID_COST, errorMsg);
+            }
+
+            if (sportsObj.getNumberOfParticipants() != null &&
+                    sportsObj.getNumberOfParticipants().length() > Constants.CHANNEL_PARTICIPANTS_MAX_LENGTH) {
+                validationStatus = false;
+                String errorMsg = translator.getText(requestContext.retrieveLocale(),
+                        "channel.form.validationError.invalidNrOfParticipants");
+                setValidationError(Constants.CHANNEL_INVALID_PARTICIPANTS, errorMsg);
+            }
+        }
+
+        return validationStatus;
+    }
+
+    /**
      * Adds validation errors to the request context based on the error code.
      *
      * @param errorCode The error code of the validation error.
@@ -235,6 +331,28 @@ public class EditChannelAction implements Action {
                 break;
             case Constants.CHANNEL_INVALID_WEBSITE:
                 requestContext.addToRequestContext("websiteValidationError", errorMessage);
+                break;
+            case Constants.CHANNEL_INVALID_LECTURER:
+                requestContext.addToRequestContext("lecturerValidationError", errorMessage);
+                break;
+            case Constants.CHANNEL_INVALID_ASSISTANT:
+                requestContext.addToRequestContext("assistantValidationError", errorMessage);
+                break;
+            case Constants.CHANNEL_INVALID_START_DATE:
+                requestContext.addToRequestContext("startDateValidationError", errorMessage);
+                break;
+            case Constants.CHANNEL_INVALID_END_DATE:
+                requestContext.addToRequestContext("endDateValidationError", errorMessage);
+                break;
+            case Constants.CHANNEL_INVALID_COST:
+                requestContext.addToRequestContext("eventCostValidationError", errorMessage);
+                requestContext.addToRequestContext("sportsCostValidationError", errorMessage);
+                break;
+            case Constants.CHANNEL_INVALID_ORGANIZER:
+                requestContext.addToRequestContext("organizerValidationError", errorMessage);
+                break;
+            case Constants.CHANNEL_INVALID_PARTICIPANTS:
+                requestContext.addToRequestContext("numberOfParticipantsValidationError", errorMessage);
                 break;
             default:
                 break;
