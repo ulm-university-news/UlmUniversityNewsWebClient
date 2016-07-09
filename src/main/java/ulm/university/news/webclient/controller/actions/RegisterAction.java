@@ -8,13 +8,12 @@ import ulm.university.news.webclient.controller.interfaces.Action;
 import ulm.university.news.webclient.data.Moderator;
 import ulm.university.news.webclient.data.enums.Language;
 import ulm.university.news.webclient.util.Constants;
+import ulm.university.news.webclient.util.ModeratorUtil;
 import ulm.university.news.webclient.util.Translator;
 import ulm.university.news.webclient.util.exceptions.APIException;
 import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
 /**
@@ -83,7 +82,7 @@ public class RegisterAction implements Action {
                 }
 
                 // Hash the password.
-                password = hashPassword(password);
+                password = ModeratorUtil.hashPassword(password);
 
                 // Create moderator instance for account request.
                 Moderator moderator = new Moderator(username, firstName, lastName, email, null, password, motivation,
@@ -294,44 +293,6 @@ public class RegisterAction implements Action {
             default:
                 break;
         }
-    }
-
-    /**
-     * Helper method to generate a hash for the password. The password is
-     * hashed using a SHA256 algorithm.
-     *
-     * @param password The password as a string.
-     * @return The generated hash as a string.
-     */
-    private String hashPassword(String password){
-        String hash = "";
-        try {
-            byte[] passwordBytes = password.getBytes();
-
-            // Calculate hash on the password's byte sequence.
-            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-            byte[] token = sha256.digest(passwordBytes);
-
-            // Transform the bytes (8 bit signed) into a hexadecimal format.
-            StringBuilder tokenString = new StringBuilder();
-            for (int i = 0; i < token.length; i++) {
-                /*
-                Format parameters: %[flags][width][conversion]
-                Flag '0' - The result will be zero padded.
-                Width '2' - The width is 2 as 1 byte is represented by two hex characters.
-                Conversion 'x' - Result is formatted as hexadecimal integer, uppercase.
-                 */
-                tokenString.append(String.format("%02x", token[i]));
-            }
-            hash = tokenString.toString();
-            logger.debug("The generated hash is {}", hash);
-        }
-        catch (NoSuchAlgorithmException ex)
-        {
-            logger.error("Couldn't perform hashing. No SHA256 algorithm.");
-        }
-
-        return hash;
     }
 
     /**

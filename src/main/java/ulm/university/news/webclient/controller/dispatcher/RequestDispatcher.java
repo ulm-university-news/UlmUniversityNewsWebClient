@@ -135,7 +135,7 @@ public abstract class RequestDispatcher {
         _postRequestStatusMapping.put("/accounts:" + Constants.ACCOUNTS_EDITED, "accounts");
         _postForwardingStatusMapping.put("/accounts:" + Constants.ACCOUNTS_EDITED, false);
 
-        // MyAccountEdit page.
+        // MyAccount page.
         _postRequestStatusMapping.put("/myAccount:" + Constants.MY_ACCOUNT_DELETE_FAILED, "myAccount");
         _postForwardingStatusMapping.put("/myAccount:" + Constants.MY_ACCOUNT_DELETE_FAILED, true);
         _postRequestStatusMapping.put("/myAccount:" + Constants.MY_ACCOUNT_DELETED, "index");
@@ -146,6 +146,10 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping.put("/myAccountEdit:" + Constants.MY_ACCOUNT_EDIT_EDIT_FAILED, true);
         _postRequestStatusMapping.put("/myAccountEdit:" + Constants.MY_ACCOUNT_EDIT_EDITED, "myAccount");
         _postForwardingStatusMapping.put("/myAccountEdit:" + Constants.MY_ACCOUNT_EDIT_EDITED, false);
+        _postRequestStatusMapping.put("/myAccountEdit:" +
+                Constants.MY_ACCOUNT_EDIT_PASSWORD_VALIDATION_ERROR, "myAccountEdit");
+        _postForwardingStatusMapping.put("/myAccountEdit:" +
+                Constants.MY_ACCOUNT_EDIT_PASSWORD_VALIDATION_ERROR, true);  // forwarding
 
         // Groups page.
         _postRequestStatusMapping.put("/groups:" + Constants.GROUPS_EDIT_FAILED, "groups");

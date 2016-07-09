@@ -245,6 +245,7 @@
                 -->
 
                 <br>
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="text-center">
@@ -254,11 +255,164 @@
                         </div>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3><fmt:message key="myAccountEdit.password.title"/></h3>
+
+            <p><fmt:message key="myAccountEdit.password.info"/></p>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary btn-block" type="button" name="newMessageBtn"
+                    data-toggle="modal" data-target="#newPasswordDialog">
+                <fmt:message key="myAccountEdit.password.change"/>
+            </button>
+        </div>
+    </div>
+
+    <!-- New password dialog. -->
+    <div id="newPasswordDialog" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <fmt:message key="myAccountEdit.password.dialog.header"/>
+                    </h4>
+                </div>
+
+                <!-- Form for submitting message content -->
+                <form name="sendAnnouncementForm" class="form" method="post"
+                      action="${base}webclient/myAccountEdit">
+                    <!-- Body -->
+                    <div class="modal-body">
+                        <p>
+                            <fmt:message key="myAccountEdit.password.dialog.description"/>
+                        </p>
+                        <!-- Current password -->
+                        <c:if test="${passwordCurrentValidationError == null}">
+                            <!-- No validation error -->
+                            <div class="form-group">
+                                <label for="passwordCurrent" class="control-label">
+                                    <fmt:message
+                                            key="myAccountEdit.password.dialog.current"/>
+                                </label>
+                                <input type="password" name="passwordCurrent" class="form-control"
+                                       id="passwordCurrent"
+                                       placeholder="<fmt:message
+                                                            key="myAccountEdit.password.dialog.current.placeholder" />"
+                                       value="${param.passwordCurrent}">
+                            </div>
+                        </c:if>
+                        <c:if test="${passwordCurrentValidationError != null}">
+                            <!-- Validation error -->
+                            <div class="form-group has-error has-feedback">
+                                <label class="control-label" for="passwordCurrentError">
+                                    <fmt:message
+                                            key="myAccountEdit.password.dialog.current"/>
+                                </label>
+                                <input type="password" name="passwordCurrent" class="form-control"
+                                       id="passwordCurrentError"
+                                       value="${param.passwordCurrent}"/>
+                                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                                <span class="help-block">${passwordCurrentValidationError}</span>
+                            </div>
+                            ${passwordCurrentValidationError = null}
+                        </c:if>
+
+                        <!-- New password -->
+                        <c:if test="${passwordNewValidationError == null}">
+                            <!-- No validation error -->
+                            <div class="form-group">
+                                <label for="passwordNew" class="control-label">
+                                    <fmt:message
+                                            key="myAccountEdit.password.dialog.new"/>
+                                </label>
+                                <input type="password" name="passwordNew" class="form-control"
+                                       id="passwordNew"
+                                       placeholder="<fmt:message
+                                                            key="myAccountEdit.password.dialog.new.placeholder" />"
+                                       value="${param.passwordNew}">
+                            </div>
+                        </c:if>
+                        <c:if test="${passwordNewValidationError != null}">
+                            <!-- Validation error -->
+                            <div class="form-group has-error has-feedback">
+                                <label class="control-label" for="passwordNewError">
+                                    <fmt:message key="myAccountEdit.password.dialog.new"/>
+                                </label>
+                                <input type="password" name="passwordNew" class="form-control"
+                                       id="passwordNewError"
+                                       value="${param.passwordNew}"/>
+                                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                                <span class="help-block">${passwordNewValidationError}</span>
+                            </div>
+                            ${passwordNewValidationError = null}
+                        </c:if>
+
+                        <!-- New password again -->
+                        <c:if test="${passwordNewAgainValidationError == null}">
+                            <!-- No validation error -->
+                            <div class="form-group">
+                                <label for="passwordNewAgain" class="control-label">
+                                    <fmt:message
+                                            key="myAccountEdit.password.dialog.newAgain"/>
+                                </label>
+                                <input type="password" name="passwordNewAgain" class="form-control"
+                                       id="passwordNewAgain"
+                                       placeholder="<fmt:message
+                                                            key="myAccountEdit.password.dialog.newAgain.placeholder" />"
+                                       value="${param.passwordNewAgain}">
+                            </div>
+                        </c:if>
+                        <c:if test="${passwordNewAgainValidationError != null}">
+                            <!-- Validation error -->
+                            <div class="form-group has-error has-feedback">
+                                <label class="control-label" for="passwordNewAgainError">
+                                    <fmt:message key="myAccountEdit.password.dialog.newAgain"/>
+                                </label>
+                                <input type="password" name="passwordNewAgain" class="form-control"
+                                       id="passwordNewAgainError"
+                                       value="${param.passwordNewAgain}"/>
+                                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                                <span class="help-block">${passwordNewAgainValidationError}</span>
+                            </div>
+                            ${passwordNewAgainValidationError = null}
+                        </c:if>
+
+                        <input type="hidden" value="password" name="password">
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
+                            <fmt:message key="general.cancel"/>
+                        </button>
+                        <button type="submit" name="task" value="sendAnnouncement"
+                                class="btn btn-primary pull-left">
+                            <fmt:message key="myAccountEdit.password.change.submit"/>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        if ($('#passwordCurrentError').length || $('#passwordNewError').length || $('#passwordNewAgainError').length) {
+            $('#newPasswordDialog').modal("show");
+        }
+    });
+</script>
 
 <!-- Page footer. -->
 <%@ include file="footer.jsp" %>
