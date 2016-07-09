@@ -125,7 +125,7 @@
                                         </option>
                                     </c:when>
                                     <c:when test="${editableChannel.getType() == typeEvent}">
-                                        <option value="${typeEvent}">
+                                        <option value="${typeEvent}" selected>
                                             <fmt:message key="general.channelType.event" />
                                         </option>
                                     </c:when>
@@ -181,7 +181,9 @@
                             <label class="col-sm-2 control-label" for="termPicker">
                                 <fmt:message key="general.term"/>
                             </label>
-
+                            <label class="sr-only" for="yearPicker">
+                                <fmt:message key="myChannel.panel.term.year" />
+                            </label>
                             <div class="col-sm-10">
                                 <div class="row">
                                     <div class="col-sm-6">
@@ -218,7 +220,10 @@
                     <c:if test="${termValidationError != null}">
                         <div class="form-group has-error has-feedback">
                             <label class="col-sm-2 control-label" for="termPickerInputError">
-                                <fmt:message key="general.description" />
+                                <fmt:message key="general.term" />
+                            </label>
+                            <label class="sr-only" for="yearPickerError">
+                                <fmt:message key="myChannel.panel.term.year" />
                             </label>
                             <div class="col-sm-10">
                                 <div class="row">
@@ -368,6 +373,7 @@
                                 <fmt:message key="myChannel.panel.lecture.faculty" />
                             </label>
                             <div class="col-sm-10">
+                                <input type="hidden" name="faculty" value="${editableChannel.getFaculty()}" />
                                 <select class="form-control" name="faculty" id="faculty" disabled >
                                     <c:choose>
                                         <c:when test="${editableChannel.getFaculty() == facultyComputerScience}">
@@ -558,7 +564,7 @@
 
                     </c:if>
 
-                    <!-- Event based fields -->
+                    <!-- sports based fields -->
                     <c:if test="${editableChannel != null && editableChannel.getType() == typeSports}">
 
                         <!-- Cost -->
@@ -619,7 +625,7 @@
 
                     <br>
                     <button class="btn btn-lg btn-primary btn-block"
-                            type="submit" name="task" value="save">
+                            type="submit" name="task" value="editChannel">
                         <fmt:message key="channelDetails.submitButton.label"/>
                     </button>
                     <br>

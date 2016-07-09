@@ -65,6 +65,20 @@
         </div>
     </c:if>
 
+    <!-- Create channel option. -->
+    <div class="row">
+        <div class="col-md-10">
+            <p><fmt:message key="myChannels.createChannel.description" /> </p>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-primary pull-right" href="${base}webclient/createChannel" role="button">
+                <fmt:message key="myChannels.button.createChannel" />
+            </a>
+        </div>
+    </div>
+
+    <br/>
+
     <div class="row">
         <div class="col-md-3">
             <div class="list-group">

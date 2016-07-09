@@ -41,6 +41,67 @@ public class ChannelAPI extends MainAPI {
     }
 
     /**
+     * Sends a request to create a new channel with the data passed as a parameter. Returns a channel instance
+     * with the data of the created channel in cases of a success.
+     *
+     * @param accessToken The access token of the requestor.
+     * @param channelData The data for the channel creation in form of a Channel instance.
+     * @return A Channel instance with the data of the new channel provided by the server.
+     * @throws APIException Throws an APIException if the request fails or is rejected by the server.
+     */
+    public Channel createChannel(String accessToken, Channel channelData) throws APIException{
+        Channel createdChannel = null;
+        String url = channelUrl;
+
+        // Parse parameter data to json.
+        String jsonContent = serializeChannelToJson(channelData);
+
+        try{
+            URL obj = new URL(url);
+            // Set http method.
+            connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("POST");
+            connection.addRequestProperty("Content-Type", "application/json");
+            setAuthorization(accessToken);
+            connection.setDoOutput(true);
+
+            logger.info("Sending POST request to URL: {} with content {}.", url, jsonContent);
+
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
+            out.write(jsonContent);
+            out.flush();
+            out.close();
+
+            int statusCode = connection.getResponseCode();
+            if (statusCode == HttpURLConnection.HTTP_CREATED) {
+                // Get request response as String.
+                String json = getResponse(connection);
+
+                createdChannel = gson.fromJson(json, Channel.class);
+            } else {
+                String serverResponse = getErrorResponse(connection);
+                ServerError se = gson.fromJson(serverResponse, ServerError.class);
+                // Map to API exception.
+                throw new APIException(se.getErrorCode(), connection.getResponseCode(),
+                        "Create channel failed.");
+            }
+        } catch (MalformedURLException malEx) {
+            malEx.printStackTrace();
+            logger.error("Malformed URL discovered.");
+            throw new APIException(Constants.FATAL_ERROR, "URL malformed.");
+        } catch (ProtocolException pe) {
+            pe.printStackTrace();
+            throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Failed to connect to server.");
+        }
+
+        return createdChannel;
+    }
+
+    /**
      * Requests all channel resources from the server that are managed by the
      * moderator with the specified moderator id.
      *

@@ -91,6 +91,9 @@ public abstract class RequestDispatcher {
         _getRequestStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_LOADED, "channelDetails");
         _getRequestStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_LOADING_FAILED, "channelDetails");
 
+        // Create channel page.
+        _getRequestStatusMapping.put("/createChannel:" + Constants.CREATE_CHANNEL_DIALOG_LOADED, "createChannel");
+
         // Responsible moderators page.
         _getRequestStatusMapping.put("/manageChannelModerators:" + Constants.RESPONSIBLE_MODERATORS_LOADED,
                 "manageChannelModerators");
@@ -196,7 +199,7 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping.put("/sendAnnouncement:" +
                         Constants.ANNOUNCEMENT_CREATION_FAILED, true);   // forwarding
 
-        // Send channel details.
+        // Edit channel details.
         _postRequestStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_EDITED_CHANNEL,
                 "channelDetails?successful=true");
         _postForwardingStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_EDITED_CHANNEL, false);
@@ -204,6 +207,12 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_EDITING_FAILED, true);
         _postRequestStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_NO_UPDATE, "channelDetails");
         _postForwardingStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_NO_UPDATE, true);
+
+        // Create channel.
+        _postRequestStatusMapping.put("/createChannel:" + Constants.CREATED_CHANNEL, "myChannels?successful=true");
+        _postForwardingStatusMapping.put("/createChannel:" + Constants.CREATED_CHANNEL, false); // Redirect.
+        _postRequestStatusMapping.put("/createChannel:" + Constants.CHANNEL_CREATION_FAILED, "createChannel");
+        _postForwardingStatusMapping.put("/createChannel:" + Constants.CHANNEL_CREATION_FAILED, true);  // Forward.
     }
 
     /**

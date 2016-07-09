@@ -264,6 +264,11 @@ public class Constants {
     public static final String CHANNEL_DETAILS_EDITING_FAILED = "ChannelDetailsEditingFailed";
     public static final String CHANNEL_DETAILS_NO_UPDATE = "ChannelDetailsNoUpdate";
 
+    // Create channel:
+    public static final String CREATE_CHANNEL_DIALOG_LOADED = "CreateChannelDialogLoaded";
+    public static final String CREATED_CHANNEL = "CreatedChannel";
+    public static final String CHANNEL_CREATION_FAILED = "ChannelCreationFailed";
+
     // Manage moderators for channel page:
     public static final String RESPONSIBLE_MODERATORS_LOADED = "ResponsibleModeratorsLoaded"; // Get
     public static final String RESPONSIBLE_MODERATORS_LOAD_FAILED = "ResponsibleModeratorsLoadFailed"; // Get
