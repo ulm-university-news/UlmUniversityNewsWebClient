@@ -1,12 +1,12 @@
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
- * <p/>
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -237,11 +237,12 @@ public class Constants {
     public static final String MY_ACCOUNT_DELETED = "MyAccountDeleted"; // GET
     public static final String MY_ACCOUNT_DELETE_FAILED = "MyAccountDeleteFailed"; // GET
 
-    // MyAccount page:
+    // MyAccountEdit page:
     public static final String MY_ACCOUNT_EDIT_LOADED = "MyAccountEditLoaded"; // GET
     public static final String MY_ACCOUNT_EDIT_LOAD_FAILED = "MyAccountEditLoadFailed"; // GET
     public static final String MY_ACCOUNT_EDIT_EDITED = "MyAccountEditEdited"; // POST
     public static final String MY_ACCOUNT_EDIT_EDIT_FAILED = "MyAccountEditEditFailed"; // POST
+    public static final String MY_ACCOUNT_EDIT_PASSWORD_VALIDATION_ERROR = "MyAccountEditPasswordValidationError";
 
     // MyChannels page:
     public static final String MY_CHANNELS_LOADED = "MyChannelsLoaded"; // Get
