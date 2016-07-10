@@ -16,19 +16,19 @@ import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 import java.util.Locale;
 
 /**
- * Action that handles incoming POST requests for the myChannels view. Offers functionality to
- * delete existing channels.
+ * Action that handles incoming POST request for the deletion of a channel. Offers functionality to
+ * delete existing channels. The request should have a parameter "task" with a value of "delete".
  *
  * @author Matthias Mak
  * @author Philipp Speidel
  */
-public class MyChannelsAction implements Action {
+public class DeleteChannelAction implements Action {
 
-    /** The logger instance for the MyChannelsAction. */
-    private static final Logger logger = LoggerFactory.getLogger(MyChannelsAction.class);
+    /** The logger instance for the DeleteChannelAction. */
+    private static final Logger logger = LoggerFactory.getLogger(DeleteChannelAction.class);
 
     /**
-     * This method executes the business logic to handle incoming POST requests for the myChannels view.
+     * This method executes the business logic to handle incoming POST requests for the deletion of a channel.
      *
      * @param requestContext The context of the request for which the execution is triggered.
      * @return Returns the status that is used to determine the view that should be displayed after execution.
@@ -48,14 +48,14 @@ public class MyChannelsAction implements Action {
 
                     ChannelAPI channelAPI = new ChannelAPI();
                     channelAPI.deleteChannel(activeModerator.getServerAccessToken(), channelId);
-                    status = Constants.MY_CHANNELS_DELETED_CHANNEL;
+                    status = Constants.CHANNELS_DELETED_CHANNEL;
                 }
             }
         } catch (APIException ex) {
             logger.error("Error occurred. Error code: {}, Response code: {}, Message: {}.", ex.getErrorCode(),
                     ex.getStatusCode(), ex.getMessage());
 
-            status = Constants.MY_CHANNELS_OPERATION_FAILED;
+            status = Constants.CHANNELS_OPERATION_FAILED;
 
             Translator translator = Translator.getInstance();
             Locale currentLocale = requestContext.retrieveLocale();

@@ -94,6 +94,10 @@ public abstract class RequestDispatcher {
         // Create channel page.
         _getRequestStatusMapping.put("/createChannel:" + Constants.CREATE_CHANNEL_DIALOG_LOADED, "createChannel");
 
+        // All channels page.
+        _getRequestStatusMapping.put("/channels:" + Constants.ALL_CHANNELS_LOADED, "channels");
+        _getRequestStatusMapping.put("/channels:" + Constants.ALL_CHANNELS_LOADING_FAILED, "channels");
+
         // Responsible moderators page.
         _getRequestStatusMapping.put("/manageChannelModerators:" + Constants.RESPONSIBLE_MODERATORS_LOADED,
                 "manageChannelModerators");
@@ -179,11 +183,11 @@ public abstract class RequestDispatcher {
                 .RESPONSIBLE_MODERATORS_OPERATION_FAILED, true); // Forwarding
 
         // My channels page.
-        _postRequestStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_DELETED_CHANNEL,
+        _postRequestStatusMapping.put("/myChannelsDelete:" + Constants.CHANNELS_DELETED_CHANNEL,
                 "myChannels?successful=true");
-        _postForwardingStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_DELETED_CHANNEL, false); // redirect
-        _postRequestStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_OPERATION_FAILED, "myChannels");
-        _postForwardingStatusMapping.put("/myChannels:" + Constants.MY_CHANNELS_OPERATION_FAILED, true); // forward
+        _postForwardingStatusMapping.put("/myChannelsDelete:" + Constants.CHANNELS_DELETED_CHANNEL, false); // redirect
+        _postRequestStatusMapping.put("/myChannelsDelete:" + Constants.CHANNELS_OPERATION_FAILED, "myChannels");
+        _postForwardingStatusMapping.put("/myChannelsDelete:" + Constants.CHANNELS_OPERATION_FAILED, true); // forward
 
         // Send Announcement page.
         _postRequestStatusMapping.put("/sendAnnouncement:" +
@@ -213,6 +217,13 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping.put("/createChannel:" + Constants.CREATED_CHANNEL, false); // Redirect.
         _postRequestStatusMapping.put("/createChannel:" + Constants.CHANNEL_CREATION_FAILED, "createChannel");
         _postForwardingStatusMapping.put("/createChannel:" + Constants.CHANNEL_CREATION_FAILED, true);  // Forward.
+
+        // Delete channel from all channels page.
+        _postRequestStatusMapping.put("/channelsDelete:" + Constants.CHANNELS_DELETED_CHANNEL,
+        "channels?successful=true");
+        _postForwardingStatusMapping.put("/channelsDelete:" + Constants.CHANNELS_DELETED_CHANNEL, false); // Redirect.
+        _postRequestStatusMapping.put("/channelsDelete:" + Constants.CHANNELS_OPERATION_FAILED, "channels");
+        _postForwardingStatusMapping.put("/channelsDelete:" + Constants.CHANNELS_OPERATION_FAILED, true); // Forward.
     }
 
     /**

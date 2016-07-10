@@ -247,8 +247,8 @@ public class Constants {
     // MyChannels page:
     public static final String MY_CHANNELS_LOADED = "MyChannelsLoaded"; // Get
     public static final String MY_CHANNELS_LOAD_FAILED = "MyChannelsLoadFailed"; // Get
-    public static final String MY_CHANNELS_DELETED_CHANNEL = "MyChannelsDeletedChannel";
-    public static final String MY_CHANNELS_OPERATION_FAILED = "MyChannelsOperationFailed";
+    public static final String CHANNELS_DELETED_CHANNEL = "MyChannelsDeletedChannel";
+    public static final String CHANNELS_OPERATION_FAILED = "MyChannelsOperationFailed";
 
     // Announcements page:
     public static final String ANNOUNCEMENTS_DATA_LOADED = "AnnouncementsDataLoaded"; // Get
@@ -268,6 +268,10 @@ public class Constants {
     public static final String CREATE_CHANNEL_DIALOG_LOADED = "CreateChannelDialogLoaded";
     public static final String CREATED_CHANNEL = "CreatedChannel";
     public static final String CHANNEL_CREATION_FAILED = "ChannelCreationFailed";
+
+    // All channels:
+    public static final String ALL_CHANNELS_LOADED = "AllChannelsLoaded";
+    public static final String ALL_CHANNELS_LOADING_FAILED = "AllChannelsLoadingFailed";
 
     // Manage moderators for channel page:
     public static final String RESPONSIBLE_MODERATORS_LOADED = "ResponsibleModeratorsLoaded"; // Get

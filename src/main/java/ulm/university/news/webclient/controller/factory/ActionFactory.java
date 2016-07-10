@@ -70,7 +70,7 @@ public abstract class ActionFactory {
 
         // My channels page.
         _actionMap.put("GET/myChannels", new LoadMyChannelsAction());
-        _actionMap.put("POST/myChannels", new MyChannelsAction());
+        _actionMap.put("POST/myChannelsDelete", new DeleteChannelAction());
 
         // Announcements page.
         _actionMap.put("GET/announcements", new LoadAnnouncementsAction());
@@ -83,6 +83,10 @@ public abstract class ActionFactory {
         // Create details page.
         _actionMap.put("GET/createChannel", new LoadCreateChannelDialogAction());
         _actionMap.put("POST/createChannel", new CreateOrEditChannelAction());
+
+        // All channels page.
+        _actionMap.put("GET/channels", new LoadAllChannelsAction());
+        _actionMap.put("POST/channelsDelete", new DeleteChannelAction());
 
         // Responsible moderators page.
         _actionMap.put("GET/manageChannelModerators", new LoadResponsibleModeratorsAction());

@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    <!-- TODO error messages and warnings -->
+    <!-- Error messages and warnings -->
     <c:if test="${myChannelsLoadingFailure != null}">
         <div class="row">
             <div class="col-md-12">
@@ -301,7 +301,7 @@
                                         <fmt:message key="general.no"/>
                                     </button>
                                     <form name="form" class="form-inline" method="post"
-                                          action="${base}webclient/myChannels">
+                                          action="${base}webclient/myChannelsDelete">
                                         <button type="submit" name="task" value="delete"
                                                 class="btn btn-primary pull-left">
                                             <fmt:message key="general.yes"/>
