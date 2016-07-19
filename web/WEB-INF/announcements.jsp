@@ -2,28 +2,23 @@
 <%@include file="header.jsp"%>
 
 <style>
-  html, body {
-    height: 100%;
-  }
-
-  .container {
-    min-height: 100%;
-    overflow: hidden;
-  }
-
-  #messageCol {
-    margin-bottom: -9999px;
-    padding-bottom: 9999px;
-  }
-
-  #channelDetailsCol {
-    margin-bottom: -9999px;
-    padding-bottom: 9999px;
-  }
-
   #announcementList {
     overflow: auto;
     max-height: 60vh;
+  }
+
+  .borderStyle{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  hr {
+    height: 1px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background: #000000;
   }
 
 </style>
@@ -70,8 +65,9 @@
   </c:if>
 
   <div class="row">
+    <div class="col-md-2"></div>
     <!-- Messages -->
-    <div class="col-md-12" id="messageCol">
+    <div class="col-md-8" id="messageCol">
       <div class="wrapper">
         <div class="panel panel-info">
           <!-- Header -->
@@ -85,7 +81,7 @@
               <c:choose>
                 <c:when test="${announcements != null && !announcements.isEmpty()}">
                   <c:forEach items="${announcements}" var="announcement">
-                    <div class="list-group-item">
+                    <div class="list-group-item borderStyle">
                       <p><b>${announcement.getTitle()}</b>
                                                 <span class="pull-right">
                                                     <joda:format value="${announcement.getCreationDate()}"
@@ -93,11 +89,14 @@
                                                 </span>
                       </p>
                       <p>${announcement.getText()}</p>
+
+                      <hr>
+
                     </div>
                   </c:forEach>
                 </c:when>
                 <c:otherwise>
-                  <div class="list-group-item">
+                  <div class="list-group-item borderStyle">
                     <fmt:message key="announcements.noAnnouncements"/>
                   </div>
                 </c:otherwise>
@@ -239,6 +238,8 @@
     </div>
 
   </div>
+
+  <div class="col-md-2"></div>
 </div>
 
 <script>
