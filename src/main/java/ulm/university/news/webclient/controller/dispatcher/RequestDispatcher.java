@@ -43,6 +43,9 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping = new ConcurrentHashMap<String, Boolean>();
 
         // GET requests.
+        // Welcome page.
+        _getRequestStatusMapping.put("/welcome:" + Constants.LOAD_INDEX, "index");
+
         // Login page.
         _getRequestStatusMapping.put("/login:" + Constants.LOGGED_IN, "index"); // Navigate him back to index.
         _getRequestStatusMapping.put("/login:" + Constants.LOGGED_OUT, "login");
@@ -191,17 +194,17 @@ public abstract class RequestDispatcher {
 
         // Send Announcement page.
         _postRequestStatusMapping.put("/sendAnnouncement:" +
-                        Constants.SEND_ANNOUNCEMENT_VALIDATION_ERROR, "announcements");
+                Constants.SEND_ANNOUNCEMENT_VALIDATION_ERROR, "announcements");
         _postForwardingStatusMapping.put("/sendAnnouncement:" +
-                        Constants.SEND_ANNOUNCEMENT_VALIDATION_ERROR, true);  // forwarding
+                Constants.SEND_ANNOUNCEMENT_VALIDATION_ERROR, true);  // forwarding
         _postRequestStatusMapping.put("/sendAnnouncement:" +
-                        Constants.ANNOUNCEMENT_CREATED, "announcements?successful=true");
+                Constants.ANNOUNCEMENT_CREATED, "announcements?successful=true");
         _postForwardingStatusMapping.put("/sendAnnouncement:" +
-                        Constants.ANNOUNCEMENT_CREATED, false); // redirect
+                Constants.ANNOUNCEMENT_CREATED, false); // redirect
         _postRequestStatusMapping.put("/sendAnnouncement:" +
-                        Constants.ANNOUNCEMENT_CREATION_FAILED, "announcements");
+                Constants.ANNOUNCEMENT_CREATION_FAILED, "announcements");
         _postForwardingStatusMapping.put("/sendAnnouncement:" +
-                        Constants.ANNOUNCEMENT_CREATION_FAILED, true);   // forwarding
+                Constants.ANNOUNCEMENT_CREATION_FAILED, true);   // forwarding
 
         // Edit channel details.
         _postRequestStatusMapping.put("/channelDetails:" + Constants.CHANNEL_DETAILS_EDITED_CHANNEL,
@@ -220,7 +223,7 @@ public abstract class RequestDispatcher {
 
         // Delete channel from all channels page.
         _postRequestStatusMapping.put("/channelsDelete:" + Constants.CHANNELS_DELETED_CHANNEL,
-        "channels?successful=true");
+                "channels?successful=true");
         _postForwardingStatusMapping.put("/channelsDelete:" + Constants.CHANNELS_DELETED_CHANNEL, false); // Redirect.
         _postRequestStatusMapping.put("/channelsDelete:" + Constants.CHANNELS_OPERATION_FAILED, "channels");
         _postForwardingStatusMapping.put("/channelsDelete:" + Constants.CHANNELS_OPERATION_FAILED, true); // Forward.
@@ -241,7 +244,7 @@ public abstract class RequestDispatcher {
 
         String pathInfo = context.getUrlPath();
         // Remove any .jsp and parameter data in the path info.
-        if (pathInfo != null && pathInfo.contains(".jsp")){
+        if (pathInfo != null && pathInfo.contains(".jsp")) {
             pathInfo = pathInfo.replaceFirst(".jsp*", "");
             logger.debug("Path info after ending is checked: {}.", pathInfo);
         }
@@ -253,6 +256,15 @@ public abstract class RequestDispatcher {
 
         if (context.getHttpMethod().toUpperCase().equals("GET")) {
             viewName = _getRequestStatusMapping.get(key);
+
+            // Redirect to index page if welcome page is requested.
+            if (key.equals("/welcome:" + Constants.LOAD_INDEX)) {
+                // Use UlmUniversityNewsWebClient in the URL if application is deployed on the actual server.
+                redirectRequest(context.getResponse(), "/UlmUniversityNewsWebClient/webclient/" + viewName);
+                // Use the following for local testing.
+                // redirectRequest(context.getResponse(), "/webclient/" + viewName);
+                return;
+            }
 
             if (viewName != null) {
                 // Perform forwarding.
@@ -278,10 +290,9 @@ public abstract class RequestDispatcher {
 
             // Check special status strings.
             if (status.equals(Constants.SESSION_EXPIRED)) {
-                    viewName = "login";
-            }
-            else if (status.equals(Constants.REQUIRES_LOGIN)) {
-                    viewName = "login";
+                viewName = "login";
+            } else if (status.equals(Constants.REQUIRES_LOGIN)) {
+                viewName = "login";
             }
 
             if (viewName != null) {

@@ -30,6 +30,9 @@ public abstract class ActionFactory {
     public static void initialize() {
         _actionMap = new ConcurrentHashMap<String, Action>();
 
+        // Welcome page.
+        _actionMap.put("GET/welcome", new LoadIndexAction());
+
         // Login page.
         _actionMap.put("POST/login", new LoginAction());
         _actionMap.put("GET/login", new LoadLoginAction());

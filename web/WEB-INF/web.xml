@@ -5,6 +5,6 @@
          version="3.1">
 
     <welcome-file-list>
-        <welcome-file>webclient/index</welcome-file>
+        <welcome-file>webclient/welcome</welcome-file>
     </welcome-file-list>
 </web-app>

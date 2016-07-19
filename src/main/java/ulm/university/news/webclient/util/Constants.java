@@ -200,6 +200,9 @@ public class Constants {
     public static final int OPTION_USER_HAS_ALREADY_VOTED = 4406;
 
     // Page States:
+    // Welcome page:
+    public static final String LOAD_INDEX = "LoadIndex";
+
     // Login/Home page:
     public static final String LOGGED_IN = "LoggedIn";      // GET
     public static final String LOGGED_OUT = "LoggedOut";    // GET (POST for logout)

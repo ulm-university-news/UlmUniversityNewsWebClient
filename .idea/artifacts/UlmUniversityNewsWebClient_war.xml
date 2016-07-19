@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="UlmUniversityNewsWebClient:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/UlmUniversityNewsWebClient_war</output-path>
+    <root id="archive" name="UlmUniversityNewsWebClient_war.war">
+      <element id="artifact" artifact-name="UlmUniversityNewsWebClient:war exploded" />
+    </root>
+  </artifact>
+</component>
