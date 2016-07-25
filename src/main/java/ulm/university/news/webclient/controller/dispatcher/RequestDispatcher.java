@@ -171,6 +171,12 @@ public abstract class RequestDispatcher {
         _postRequestStatusMapping.put("/groups:" + Constants.GROUPS_EDITED, "groups");
         _postForwardingStatusMapping.put("/groups:" + Constants.GROUPS_EDITED, false);
 
+        // Reminders page.
+        _postRequestStatusMapping.put("/reminders:" + Constants.REMINDERS_EDIT_FAILED, "reminders");
+        _postForwardingStatusMapping.put("/reminders:" + Constants.REMINDERS_EDIT_FAILED, true);
+        _postRequestStatusMapping.put("/reminders:" + Constants.REMINDERS_EDITED, "reminders");
+        _postForwardingStatusMapping.put("/reminders:" + Constants.REMINDERS_EDITED, false);
+
         // Manage moderators page.
         _postRequestStatusMapping.put("/manageChannelModerators:" + Constants
                 .RESPONSIBLE_MODERATORS_REVOKED_PRIVILEGES, "manageChannelModerators?successful=true");
