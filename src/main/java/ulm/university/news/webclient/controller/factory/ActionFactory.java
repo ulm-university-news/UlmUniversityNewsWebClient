@@ -71,6 +71,9 @@ public abstract class ActionFactory {
         _actionMap.put("GET/groups", new LoadGroupsAction());
         _actionMap.put("POST/groups", new GroupsAction());
 
+        // Reminders page.
+        _actionMap.put("GET/reminders", new LoadRemindersAction());
+
         // My channels page.
         _actionMap.put("GET/myChannels", new LoadMyChannelsAction());
         _actionMap.put("POST/myChannelsDelete", new DeleteChannelAction());

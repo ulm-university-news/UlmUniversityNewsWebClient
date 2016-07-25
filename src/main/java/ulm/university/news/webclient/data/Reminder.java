@@ -2,6 +2,9 @@ package ulm.university.news.webclient.data;
 
 import org.joda.time.DateTime;
 import ulm.university.news.webclient.data.enums.Priority;
+import ulm.university.news.webclient.util.Translator;
+
+import java.util.Locale;
 
 import static ulm.university.news.webclient.util.Constants.TIME_ZONE;
 
@@ -205,6 +208,28 @@ public class Reminder {
         }
         // All checks passed. Dates are valid.
         return true;
+    }
+
+    public String getIntervalText(String localeString) {
+        Locale locale = new Locale(localeString);
+        String text = Translator.getInstance().getText(locale, "reminder.interval.invalid");
+        if (interval == 0) {
+            text = Translator.getInstance().getText(locale, "reminder.interval.once");
+        } else if (interval == 86400) {
+            text = Translator.getInstance().getText(locale, "reminder.interval.daily");
+        } else if (interval % 86400 == 0 && (interval >= 86400 || interval <= 2419200)) {
+            int days = interval / 86400;
+            if (days % 7 == 0) {
+                if (days == 7) {
+                    text = Translator.getInstance().getText(locale, "reminder.interval.weekly");
+                } else {
+                    text = Translator.getInstance().getText(locale, "reminder.interval.xWeeks", days / 7);
+                }
+            } else {
+                text = Translator.getInstance().getText(locale, "reminder.interval.xDays", days);
+            }
+        }
+        return text;
     }
 
     public int getId() {

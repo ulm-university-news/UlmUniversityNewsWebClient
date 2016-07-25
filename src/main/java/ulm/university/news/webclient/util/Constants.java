@@ -228,6 +228,12 @@ public class Constants {
     public static final String GROUPS_EDITED = "GroupsEdited"; // POST
     public static final String GROUPS_EDIT_FAILED = "GroupsEditFailed"; // POST
 
+    // Reminders page:
+    public static final String REMINDERS_LOADED = "RemindersLoaded"; // GET
+    public static final String REMINDERS_LOAD_FAILED = "RemindersLoadFailed"; // GET
+    public static final String REMINDERS_EDITED = "RemindersEdited"; // POST
+    public static final String REMINDERS_EDIT_FAILED = "RemindersEditFailed"; // POST
+
     // Accounts page:
     public static final String ACCOUNTS_LOADED = "AccountsLoaded"; // GET
     public static final String ACCOUNTS_LOAD_FAILED = "AccountsLoadFailed"; // GET

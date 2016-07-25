@@ -691,4 +691,58 @@ public class ChannelAPI extends MainAPI {
 
         return jsonContent;
     }
+
+    /**
+     * Requests all reminders of a specific channel from the server.
+     *
+     * @param accessToken The access token of the requestor.
+     * @param channelId The id of the moderator whose channels should be requested.
+     * @return A list Channel instances.
+     * @throws APIException Throws an API exception, if the request fails or is rejected from the server.
+     */
+    public List<Reminder> getReminders(String accessToken, int channelId)throws APIException {
+        List<Reminder> reminders;
+        String url = channelUrl + "/" + channelId + "/reminder";
+
+        try{
+            URL obj = new URL(url);
+            // Set http method.
+            connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("GET");
+            setAuthorization(accessToken);
+
+            logger.info("Sending GET request to URL: {}", url);
+
+            int statusCode = connection.getResponseCode();
+            if (statusCode == HttpURLConnection.HTTP_OK) {
+                // Get request response as String.
+                String json = getResponse(connection);
+
+                // Use a list of reminders as deserialization type.
+                Type listType = new TypeToken<List<Reminder>>() {
+                }.getType();
+
+                reminders = gson.fromJson(json, listType);
+            } else {
+                String serverResponse = getErrorResponse(connection);
+                ServerError se = gson.fromJson(serverResponse, ServerError.class);
+                // Map to API exception.
+                throw new APIException(se.getErrorCode(), connection.getResponseCode(),
+                        "Get reminders failed.");
+            }
+        } catch (MalformedURLException malEx) {
+            malEx.printStackTrace();
+            logger.error("Malformed URL discovered.");
+            throw new APIException(Constants.FATAL_ERROR, "URL malformed.");
+        } catch (ProtocolException pe) {
+            pe.printStackTrace();
+            throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Failed to connect to server.");
+        }
+
+        return reminders;
+    }
 }

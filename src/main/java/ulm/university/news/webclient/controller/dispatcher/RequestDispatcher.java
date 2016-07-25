@@ -107,6 +107,10 @@ public abstract class RequestDispatcher {
         _getRequestStatusMapping.put("/manageChannelModerators:" + Constants.RESPONSIBLE_MODERATORS_LOAD_FAILED,
                 "manageChannelModerators");
 
+        // Reminders page.
+        _getRequestStatusMapping.put("/reminders:" + Constants.REMINDERS_LOADED, "reminders");
+        _getRequestStatusMapping.put("/reminders:" + Constants.REMINDERS_LOAD_FAILED, "reminders");
+
         // POST requests.
         // Login page.
         _postRequestStatusMapping.put("/login:" + Constants.LOGIN_SUCCESSFUL, "index");
