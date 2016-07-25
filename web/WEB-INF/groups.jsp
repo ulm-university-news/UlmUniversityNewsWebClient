@@ -98,44 +98,48 @@
                     <c:choose>
                         <c:when test="${currentGroup != null}">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <h4><fmt:message key="group.type"/></h4>
-                                    <c:choose>
-                                        <c:when test="${currentGroup.getGroupType() == typeTutorial}">
-                                            <fmt:message key="group.type.tutorial"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <fmt:message key="group.type.working"/>
-                                        </c:otherwise>
-                                    </c:choose>
+                                    <p>
+                                        <c:choose>
+                                            <c:when test="${currentGroup.getGroupType() == typeTutorial}">
+                                                <fmt:message key="group.type.tutorial"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <fmt:message key="group.type.working"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </p>
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
                                     <h4><fmt:message key="general.description"/></h4>
-                                        ${currentGroup.getDescription()}
+                                    <p>${currentGroup.getDescription()}</p>
                                 </div>
                             </div>
-                            <br>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <h4><fmt:message key="general.term"/></h4>
-                                        ${currentGroup.getTerm()}
-                                </div>
-                                <div class="col-md-6">
-                                    <h4><fmt:message key="group.admin"/></h4>
-                                        ${currentGroup.getGroupAdmin()}
+                                    <p>${currentGroup.getTerm()}</p>
                                 </div>
                             </div>
-                            <br>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <h4><fmt:message key="general.creationDate"/></h4>
-                                        ${currentGroup.getCreationDate()}
+                                    <p><joda:format value="${currentGroup.getCreationDate()}"
+                                                    pattern="yyyy-MM-dd HH:mm" /></p>
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
                                     <h4><fmt:message key="general.modificationDate"/></h4>
-                                        ${currentGroup.getModificationDate()}
+                                    <p><joda:format value="${currentGroup.getModificationDate()}"
+                                                    pattern="yyyy-MM-dd HH:mm" /></p>
                                 </div>
                             </div>
                         </c:when>
@@ -150,7 +154,7 @@
                             <div class="col-md-12">
                                 <form name="form" class="form-inline" method="post" action="${base}webclient/groups">
                                     <!-- Trigger confirmation dialog. -->
-                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal"
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
                                             data-target="#confirm">
                                         <fmt:message key="general.delete"/>
                                     </button>
