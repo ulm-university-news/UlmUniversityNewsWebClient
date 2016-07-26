@@ -69,17 +69,16 @@
 
     <!-- Create channel option. -->
     <div class="row">
-        <div class="col-md-10">
-            <p><fmt:message key="myChannels.createChannel.description"/></p>
-        </div>
-        <div class="col-md-2">
-            <a class="btn btn-primary pull-right" href="${base}webclient/createChannel" role="button">
-                <fmt:message key="myChannels.button.createChannel"/>
+        <div class="col-md-12">
+            <p><fmt:message key="myChannels.createChannel.description" />  </p>
+            <a class="btn btn-primary" href="${base}webclient/createChannel" role="button">
+                <fmt:message key="myChannels.button.createChannel" />
             </a>
         </div>
     </div>
 
-    <br/>
+    <br>
+    <br>
 
     <div class="row">
         <div class="col-md-3">
@@ -142,102 +141,89 @@
                             <!-- Type and term -->
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h4><fmt:message key="myChannel.panel.channelType"/></h4>
-
+                                    <h4><fmt:message key="myChannel.panel.channelType"/> </h4>
                                     <p>${currentChannel.getTypeString()}</p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h4><fmt:message key="general.term"/></h4>
-
+                                    <h4><fmt:message key="general.term"/> </h4>
                                     <p>${currentChannel.getTerm()}</p>
                                 </div>
                             </div>
                             <!-- Locations and dates -->
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h4><fmt:message key="myChannel.panel.locations"/></h4>
-
+                                    <h4><fmt:message key="myChannel.panel.locations"/> </h4>
                                     <p>${currentChannel.getLocations()}</p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h4><fmt:message key="myChannel.panel.dates"/></h4>
-
+                                    <h4><fmt:message key="myChannel.panel.dates"/> </h4>
                                     <p>${currentChannel.getDates()}</p>
                                 </div>
                             </div>
                             <!-- Contact information and website -->
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h4><fmt:message key="myChannel.panel.contactInformation"/></h4>
-
+                                    <h4><fmt:message key="myChannel.panel.contactInformation"/> </h4>
                                     <p>${currentChannel.getContacts()}</p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h4><fmt:message key="myChannel.panel.website"/></h4>
-
+                                    <h4><fmt:message key="myChannel.panel.website"/> </h4>
                                     <p>${currentChannel.getWebsite()}</p>
                                 </div>
                             </div>
                             <!-- Creation date and Modification date -->
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h4><fmt:message key="general.creationDate"/></h4>
-
+                                    <h4><fmt:message key="general.creationDate"/> </h4>
                                     <p><joda:format value="${currentChannel.getCreationDate()}"
-                                                    pattern="yyyy-MM-dd HH:mm"/></p>
+                                                       pattern="yyyy-MM-dd HH:mm" /></p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h4><fmt:message key="general.modificationDate"/></h4>
-
+                                    <h4><fmt:message key="general.modificationDate"/> </h4>
                                     <p><joda:format value="${currentChannel.getModificationDate()}"
-                                                    pattern="yyyy-MM-dd HH:mm"/></p>
+                                                    pattern="yyyy-MM-dd HH:mm" /></p>
                                 </div>
                             </div>
-                            <c:if test="${currentChannel.getType() == typeLecture}">
+                            <c:if test="${currentChannel.getType() == typeLecture}" >
                                 <!-- Additional lecture fields: -->
                                 <!-- Lecturer and assistant -->
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4><fmt:message key="myChannel.panel.lecture.lecturer"/></h4>
-
+                                        <h4><fmt:message key="myChannel.panel.lecture.lecturer"/> </h4>
                                         <p>${currentChannel.getLecturer()}</p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4><fmt:message key="myChannel.panel.lecture.assistant"/></h4>
-
+                                        <h4><fmt:message key="myChannel.panel.lecture.assistant"/> </h4>
                                         <p>${currentChannel.getAssistant()}</p>
                                     </div>
                                 </div>
                                 <!-- Lecture start and end date -->
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4><fmt:message key="myChannel.panel.lecture.startDate"/></h4>
-
+                                        <h4><fmt:message key="myChannel.panel.lecture.startDate"/> </h4>
                                         <p>${currentChannel.getStartDate()}</p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4><fmt:message key="myChannel.panel.lecture.endDate"/></h4>
-
+                                        <h4><fmt:message key="myChannel.panel.lecture.endDate"/> </h4>
                                         <p>${currentChannel.getEndDate()}</p>
                                     </div>
                                 </div>
                                 <!-- Faculty -->
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4><fmt:message key="myChannel.panel.lecture.faculty"/></h4>
-
+                                        <h4><fmt:message key="myChannel.panel.lecture.faculty"/> </h4>
                                         <p>${currentChannel.getFacultyString()}</p>
                                     </div>
                                 </div>
@@ -247,15 +233,13 @@
                                 <!-- Entree fee (cost) and organizer -->
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4><fmt:message key="myChannel.panel.event.cost"/></h4>
-
+                                        <h4><fmt:message key="myChannel.panel.event.cost"/> </h4>
                                         <p>${currentChannel.getCost()}</p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4><fmt:message key="myChannel.panel.event.organizer"/></h4>
-
+                                        <h4><fmt:message key="myChannel.panel.event.organizer"/> </h4>
                                         <p>${currentChannel.getOrganizer()}</p>
                                     </div>
                                 </div>
@@ -265,15 +249,13 @@
                                 <!-- Cost and number of participants -->
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4><fmt:message key="myChannel.panel.sports.cost"/></h4>
-
+                                        <h4><fmt:message key="myChannel.panel.sports.cost"/> </h4>
                                         <p>${currentChannel.getCost()}</p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4><fmt:message key="myChannel.panel.sports.numberOfParticipants"/></h4>
-
+                                        <h4><fmt:message key="myChannel.panel.sports.numberOfParticipants"/> </h4>
                                         <p>${currentChannel.getNumberOfParticipants()}</p>
                                     </div>
                                 </div>
@@ -281,43 +263,38 @@
                             <!-- Description -->
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h4><fmt:message key="general.description"/></h4>
-
+                                    <h4><fmt:message key="general.description"/> </h4>
                                     <p>${currentChannel.getDescription()}</p>
                                 </div>
                             </div>
                         </c:when>
                         <c:otherwise>
-                            <fmt:message key="myChannels.nodata.info"/>
+                            <fmt:message key="myChannels.nodata.info" />
                         </c:otherwise>
                     </c:choose>
                 </div>
                 <c:if test="${currentChannel != null}">
                     <div class="panel-footer">
                         <div class="row">
-                            <div class="col-md-8">
-                                <a class="btn btn-primary" href="${base}webclient/announcements" role="button">
-                                    <fmt:message key="myChannels.button.announcements"/>
+                            <div class="col-md-12">
+                                <a class="btn btn-primary buttonMargin" href="${base}webclient/announcements" role="button">
+                                    <fmt:message key="myChannels.button.announcements" />
                                 </a>
-                                <a class="btn btn-primary" href="${base}webclient/reminders" role="button">
-                                    <fmt:message key="myChannels.button.reminders"/>
-                                </a>
-                                <a class="btn btn-primary" href="${base}webclient/channelDetails"
+                                <a class="btn btn-primary buttonMargin" href="${base}webclient/channelDetails"
                                    role="button">
                                     <fmt:message key="myChannels.button.alterChannelData"/>
                                 </a>
-                                <a class="btn btn-primary" href="${base}webclient/manageChannelModerators"
+                                <a class="btn btn-primary buttonMargin" href="${base}webclient/manageChannelModerators"
                                    role="button">
                                     <fmt:message key="myChannels.button.alterChannelModerators"/>
                                 </a>
-                            </div>
-                            <div class="col-md-4">
                                 <button type="button" name="task" value="deleteChannel" data-toggle="modal"
                                         data-target="#confirmDelete"
-                                        class="btn btn-primary pull-right">
+                                        class="btn btn-primary buttonMargin">
                                     <fmt:message key="myChannels.button.deleteChannel"/>
                                 </button>
                             </div>
+
                         </div>
                     </div>
                     <!-- Modal confirm dialog. -->
@@ -331,7 +308,7 @@
                                 <div class="modal-body">
                                     <p>
                                         <fmt:message key="myChannels.warning.delete">
-                                            <fmt:param value="${currentChannel.getName()}"/>
+                                            <fmt:param value="${currentChannel.getName()}" />
                                         </fmt:message>
                                     </p>
                                 </div>

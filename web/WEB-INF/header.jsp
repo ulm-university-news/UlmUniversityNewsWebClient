@@ -25,6 +25,8 @@ pageContext.request.locale}" scope="session"/>
     <title>University New Ulm Web Client</title>
     <!-- Bootstrap -->
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include button margin stylesheet. -->
+    <link href="../css/ButtonStyle.css" rel="stylesheet">
     <style type="text/css">
         body {
             padding-top: 50px;
