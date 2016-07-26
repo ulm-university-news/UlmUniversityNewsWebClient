@@ -65,9 +65,8 @@
   </c:if>
 
   <div class="row">
-    <div class="col-md-2"></div>
     <!-- Messages -->
-    <div class="col-md-8" id="messageCol">
+    <div class="col-md-12" id="messageCol">
       <div class="wrapper">
         <div class="panel panel-info">
           <!-- Header -->
@@ -85,7 +84,7 @@
                       <p><b>${announcement.getTitle()}</b>
                                                 <span class="pull-right">
                                                     <joda:format value="${announcement.getCreationDate()}"
-                                                                 pattern="yyyy-MM-dd HH:mm:ss" />
+                                                                 pattern="${dateTimePattern}" />
                                                 </span>
                       </p>
                       <p>${announcement.getText()}</p>
@@ -192,11 +191,9 @@
                                   key="announcements.dialog.newMessage.textField.label"/>
                         </label>
                         <textarea name="announcementText" class="form-control" rows="4"
-                               id="announcementText" style="resize: none"
-                               placeholder="<fmt:message
-                                    key="announcements.dialog.newMessage.textField.placeholder" />">
-                               ${param.announcementText}
-                        </textarea>
+                               id="announcementText"
+                               placeholder="<fmt:message key="announcements.dialog.newMessage.textField.placeholder" />"
+                               style="resize: none">${param.announcementText}</textarea>
                       </div>
                     </c:if>
                     <c:if test="${announcementTextValidationError != null}">
@@ -207,11 +204,9 @@
                                   key="announcements.dialog.newMessage.textField.label"/>
                         </label>
                         <textarea name="announcementText" class="form-control" rows="4"
-                               id="announcementTextError" style="resize: none;"
-                               placeholder="<fmt:message
-                                    key="announcements.dialog.newMessage.textField.placeholder" />">
-                                ${param.announcementText}
-                        </textarea>
+                               id="announcementTextError"
+                               placeholder="<fmt:message key="announcements.dialog.newMessage.textField.placeholder" />"
+                               style="resize: none;">${param.announcementText}</textarea>
                         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
                         <span class="help-block">${announcementTextValidationError}</span>
                       </div>
@@ -231,16 +226,13 @@
                 </form>
               </div>
             </div>
-          </div>
+          </div> <!-- End of new announcement dialog. -->
 
-        </div>
+        </div> <!-- End of panel. -->
       </div>
     </div>
-
-  </div>
-
-  <div class="col-md-2"></div>
-</div>
+  </div> <!-- End of row -->
+</div> <!-- End of container. -->
 
 <script>
   $(document).ready(function(){
