@@ -302,13 +302,13 @@
                                 <a class="btn btn-primary" href="${base}webclient/reminders" role="button">
                                     <fmt:message key="myChannels.button.reminders"/>
                                 </a>
-                                <a class="btn btn-primary buttonMargin" href="${base}webclient/channelDetails"
-                                   role="button">
-                                    <fmt:message key="myChannels.button.alterChannelData"/>
-                                </a>
                                 <a class="btn btn-primary buttonMargin" href="${base}webclient/manageChannelModerators"
                                    role="button">
                                     <fmt:message key="myChannels.button.alterChannelModerators"/>
+                                </a>
+                                <a class="btn btn-primary buttonMargin" href="${base}webclient/channelDetails"
+                                   role="button">
+                                    <fmt:message key="myChannels.button.alterChannelData"/>
                                 </a>
                                 <button type="button" name="task" value="deleteChannel" data-toggle="modal"
                                         data-target="#confirmDelete"

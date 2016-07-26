@@ -104,19 +104,15 @@
                 <c:if test="${activeModerator != null}">
                     <div class="panel-footer">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <a class="btn btn-primary" href="${base}webclient/myAccountEdit">
                                     <fmt:message key="general.edit"/></a>
-                            </div>
-                            <div class="col-md-6">
-                                <form name="form" class="form-inline pull-right" method="post"
-                                      action="${base}webclient/myAccount">
-                                    <!-- Trigger confirmation dialog. -->
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#confirm">
-                                        <fmt:message key="general.delete"/>
-                                    </button>
-                                </form>
+
+                                <!-- Trigger confirmation dialog. -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#confirm">
+                                    <fmt:message key="general.delete"/>
+                                </button>
                             </div>
                         </div>
                     </div>

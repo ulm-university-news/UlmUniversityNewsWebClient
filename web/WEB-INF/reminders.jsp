@@ -65,6 +65,20 @@
         </div>
         ${loadError = null}
     </c:if>
+
+    <!-- Create channel option. -->
+    <div class="row">
+        <div class="col-md-12">
+            <p><fmt:message key="reminders.create.text"/></p>
+            <a class="btn btn-primary" href="${base}webclient/createReminder" role="button">
+                <fmt:message key="reminders.create.button"/>
+            </a>
+        </div>
+    </div>
+
+    <br>
+    <br>
+
     <div class="row">
         <div class="col-md-3">
             <div class="list-group">

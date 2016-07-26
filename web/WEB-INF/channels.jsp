@@ -280,8 +280,8 @@
                             <div class="col-md-12">
                                 <button type="button" name="task" value="deleteChannel" data-toggle="modal"
                                         data-target="#confirmDelete"
-                                        class="btn btn-primary pull-right">
-                                    <fmt:message key="allChannels.button.deleteChannel"/>
+                                        class="btn btn-primary">
+                                    <fmt:message key="general.delete"/>
                                 </button>
                             </div>
                         </div>
