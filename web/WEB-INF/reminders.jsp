@@ -172,7 +172,7 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <joda:format value="${currentReminder.getNextDate()}"
-                                                             pattern="yyyy-MM-dd HH:mm"/>
+                                                             pattern="${dateTimePattern}"/>
                                             </c:otherwise>
                                         </c:choose>
                                     </p>
@@ -184,7 +184,7 @@
                                     <h4><fmt:message key="reminder.startDate"/></h4>
 
                                     <p><joda:format value="${currentReminder.getStartDate()}"
-                                                    pattern="yyyy-MM-dd HH:mm"/></p>
+                                                    pattern="${dateTimePattern}"/></p>
                                 </div>
                             </div>
 
@@ -193,7 +193,7 @@
                                     <h4><fmt:message key="reminder.endDate"/></h4>
 
                                     <p><joda:format value="${currentReminder.getEndDate()}"
-                                                    pattern="yyyy-MM-dd HH:mm"/></p>
+                                                    pattern="${dateTimePattern}"/></p>
                                 </div>
                             </div>
 
@@ -202,7 +202,7 @@
                                     <h4><fmt:message key="general.creationDate"/></h4>
 
                                     <p><joda:format value="${currentReminder.getCreationDate()}"
-                                                    pattern="yyyy-MM-dd HH:mm"/></p>
+                                                    pattern="${dateTimePattern}"/></p>
                                 </div>
                             </div>
 
@@ -211,7 +211,7 @@
                                     <h4><fmt:message key="general.modificationDate"/></h4>
 
                                     <p><joda:format value="${currentReminder.getModificationDate()}"
-                                                    pattern="yyyy-MM-dd HH:mm"/></p>
+                                                    pattern="${dateTimePattern}"/></p>
                                 </div>
                             </div>
                         </c:when>

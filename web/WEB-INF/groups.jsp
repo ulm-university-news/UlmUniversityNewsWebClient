@@ -100,6 +100,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <h4><fmt:message key="group.type"/></h4>
+
                                     <p>
                                         <c:choose>
                                             <c:when test="${currentGroup.getGroupType() == typeTutorial}">
@@ -116,6 +117,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <h4><fmt:message key="general.description"/></h4>
+
                                     <p>${currentGroup.getDescription()}</p>
                                 </div>
                             </div>
@@ -123,6 +125,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <h4><fmt:message key="general.term"/></h4>
+
                                     <p>${currentGroup.getTerm()}</p>
                                 </div>
                             </div>
@@ -130,16 +133,18 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <h4><fmt:message key="general.creationDate"/></h4>
+
                                     <p><joda:format value="${currentGroup.getCreationDate()}"
-                                                    pattern="yyyy-MM-dd HH:mm" /></p>
+                                                    pattern="${dateTimePattern}"/></p>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <h4><fmt:message key="general.modificationDate"/></h4>
+
                                     <p><joda:format value="${currentGroup.getModificationDate()}"
-                                                    pattern="yyyy-MM-dd HH:mm" /></p>
+                                                    pattern="${dateTimePattern}"/></p>
                                 </div>
                             </div>
                         </c:when>
