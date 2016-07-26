@@ -37,6 +37,18 @@ public class ResetPasswordAction implements Action {
         String task = requestContext.getRequestParameter("task");
         String username = requestContext.getRequestParameter("username");
 
+        // Prüfe, ob ein Moderatorenname eingegeben wurde.
+        if (username == null || username.trim().length() == 0)
+        {
+            // Setze Validierungsfehler.
+            Translator translator = Translator.getInstance();
+            String errorMsg = translator.getText(requestContext.retrieveLocale(),
+                    "resetPassword.failure.noAccountName");
+            requestContext.addToRequestContext("resetPasswordNameValidationError", errorMsg);
+            status = Constants.PASSWORD_RESET_FAILED;
+            return status;
+        }
+
         if (task.equals("reset")) {
             try {
                 ModeratorAPI moderatorAPI = new ModeratorAPI();

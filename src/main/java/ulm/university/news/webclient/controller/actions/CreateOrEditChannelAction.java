@@ -142,7 +142,7 @@ public class CreateOrEditChannelAction implements Action {
 
         // First of all, validate the data.
         boolean validationSuccessful = validateChannelParameters(enteredData);
-        validationSuccessful = validationSuccessful && validateChannelSubclassParameters(enteredData);
+        validationSuccessful = validateChannelSubclassParameters(enteredData) && validationSuccessful;
         if (!validationSuccessful) {
             logger.info("Validation failed for entered channel data on edit process.");
             status = Constants.CHANNEL_DETAILS_EDITING_FAILED;
@@ -313,6 +313,13 @@ public class CreateOrEditChannelAction implements Action {
         if (channelObj.getType() == ChannelType.LECTURE &&
                 channelObj instanceof Lecture) {
             Lecture lecture = (Lecture)channelObj;
+
+            if (lecture.getLecturer() == null || lecture.getLecturer().trim().length() == 0){
+                validationStatus = false;
+                String errorMsg = translator.getText(requestContext.retrieveLocale(),
+                        "channel.form.validationError.missingLecturer");
+                setValidationError(Constants.CHANNEL_INVALID_LECTURER, errorMsg);
+            }
 
             // Same length restrictions as contacts field.
             if (lecture.getLecturer() != null &&

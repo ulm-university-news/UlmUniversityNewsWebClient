@@ -3,27 +3,52 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-2"></div>
+        <div class="col-md-12">
+            <h3><fmt:message key="register.heading" /></h3>
 
-        <div class="col-md-8">
-            <h2><fmt:message key="register.heading" /></h2>
             <p><fmt:message key="register.description" /></p>
-
             <br>
+        </div>
+    </div>
 
-            <c:if test="${param.successful}">
+    <!-- Error, warnings and information alerts. -->
+    <c:if test="${param.successful}">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="alert alert-success">
                     <strong><fmt:message key="general.alert.success" /></strong>
                     <fmt:message key="register.info.success" />
                 </div>
-            </c:if>
-            <c:if test="${registerRequestFailure != null}">
+            </div>
+        </div>
+    </c:if>
+    <c:if test="${registerRequestFailure != null}">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="alert alert-danger">
                     <strong><fmt:message key="general.alert.failure" /></strong>
                     <p>${registerRequestFailure}</p>
                 </div>
-            </c:if>
+            </div>
+        </div>
+    </c:if>
+    <c:if test="${registerRequestWarning}">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-warn">
+                    <strong><fmt:message key="general.alert.warning" /></strong>
+                    <p>${registerRequestWarning}</p>
+                </div>
+            </div>
+        </div>
+    </c:if>
 
+    <div class="row">
+        <!-- Dummy column. -->
+        <div class="col-md-1"></div>
+
+        <!-- Form. -->
+        <div class="col-md-10">
             <form class="form-horizontal" role="form" method="post" action="${base}webclient/register">
                 <!-- Name of the new moderator account -->
                 <c:if test="${registerNameValidationError == null}">
@@ -200,13 +225,15 @@
                 </c:if>
 
                 <br>
-                <button class="btn btn-lg btn-primary btn-block"
+                <button class="btn btn-primary pull-right"
                         type="submit" name="task" value="register"><fmt:message key="register.form.button"/></button>
+                <br>
                 <br>
             </form>
         </div>
 
-        <div class="col-md-2"></div>
+        <!-- Dummy column. -->
+        <div class="col-md-1"></div>
     </div>
 
 </div>

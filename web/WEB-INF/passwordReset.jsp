@@ -4,32 +4,40 @@
 <!-- Page content. -->
 <div class="container">
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <h2><fmt:message key="resetPassword.heading"/></h2>
+        <div class="col-md-12">
+            <h3><fmt:message key="resetPassword.heading"/></h3>
 
-            <p>
-                <fmt:message key="resetPassword.description"/>
-            </p>
-
+            <p><fmt:message key="resetPassword.description"/></p>
             <br>
+        </div>
+    </div>
 
-            <c:if test="${param.successful}">
+    <!-- Error, warnings and information alerts. -->
+    <c:if test="${param.successful}">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="alert alert-success">
                     <strong><fmt:message key="general.alert.success" /></strong>
                     <fmt:message key="resetPassword.info.success" />
                 </div>
-            </c:if>
-
-            <c:if test="${param.successful == false}">
+            </div>
+        </div>
+    </c:if>
+    <c:if test="${param.successful == false}">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="alert alert-danger">
                     <strong><fmt:message key="general.alert.failure" /></strong>
-                    <fmt:message key="resetPassword.info.failure" />
-                    ${errorMsg}
+                    <p><fmt:message key="resetPassword.info.failure" /></p>
+                    <p>${errorMsg}</p>
                 </div>
-            </c:if>
+            </div>
+        </div>
+    </c:if>
 
-
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
             <form class="form-horizontal" method="post" action="${base}webclient/passwordReset">
                 <!-- Username for the password reset. -->
                 <c:if test="${resetPasswordNameValidationError == null}">
@@ -59,12 +67,12 @@
                 </c:if>
 
                 <br>
-                <button class="btn btn-lg btn-primary btn-block"
+                <button class="btn btn-primary pull-right"
                         type="submit" name="task"
                         value="reset"><fmt:message key="resetPassword.resetButton.label"/></button>
             </form>
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
     </div>
 </div>
 

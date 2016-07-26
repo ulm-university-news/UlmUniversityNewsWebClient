@@ -49,11 +49,12 @@
     </c:if>
 
     <div class="row">
-        <!-- Channel data - dummy col. -->
-        <div class="col-md-2"></div>
+
+        <!-- Dummy column -->
+        <div class="col-md-1"></div>
 
         <!-- Column with data fields.-->
-        <div class="col-md-8">
+        <div class="col-md-10">
 
             <!-- Input form for channel data. -->
             <form class="form-horizontal" role="form" method="post" action="${base}webclient/createChannel"
@@ -63,7 +64,7 @@
                 <c:if test="${channelNameValidationError == null}">
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="channelName">
-                            <fmt:message key="myChannel.panel.channelName"/>
+                            <fmt:message key="myChannel.panel.channelName"/> *
                         </label>
 
                         <div class="col-sm-10">
@@ -75,7 +76,7 @@
                 <c:if test="${channelNameValidationError != null}">
                     <div class="form-group has-error has-feedback">
                         <label class="col-sm-2 control-label" for="nameInputError">
-                            <fmt:message key="myChannel.panel.channelName"/>
+                            <fmt:message key="myChannel.panel.channelName"/> *
                         </label>
 
                         <div class="col-sm-10">
@@ -90,7 +91,7 @@
                 <!-- Type of the channel. -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="channelType">
-                        <fmt:message key="myChannel.panel.channelType"/>
+                        <fmt:message key="myChannel.panel.channelType"/> *
                     </label>
 
                     <div class="col-sm-10">
@@ -194,7 +195,7 @@
                 <c:if test="${termValidationError == null}">
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="termPicker">
-                            <fmt:message key="general.term"/>
+                            <fmt:message key="general.term"/> *
                         </label>
                         <label class="sr-only" for="yearPicker">
                             <fmt:message key="myChannel.panel.term.year" />
@@ -248,7 +249,7 @@
                 <c:if test="${termValidationError != null}">
                     <div class="form-group has-error has-feedback">
                         <label class="col-sm-2 control-label" for="termPickerInputError">
-                            <fmt:message key="general.term"/>
+                            <fmt:message key="general.term"/> *
                         </label>
                         <label class="sr-only" for="yearPickerError">
                             <fmt:message key="myChannel.panel.term.year" />
@@ -365,7 +366,7 @@
                 <c:if test="${contactsValidationError == null}">
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="contact">
-                            <fmt:message key="myChannel.panel.contactInformation"/>
+                            <fmt:message key="myChannel.panel.contactInformation"/> *
                         </label>
 
                         <div class="col-sm-10">
@@ -378,7 +379,7 @@
                 <c:if test="${contactsValidationError != null}">
                     <div class="form-group has-error has-feedback">
                         <label class="col-sm-2 control-label" for="contactInputError">
-                            <fmt:message key="myChannel.panel.contactInformation"/>
+                            <fmt:message key="myChannel.panel.contactInformation"/> *
                         </label>
 
                         <div class="col-sm-10">
@@ -427,7 +428,7 @@
                     <!-- Faculty -->
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="faculty">
-                            <fmt:message key="myChannel.panel.lecture.faculty"/>
+                            <fmt:message key="myChannel.panel.lecture.faculty"/> *
                         </label>
 
                         <div class="col-sm-10">
@@ -506,7 +507,7 @@
                     <c:if test="${lecturerValidationError == null}">
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="lecturer">
-                                <fmt:message key="myChannel.panel.lecture.lecturer"/>
+                                <fmt:message key="myChannel.panel.lecture.lecturer"/> *
                             </label>
 
                             <div class="col-sm-10">
@@ -520,7 +521,7 @@
                     <c:if test="${lecturerValidationError != null}">
                         <div class="form-group has-error has-feedback">
                             <label class="col-sm-2 control-label" for="lecturerInputError">
-                                <fmt:message key="myChannel.panel.lecture.lecturer"/>
+                                <fmt:message key="myChannel.panel.lecture.lecturer"/> *
                             </label>
 
                             <div class="col-sm-10">
@@ -773,10 +774,13 @@
                 </div>
 
                 <br>
-                <button class="btn btn-lg btn-primary btn-block"
-                        type="submit" name="task" value="createChannel">
-                    <fmt:message key="createChannel.submitButton.label"/>
-                </button>
+
+                    <button class="btn btn-primary pull-right"
+                            type="submit" name="task" value="createChannel">
+                        <fmt:message key="createChannel.submitButton.label"/>
+                    </button>
+
+                <br>
                 <br>
 
             </form>
@@ -784,7 +788,9 @@
 
         </div>
 
-        <div class="col-md-2"></div>
+        <!-- Dummy column -->
+        <div class="col-md-1"></div>
+
     </div>
 </div>
 

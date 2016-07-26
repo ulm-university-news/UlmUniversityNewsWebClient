@@ -72,9 +72,9 @@
 
     <div class="row">
         <!-- Channel data. -->
-        <div class="col-md-2" ></div>
+        <div class="col-md-1" ></div>
 
-        <div class="col-md-8">
+        <div class="col-md-10">
 
             <c:if test="${editableChannel != null}">
 
@@ -86,7 +86,7 @@
                     <c:if test="${channelNameValidationError == null}">
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="channelName">
-                                <fmt:message key="myChannel.panel.channelName" />
+                                <fmt:message key="myChannel.panel.channelName" /> *
                             </label>
                             <div class="col-sm-10">
                                 <input class="form-control" name="channelName" id="channelName" type="text"
@@ -97,7 +97,7 @@
                     <c:if test="${channelNameValidationError != null}">
                         <div class="form-group has-error has-feedback">
                             <label class="col-sm-2 control-label" for="nameInputError">
-                                <fmt:message key="myChannel.panel.channelName" />
+                                <fmt:message key="myChannel.panel.channelName" /> *
                             </label>
                             <div class="col-sm-10">
                                 <input type="text" name="channelName" class="form-control" id="nameInputError"
@@ -111,7 +111,7 @@
                     <!-- Type of the channel. -->
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="channelType">
-                            <fmt:message key="myChannel.panel.channelType" />
+                            <fmt:message key="myChannel.panel.channelType" /> *
                         </label>
                         <div class="col-sm-10">
                             <!-- Hack: Set channelType as hidden field since disabled attributes are not submitted. -->
@@ -179,7 +179,7 @@
                     <c:if test="${termValidationError == null}">
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="termPicker">
-                                <fmt:message key="general.term"/>
+                                <fmt:message key="general.term"/> *
                             </label>
                             <label class="sr-only" for="yearPicker">
                                 <fmt:message key="myChannel.panel.term.year" />
@@ -220,7 +220,7 @@
                     <c:if test="${termValidationError != null}">
                         <div class="form-group has-error has-feedback">
                             <label class="col-sm-2 control-label" for="termPickerInputError">
-                                <fmt:message key="general.term" />
+                                <fmt:message key="general.term" /> *
                             </label>
                             <label class="sr-only" for="yearPickerError">
                                 <fmt:message key="myChannel.panel.term.year" />
@@ -316,7 +316,7 @@
                     <c:if test="${contactsValidationError == null}">
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="contact">
-                                <fmt:message key="myChannel.panel.contactInformation" />
+                                <fmt:message key="myChannel.panel.contactInformation" /> *
                             </label>
                             <div class="col-sm-10">
                             <textarea class="form-control" name="contacts" id="contact" rows="2"
@@ -327,7 +327,7 @@
                     <c:if test="${contactsValidationError != null}">
                         <div class="form-group has-error has-feedback">
                             <label class="col-sm-2 control-label" for="contactInputError">
-                                <fmt:message key="myChannel.panel.contactInformation" />
+                                <fmt:message key="myChannel.panel.contactInformation" /> *
                             </label>
                             <div class="col-sm-10">
                             <textarea name="contacts" class="form-control" id="contactInputError" rows="2"
@@ -370,7 +370,7 @@
                         <!-- Faculty -->
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="faculty">
-                                <fmt:message key="myChannel.panel.lecture.faculty" />
+                                <fmt:message key="myChannel.panel.lecture.faculty" /> *
                             </label>
                             <div class="col-sm-10">
                                 <input type="hidden" name="faculty" value="${editableChannel.getFaculty()}" />
@@ -405,7 +405,7 @@
                         <c:if test="${lecturerValidationError == null}">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="lecturer">
-                                    <fmt:message key="myChannel.panel.lecture.lecturer" />
+                                    <fmt:message key="myChannel.panel.lecture.lecturer" /> *
                                 </label>
                                 <div class="col-sm-10">
                                     <input class="form-control" name="lecturer" id="lecturer" type="text"
@@ -416,7 +416,7 @@
                         <c:if test="${lecturerValidationError != null}">
                             <div class="form-group has-error has-feedback">
                                 <label class="col-sm-2 control-label" for="lecturerInputError">
-                                    <fmt:message key="myChannel.panel.lecture.lecturer" />
+                                    <fmt:message key="myChannel.panel.lecture.lecturer" /> *
                                 </label>
                                 <div class="col-sm-10">
                                     <input type="text" name="lecturer" class="form-control" id="lecturerInputError"
@@ -624,10 +624,11 @@
                     </c:if>
 
                     <br>
-                    <button class="btn btn-lg btn-primary btn-block"
+                    <button class="btn btn-primary pull-right"
                             type="submit" name="task" value="editChannel">
                         <fmt:message key="channelDetails.submitButton.label"/>
                     </button>
+                    <br>
                     <br>
 
                 </form>
@@ -639,7 +640,8 @@
 
         </div>
 
-        <div class="col-md-2" ></div>
+        <!-- Dummy column -->
+        <div class="col-md-1" ></div>
     </div>
 </div>
 

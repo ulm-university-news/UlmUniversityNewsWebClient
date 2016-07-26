@@ -120,10 +120,18 @@ public class RegisterAction implements Action {
                                 "register.info.connectionFailure");
                         requestContext.addToRequestContext("registerRequestFailure", errorMsg);
                         status = Constants.CONNECTION_FAILED_STATUS;
+                    } else  if (e.getErrorCode() == Constants.EMAIL_FAILURE) {
+                        // Email Failure occurred. Don't leave the dialog.
+                        Translator translator = Translator.getInstance();
+                        String errorMsg = translator.getText(requestContext.retrieveLocale(),
+                                "register.info.emailFailure");
+                        requestContext.addToRequestContext("registerRequestWarning", errorMsg);
+                        // We handle it similar to a connection failure in this case.
+                        status = Constants.CONNECTION_FAILED_STATUS;
                     } else {
-                        logger.error("Cannot handle the error in RegisterAction. Passing it to FrontController.");
-                        // Map to ServerException.
-                        throw new ServerException(e.getErrorCode(), e);
+                            logger.error("Cannot handle the error in RegisterAction. Passing it to FrontController.");
+                            // Map to ServerException.
+                            throw new ServerException(e.getErrorCode(), e);
                     }
                 }
             }

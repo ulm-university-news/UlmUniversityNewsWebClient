@@ -77,12 +77,10 @@
 
     <!-- Add responsible moderator functionality. -->
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <p><fmt:message key="manageChannelModerators.info.addModerator"/></p>
-        </div>
-        <div class="col-md-2">
             <!-- Trigger add moderator dialog. -->
-            <button type="button" class="btn btn-primary pull-right" data-toggle="modal"
+            <button type="button" class="btn btn-primary" data-toggle="modal"
                     data-target="#confirmAndAddModeratorDialog">
                 <fmt:message key="manageChannelModerators.button.addModerator"/>
             </button>
@@ -134,6 +132,7 @@
         </div>
     </div>
 
+    <br>
     <br>
 
     <div class="row row-eq-height">
@@ -260,14 +259,14 @@
                                 <c:choose>
                                     <c:when test="${selectedModerator.isActive() == true}">
                                         <!-- Trigger confirmation dialog. -->
-                                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal"
+                                        <button type="button" class="btn btn-primary buttonMargin" data-toggle="modal"
                                                 data-target="#confirm">
                                             <fmt:message key="manageChannelModerators.confirmation.button.revoke"/>
                                         </button>
                                     </c:when>
                                     <c:otherwise>
                                         <!-- Trigger confirmation dialog. -->
-                                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal"
+                                        <button type="button" class="btn btn-primary buttonMargin" data-toggle="modal"
                                                 data-target="#confirm">
                                             <fmt:message key="manageChannelModerators.confirmation.button.reactivate"/>
                                         </button>
