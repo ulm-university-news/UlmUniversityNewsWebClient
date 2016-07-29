@@ -70,7 +70,7 @@
     <div class="row">
         <div class="col-md-12">
             <p><fmt:message key="reminders.create.text"/></p>
-            <a class="btn btn-primary" href="${base}webclient/createReminder" role="button">
+            <a class="btn btn-primary" href="${base}webclient/reminderCreate" role="button">
                 <fmt:message key="reminders.create.button"/>
             </a>
         </div>
@@ -238,13 +238,15 @@
                     <div class="panel-footer">
                         <div class="row">
                             <div class="col-md-12">
-                                <form name="form" class="form-inline" method="post" action="${base}webclient/reminders">
+                                <a class="btn btn-primary buttonMargin" href="${base}webclient/reminderEdit"
+                                   role="button">
+                                    <fmt:message key="general.edit"/>
+                                </a>
                                     <!-- Trigger confirmation dialog. -->
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                             data-target="#confirm">
                                         <fmt:message key="general.delete"/>
                                     </button>
-                                </form>
                             </div>
                         </div>
                     </div>

@@ -26,7 +26,7 @@
                 </c:if>
 
                 <br>
-                <button class="btn btn-lg btn-primary btn-block"
+                <button class="btn btn-primary btn-block"
                         type="submit" name="task" value="login"><fmt:message key="login.button.login"/></button>
             </form>
         </div>
@@ -41,7 +41,7 @@
             <p>
                 <fmt:message key="login.passwordReset.description"/>
                 <br>
-                <a class="btn btn-link" href="${base}webclient/passwordReset" role="button">
+                <a href="${base}webclient/passwordReset" >
                     <fmt:message key="login.passwordReset.description.link"/></a>
             </p>
         </div>
@@ -53,7 +53,7 @@
         <div class="col-md-4">
             <h2><fmt:message key="login.noaccount.heading" /> </h2>
             <p><fmt:message key="login.noaccount.description"/></p>
-            <p><a class="btn btn-primary" href="${base}webclient/register" role="button">
+            <p><a class="btn btn-primary btn-block" href="${base}webclient/register" role="button">
                 <fmt:message key="login.noaccount.button.label"/></a></p>
         </div>
         <div class="col-md-4"></div>
