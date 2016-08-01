@@ -239,6 +239,9 @@ public class Constants {
     public static final String REMINDER_VALIDATION_ERROR = "ReminderValidationError";
     public static final String EDIT_REMINDER_DIALOG_LOADED = "EditReminderDialogLoaded";    // Get
     public static final String EDIT_REMINDER_DIALOG_LOADING_FAILED = "EditReminderDialogLoadingFailed";     // Get
+    public static final String REMINDER_EDITED_SUCCESSFULLY = "ReminderEditedSuccessfully"; // Post
+    public static final String REMINDER_EDITING_PROCESS_FAILED = "ReminderEditingProcessFailed"; // Post
+    public static final String REMINDER_EDITING_NO_UPDATE = "ReminderEditingNoUpdate";  // Post
 
     // Accounts page:
     public static final String ACCOUNTS_LOADED = "AccountsLoaded"; // GET

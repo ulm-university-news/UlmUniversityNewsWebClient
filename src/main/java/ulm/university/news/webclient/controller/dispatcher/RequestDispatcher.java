@@ -253,6 +253,17 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping.put("/reminderCreate:" + Constants.CREATION_OF_REMINDER_FAILED, true); // Forward.
         _postRequestStatusMapping.put("/reminderCreate:" + Constants.REMINDER_VALIDATION_ERROR, "createReminder");
         _postForwardingStatusMapping.put("/reminderCreate:" + Constants.REMINDER_VALIDATION_ERROR, true); // Forward.
+
+        // Edit reminder.
+        _postRequestStatusMapping.put("/reminderEdit:" + Constants.REMINDER_EDITED_SUCCESSFULLY,
+                "reminderEdit?successful=true");
+        _postForwardingStatusMapping.put("/reminderEdit:" + Constants.REMINDER_EDITED_SUCCESSFULLY, false); // Redirect.
+        _postRequestStatusMapping.put("/reminderEdit:" + Constants.REMINDER_EDITING_PROCESS_FAILED, "editReminder");
+        _postForwardingStatusMapping.put("/reminderEdit:" + Constants.REMINDER_EDITING_PROCESS_FAILED, true);
+        _postRequestStatusMapping.put("/reminderEdit:" + Constants.REMINDER_EDITING_NO_UPDATE, "editReminder");
+        _postForwardingStatusMapping.put("/reminderEdit:" + Constants.REMINDER_EDITING_NO_UPDATE, true);
+        _postRequestStatusMapping.put("/reminderEdit:" + Constants.REMINDER_VALIDATION_ERROR, "editReminder");
+        _postForwardingStatusMapping.put("/reminderEdit:" + Constants.REMINDER_VALIDATION_ERROR, true);
     }
 
     /**

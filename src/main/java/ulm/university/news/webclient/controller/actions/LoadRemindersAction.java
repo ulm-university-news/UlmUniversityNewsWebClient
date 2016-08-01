@@ -51,6 +51,11 @@ public class LoadRemindersAction implements Action {
                 reminders = new ChannelAPI().getReminders(activeModerator.getServerAccessToken(), channelId);
                 for (Reminder reminder : reminders) {
                     reminder.computeFirstNextDate();
+
+                    // Check if ignore flag is set. If this is the case, update the next date property.
+                    if (reminder.getIgnore() != null && reminder.getIgnore() == Boolean.TRUE){
+                        reminder.computeNextDate();
+                    }
                 }
                 // Store reminder data in session for later reuse.
                 requestContext.storeInSession("reminders", reminders);
@@ -67,7 +72,7 @@ public class LoadRemindersAction implements Action {
                                 "general.message.error.fatal");
                 }
 
-                requestContext.storeInSession("loadError", errorMessage);
+                requestContext.addToRequestContext("loadError", errorMessage);
                 return Constants.REMINDERS_LOAD_FAILED;
             }
         }

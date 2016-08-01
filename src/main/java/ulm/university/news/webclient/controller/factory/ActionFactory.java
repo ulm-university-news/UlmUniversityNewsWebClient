@@ -81,6 +81,7 @@ public abstract class ActionFactory {
 
         // Edit reminder page.
         _actionMap.put("GET/reminderEdit", new LoadEditReminderAction());
+        _actionMap.put("POST/reminderEdit", new CreateOrEditReminderAction());
 
         // My channels page.
         _actionMap.put("GET/myChannels", new LoadMyChannelsAction());

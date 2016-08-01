@@ -177,6 +177,19 @@
 
                             <div class="row">
                                 <div class="col-md-12">
+                                    <h4><fmt:message key="reminder.skipNextEventFlag"/></h4>
+
+                                    <c:if test="${currentReminder.getIgnore() == true}">
+                                        <p><fmt:message key="reminder.skipNextEventFlag.yes" /></p>
+                                    </c:if>
+                                   <c:if test="${currentReminder.getIgnore() == false}">
+                                       <p><fmt:message key="reminder.skipNextEventFlag.no" /></p>
+                                   </c:if>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
                                     <h4><fmt:message key="reminder.nextDate"/></h4>
 
                                     <p>

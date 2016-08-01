@@ -62,15 +62,15 @@ public class CreateOrEditReminderAction implements Action {
             status = createReminderInstance(currentChannel, activeModerator);
         }
 
-        // Test.
-//        status = Constants.CREATION_OF_REMINDER_FAILED;
-//        Reminder test = retrieveReminderObjectFromRequestData();
-//
-//        boolean isValid = validateReminderParameters(test);
-//        if (!isValid){
-//            logger.debug("Validation of reminder failed.");
-//            status = Constants.REMINDER_VALIDATION_ERROR;
-//        }
+        if (task != null && task.equals("editReminder")){
+            Reminder currentReminder = (Reminder) requestContext.retrieveFromSession("currentReminder");
+
+            if (currentReminder != null){
+                logger.info("Start editing process for reminder with id {}.", currentReminder.getId());
+                // Edit reminder.
+                status = editReminderInstance(currentChannel, activeModerator, currentReminder);
+            }
+        }
 
         return status;
     }
@@ -121,6 +121,92 @@ public class CreateOrEditReminderAction implements Action {
 
                 // Add error message to request context.
                 requestContext.addToRequestContext("ReminderActionFailed", errorMessage);
+            }
+        }
+
+        return status;
+    }
+
+    /**
+     * Executes the editing process for a specific reminder. Prepares an updatable object of the class Reminder
+     * including all changed data. Performs an update request to the server.
+     *
+     * @param currentChannel The current channel to which the reminder belongs.
+     * @param activeModerator The active moderator that performs the request.
+     * @param currentReminder The reminder in his current form, i.e. before the actual update.
+     * @return The status of the editing process.
+     * @throws ServerException If the editing process fails and no appropriate error handling is possible within the
+     *      method.
+     */
+    private String editReminderInstance(Channel currentChannel, Moderator activeModerator, Reminder currentReminder)
+            throws ServerException {
+        String status = null;
+
+        // Get reminder object with entered data first.
+        Reminder newReminder = retrieveReminderObjectFromRequestData();
+
+        // Second, validate the entered data.
+        boolean isValid = validateReminderParameters(newReminder);
+        if (!isValid){
+            logger.debug("Validation of reminder failed. Cannot edit reminder.");
+            status = Constants.REMINDER_VALIDATION_ERROR;
+        } else {
+            // Start editing process. The most up-to-date reminder data is requested from the server to act as the
+            // reference for the editing process.
+            try {
+                currentReminder = channelAPI.getReminder(activeModerator.getServerAccessToken(), currentChannel.getId
+                        (), currentReminder.getId());
+            } catch (APIException ex){
+                String errorMessage;
+                status = Constants.REMINDER_EDITING_PROCESS_FAILED;
+
+                errorMessage = getErrorMessage(requestContext.retrieveLocale(), ex.getErrorCode());
+                if (errorMessage == null) {
+                    // No appropriate error message could be generated. Pass error to front controller.
+                    throw new ServerException(ex.getErrorCode(), "Failed to edit reminder.");
+                }
+
+                // Add error message to request context.
+                requestContext.addToRequestContext("ReminderActionFailed", errorMessage);
+
+                // Abort execution here.
+                logger.error("Reminder editing failed. The most up-to-date data for the reminder could not be loaded.");
+                return status;
+            }
+
+            // Create object with updated data.
+            Reminder updatableReminder = createUpdatableReminderObject(currentReminder, newReminder);
+            if (updatableReminder != null){
+                // Send update request to server.
+                try {
+                    Reminder updatedReminder = channelAPI.updateReminder(activeModerator.getServerAccessToken(),
+                            currentChannel.getId(), currentReminder.getId(), updatableReminder);
+
+                    status = Constants.REMINDER_EDITED_SUCCESSFULLY;
+                    logger.info("Successfully updated the reminder with id {}.", updatedReminder.getId());
+                } catch (APIException ex){
+                    String errorMessage;
+                    status = Constants.REMINDER_EDITING_PROCESS_FAILED;
+
+                    errorMessage = getErrorMessage(requestContext.retrieveLocale(), ex.getErrorCode());
+                    if (errorMessage == null) {
+                        // No appropriate error message could be generated. Pass error to front controller.
+                        throw new ServerException(ex.getErrorCode(), "Failed to edit reminder.");
+                    }
+
+                    // Add error message to request context.
+                    requestContext.addToRequestContext("ReminderActionFailed", errorMessage);
+                }
+            }
+            else {
+                logger.info("No update seems to be required for the reminder with id {}.", currentReminder.getId());
+                status = Constants.REMINDER_EDITING_NO_UPDATE;
+
+                // Add error to request context.
+                String errorMsg = Translator.getInstance().getText(requestContext.retrieveLocale(),
+                        "editReminder.noUpdate.warning");
+
+                requestContext.addToRequestContext("reminderDetailsNoUpdate", errorMsg);
             }
         }
 
@@ -234,6 +320,70 @@ public class CreateOrEditReminderAction implements Action {
         reminder.setIgnore(skipReminder);
 
         return reminder;
+    }
+
+    /**
+     * Creates an object of type Reminder with all the data
+     * that needs to be updated.
+     *
+     * @param oldReminder The reference reminder instance that is used for the comparison.
+     * @param newReminder The reminder instance with the entered data that may contain new data.
+     * @return A reminder object that contains all data that requires an update. If no data is changed, the method
+     * returns null.
+     */
+    private Reminder createUpdatableReminderObject(Reminder oldReminder, Reminder newReminder){
+        Reminder updatableReminder = new Reminder();
+        boolean hasChanged = false;
+
+        if (oldReminder.getStartDate() != null && newReminder.getStartDate() != null
+                && !oldReminder.getStartDate().equals(newReminder.getStartDate())){
+            // Start date has changed.
+            hasChanged = true;
+            updatableReminder.setStartDate(newReminder.getStartDate());
+        }
+
+        if (oldReminder.getEndDate() != null && newReminder.getEndDate() != null
+                && !oldReminder.getEndDate().equals(newReminder.getEndDate())){
+            // End date has changed.
+            hasChanged = true;
+            updatableReminder.setEndDate(newReminder.getEndDate());
+        }
+
+        if (oldReminder.getInterval() != null && newReminder.getInterval() != null
+                && !oldReminder.getInterval().equals(newReminder.getInterval())){
+            // Interval has changed.
+            hasChanged = true;
+            updatableReminder.setInterval(newReminder.getInterval());
+        }
+
+        if (oldReminder.getTitle() != null && newReminder.getTitle() != null
+                && !oldReminder.getTitle().equals(newReminder.getTitle())){
+            // Title has changed.
+            hasChanged = true;
+            updatableReminder.setTitle(newReminder.getTitle());
+        }
+
+        if (oldReminder.getText() != null && newReminder.getText() != null
+                && !oldReminder.getText().equals(newReminder.getText())){
+            // Text has changed.
+            hasChanged = true;
+            updatableReminder.setText(newReminder.getText());
+        }
+
+        if (oldReminder.getPriority() != null && newReminder.getPriority() != null
+                && oldReminder.getPriority() != newReminder.getPriority()){
+            // Priority has changed.
+            hasChanged = true;
+            updatableReminder.setPriority(newReminder.getPriority());
+        }
+
+        if (!hasChanged){
+            logger.warn("Update process on reminder called but no property seems to have changed.");
+            logger.info("Method will return null.");
+            updatableReminder = null;
+        }
+
+        return updatableReminder;
     }
 
     /**

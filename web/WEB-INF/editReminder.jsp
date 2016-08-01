@@ -34,6 +34,17 @@
       </div>
     </div>
   </c:if>
+  <c:if test="${reminderDetailsNoUpdate != null}">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="alert alert-warning" role="alert">
+                  <strong><fmt:message key="general.alert.warning"/></strong>
+
+                  <p>${reminderDetailsNoUpdate}</p>
+              </div>
+          </div>
+      </div>
+    </c:if>
 
   <!-- Row for form. -->
   <div class="row">
