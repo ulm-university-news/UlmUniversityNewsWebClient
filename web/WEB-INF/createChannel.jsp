@@ -57,7 +57,7 @@
         <div class="col-md-10">
 
             <!-- Input form for channel data. -->
-            <form class="form-horizontal" role="form" method="post" action="${base}webclient/createChannel"
+            <form class="form-horizontal" method="post" action="${base}webclient/createChannel"
                   accept-charset="UTF-8">
 
                 <!-- Name of the channel. -->

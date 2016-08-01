@@ -233,6 +233,12 @@ public class Constants {
     public static final String REMINDERS_LOAD_FAILED = "RemindersLoadFailed"; // GET
     public static final String REMINDERS_EDITED = "RemindersEdited"; // POST
     public static final String REMINDERS_EDIT_FAILED = "RemindersEditFailed"; // POST
+    public static final String CREATE_REMINDER_DIALOG_LOADED = "CreateReminderDialogLoaded";    // GET
+    public static final String CREATED_REMINDER = "CreatedReminder";
+    public static final String CREATION_OF_REMINDER_FAILED = "CreationOfReminderFailed";
+    public static final String REMINDER_VALIDATION_ERROR = "ReminderValidationError";
+    public static final String EDIT_REMINDER_DIALOG_LOADED = "EditReminderDialogLoaded";    // Get
+    public static final String EDIT_REMINDER_DIALOG_LOADING_FAILED = "EditReminderDialogLoadingFailed";     // Get
 
     // Accounts page:
     public static final String ACCOUNTS_LOADED = "AccountsLoaded"; // GET

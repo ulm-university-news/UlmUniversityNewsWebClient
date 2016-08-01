@@ -92,6 +92,6 @@ public class LoadRemindersAction implements Action {
      * @return Returns true if administrator permissions are required, otherwise false.
      */
     public boolean requiresAdminPermissions() {
-        return true;
+        return false;
     }
 }

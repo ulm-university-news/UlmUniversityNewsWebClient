@@ -66,7 +66,7 @@
         ${loadError = null}
     </c:if>
 
-    <!-- Create channel option. -->
+    <!-- Create reminder option. -->
     <div class="row">
         <div class="col-md-12">
             <p><fmt:message key="reminders.create.text"/></p>

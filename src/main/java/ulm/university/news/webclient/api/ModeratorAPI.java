@@ -134,7 +134,7 @@ public class ModeratorAPI extends MainAPI {
             connection.setDoOutput(true);
             logger.info("Sending POST request to URL: {}", url);
 
-            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
             out.write(jsonContent);
             out.flush();
             out.close();
@@ -185,7 +185,7 @@ public class ModeratorAPI extends MainAPI {
             connection.setDoOutput(true);
             logger.info("Sending POST request to URL: {}", url);
 
-            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
             out.write(jsonContent);
             out.flush();
             out.close();
@@ -242,7 +242,7 @@ public class ModeratorAPI extends MainAPI {
 
             logger.info("Sending PATCH request to URL: {}", url);
 
-            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
             out.write(jsonContent);
             out.flush();
             out.close();
@@ -341,7 +341,7 @@ public class ModeratorAPI extends MainAPI {
 
             logger.info("Sending POST request to URL: {}", url);
 
-            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
             out.write(jsonContent);
             out.flush();
             out.close();

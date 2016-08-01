@@ -412,6 +412,7 @@ public class CreateOrEditChannelAction implements Action {
         switch (errorCode){
             case Constants.CHANNEL_DATA_INCOMPLETE:
                 requestContext.addToRequestContext("channelDetailsEditingFailed", errorMessage);
+                requestContext.addToRequestContext("createChannelFailed", errorMessage);
                 break;
             case Constants.CHANNEL_INVALID_NAME:
                 requestContext.addToRequestContext("channelNameValidationError", errorMessage);

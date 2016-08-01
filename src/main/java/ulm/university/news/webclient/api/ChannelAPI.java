@@ -464,7 +464,7 @@ public class ChannelAPI extends MainAPI {
 
             logger.info("Sending POST request to URL: {}", url);
 
-            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
             out.write(jsonContent);
             out.flush();
             out.close();
@@ -607,14 +607,14 @@ public class ChannelAPI extends MainAPI {
     }
 
     /**
-     * Sends a request to create a new announcement. The announcement contains to the specified channel and
+     * Sends a request to create a new announcement. The announcement belongs to the specified channel and
      * all subscribers will be notified about the new announcement.
      *
      * @param accessToken The access token of the requestor.
      * @param channelId The id of the channel.
      * @param announcement The data of the new announcements in form of an announcement object.
      * @return An object of type Announcement. It contains the data provided by the server in the response.
-     * @throws APIException Throws an APIException when the request fails or the server rejects the request.
+     * @throws APIException Throws an APIException if the request fails or the server rejects the request.
      */
     public Announcement sendAnnouncement(String accessToken, int channelId, Announcement announcement)
             throws APIException{
@@ -633,7 +633,7 @@ public class ChannelAPI extends MainAPI {
 
             logger.info("Sending POST request to URL: {}", url);
 
-            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
             out.write(jsonContent);
             out.flush();
             out.close();
@@ -668,36 +668,75 @@ public class ChannelAPI extends MainAPI {
     }
 
     /**
-     * Serializes a channel object to a json string. The channel object
-     * is serialized depending on the channel type.
+     * Sends a request to create a new reminder. The reminder belongs to the specified channel.
+     * If the server accepts the request, it will fire the announcements as specified in the reminder.
      *
-     * @param channel The channel object to parse.
-     * @return The json string.
+     * @param accessToken The access token of the requestor.
+     * @param channelId The if of the channel to which the reminder belongs.
+     * @param newReminder The data of the new reminder in form of a Reminder object.
+     * @return The reminder object returned by the server in case of a successful request.
+     * @throws APIException Throws an APIException if the request fails or the server rejects the request.
      */
-    private String serializeChannelToJson(Channel channel){
-        String jsonContent = "";
-        if (channel.getType() == ChannelType.LECTURE) {
-            Lecture updatableLecture = (Lecture) channel;
-            jsonContent = gson.toJson(updatableLecture, Lecture.class);
-        } else if (channel.getType() == ChannelType.EVENT) {
-            Event updatableEvent = (Event) channel;
-            jsonContent = gson.toJson(updatableEvent, Event.class);
-        } else if (channel.getType() == ChannelType.SPORTS) {
-            Sports updatableSports = (Sports) channel;
-            jsonContent = gson.toJson(updatableSports, Sports.class);
-        } else {
-            jsonContent = gson.toJson(channel, Channel.class);
+    public Reminder createReminder(String accessToken, int channelId, Reminder newReminder) throws APIException {
+        String url = channelUrl + "/" + channelId + "/reminder";
+        String jsonContent = gson.toJson(newReminder, Reminder.class);
+        Reminder reminderResponse;
+
+        logger.debug("Reminder json is: {}", jsonContent);
+        // Adjust json.
+        jsonContent = adjustDateTimeFormat(jsonContent);
+
+        try{
+            URL obj = new URL(url);
+            // Set http method.
+            connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("POST");
+            connection.addRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+            setAuthorization(accessToken);
+
+            logger.info("Sending POST request to URL: {}", url);
+
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
+            out.write(jsonContent);
+            out.flush();
+            out.close();
+
+            int statusCode = connection.getResponseCode();
+            if (statusCode == HttpURLConnection.HTTP_CREATED) {
+                // Get request response as String.
+                String json = getResponse(connection);
+
+                reminderResponse = gson.fromJson(json, Reminder.class);
+            } else {
+                String serverResponse = getErrorResponse(connection);
+                ServerError se = gson.fromJson(serverResponse, ServerError.class);
+                // Map to API exception.
+                throw new APIException(se.getErrorCode(), connection.getResponseCode(),
+                        "Create reminder failed.");
+            }
+        } catch (MalformedURLException malEx) {
+            malEx.printStackTrace();
+            logger.error("Malformed URL discovered.");
+            throw new APIException(Constants.FATAL_ERROR, "URL malformed.");
+        } catch (ProtocolException pe) {
+            pe.printStackTrace();
+            throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Failed to connect to server.");
         }
 
-        return jsonContent;
+        return reminderResponse;
     }
 
     /**
      * Requests all reminders of a specific channel from the server.
      *
      * @param accessToken The access token of the requestor.
-     * @param channelId The id of the moderator whose channels should be requested.
-     * @return A list Channel instances.
+     * @param channelId The id of the channel whose reminders should be requested.
+     * @return A list Reminder instances.
      * @throws APIException Throws an API exception, if the request fails or is rejected from the server.
      */
     public List<Reminder> getReminders(String accessToken, int channelId)throws APIException {
@@ -747,6 +786,58 @@ public class ChannelAPI extends MainAPI {
     }
 
     /**
+     * Requests the specific reminder which is identified by the defined id. The reminder belongs
+     * to the channel which is identified by the defined channel-id.
+     *
+     * @param accessToken The access token of the requestor.
+     * @param channelId The id of the channel to which the reminder belongs.
+     * @param reminderId The id of the reminder that should be requested.
+     * @return The requested reminder resource as a Reminder object.
+     * @throws APIException Throws an API exception, if the request fails or is rejected from the server.
+     */
+    public Reminder getReminder(String accessToken, int channelId, int reminderId)throws APIException {
+        Reminder reminder;
+        String url = channelUrl + "/" + channelId + "/reminder/" + reminderId;
+
+        try{
+            URL obj = new URL(url);
+            // Set http method.
+            connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("GET");
+            setAuthorization(accessToken);
+
+            logger.info("Sending GET request to URL: {}", url);
+
+            int statusCode = connection.getResponseCode();
+            if (statusCode == HttpURLConnection.HTTP_OK) {
+                // Get request response as String.
+                String json = getResponse(connection);
+
+                reminder = gson.fromJson(json, Reminder.class);
+            } else {
+                String serverResponse = getErrorResponse(connection);
+                ServerError se = gson.fromJson(serverResponse, ServerError.class);
+                // Map to API exception.
+                throw new APIException(se.getErrorCode(), connection.getResponseCode(),
+                        "Get reminder with id " + reminderId + " failed.");
+            }
+        } catch (MalformedURLException malEx) {
+            malEx.printStackTrace();
+            logger.error("Malformed URL discovered.");
+            throw new APIException(Constants.FATAL_ERROR, "URL malformed.");
+        } catch (ProtocolException pe) {
+            pe.printStackTrace();
+            throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Failed to connect to server.");
+        }
+
+        return reminder;
+    }
+
+    /**
      * Deletes the reminder with the specified id from the given channel.
      *
      * @param accessToken The access token of the requestor.
@@ -790,5 +881,56 @@ public class ChannelAPI extends MainAPI {
             logger.error("IO exception occurred. Probably due to a failed connection to the server.");
             throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Failed to connect to server.");
         }
+    }
+
+    /**
+     * Serializes a channel object to a json string. The channel object
+     * is serialized depending on the channel type.
+     *
+     * @param channel The channel object to parse.
+     * @return The json string.
+     */
+    private String serializeChannelToJson(Channel channel){
+        String jsonContent = "";
+        if (channel.getType() == ChannelType.LECTURE) {
+            Lecture updatableLecture = (Lecture) channel;
+            jsonContent = gson.toJson(updatableLecture, Lecture.class);
+        } else if (channel.getType() == ChannelType.EVENT) {
+            Event updatableEvent = (Event) channel;
+            jsonContent = gson.toJson(updatableEvent, Event.class);
+        } else if (channel.getType() == ChannelType.SPORTS) {
+            Sports updatableSports = (Sports) channel;
+            jsonContent = gson.toJson(updatableSports, Sports.class);
+        } else {
+            jsonContent = gson.toJson(channel, Channel.class);
+        }
+
+        return jsonContent;
+    }
+
+    /**
+     * Fixes the problem of the ':' character in the datetime zone information. The ':' character
+     * needs to be removed since the server rejects the request otherwise, although the time format
+     * is a valid ISO 8601 format.
+     *
+     * @param reminderJson The json document including start and end date information.
+     * @return The modified json string.
+     */
+    private String adjustDateTimeFormat(String reminderJson) {
+        // Adjust date time format to match the servers format: e.g. 2016-11-19T00:00:00.000+0100
+        String adjusted = "";
+        String[] parts = reminderJson.split(",");
+        for (String part : parts) {
+            if (part.contains("startDate") || part.contains("endDate")) {
+                int remove = part.lastIndexOf(':');
+                adjusted += part.substring(0, remove) + part.substring(remove + 1);
+            } else {
+                adjusted += part;
+            }
+            adjusted += ",";
+        }
+        adjusted = adjusted.substring(0, adjusted.length() - 1);
+        logger.debug("Adjusted reminderJson: " + adjusted);
+        return adjusted;
     }
 }

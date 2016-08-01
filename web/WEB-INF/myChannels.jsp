@@ -299,7 +299,7 @@
                                    role="button">
                                     <fmt:message key="myChannels.button.announcements"/>
                                 </a>
-                                <a class="btn btn-primary" href="${base}webclient/reminders" role="button">
+                                <a class="btn btn-primary buttonMargin" href="${base}webclient/reminders" role="button">
                                     <fmt:message key="myChannels.button.reminders"/>
                                 </a>
                                 <a class="btn btn-primary buttonMargin" href="${base}webclient/manageChannelModerators"

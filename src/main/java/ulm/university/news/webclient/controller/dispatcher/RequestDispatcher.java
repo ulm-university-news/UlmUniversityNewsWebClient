@@ -8,6 +8,7 @@ import ulm.university.news.webclient.util.Constants;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -110,6 +111,13 @@ public abstract class RequestDispatcher {
         // Reminders page.
         _getRequestStatusMapping.put("/reminders:" + Constants.REMINDERS_LOADED, "reminders");
         _getRequestStatusMapping.put("/reminders:" + Constants.REMINDERS_LOAD_FAILED, "reminders");
+
+        // Create reminder dialog.
+        _getRequestStatusMapping.put("/reminderCreate:" + Constants.CREATE_REMINDER_DIALOG_LOADED, "createReminder");
+
+        // Edit reminder dialog.
+        _getRequestStatusMapping.put("/reminderEdit:" + Constants.EDIT_REMINDER_DIALOG_LOADED, "editReminder");
+        _getRequestStatusMapping.put("/reminderEdit:" + Constants.EDIT_REMINDER_DIALOG_LOADING_FAILED, "reminders");
 
         // POST requests.
         // Login page.
@@ -237,6 +245,14 @@ public abstract class RequestDispatcher {
         _postForwardingStatusMapping.put("/channelsDelete:" + Constants.CHANNELS_DELETED_CHANNEL, false); // Redirect.
         _postRequestStatusMapping.put("/channelsDelete:" + Constants.CHANNELS_OPERATION_FAILED, "channels");
         _postForwardingStatusMapping.put("/channelsDelete:" + Constants.CHANNELS_OPERATION_FAILED, true); // Forward.
+
+        // Create reminder.
+        _postRequestStatusMapping.put("/reminderCreate:" + Constants.CREATED_REMINDER, "reminders");
+        _postForwardingStatusMapping.put("/reminderCreate:" + Constants.CREATED_REMINDER, false);   // Redirect.
+        _postRequestStatusMapping.put("/reminderCreate:" + Constants.CREATION_OF_REMINDER_FAILED, "createReminder");
+        _postForwardingStatusMapping.put("/reminderCreate:" + Constants.CREATION_OF_REMINDER_FAILED, true); // Forward.
+        _postRequestStatusMapping.put("/reminderCreate:" + Constants.REMINDER_VALIDATION_ERROR, "createReminder");
+        _postForwardingStatusMapping.put("/reminderCreate:" + Constants.REMINDER_VALIDATION_ERROR, true); // Forward.
     }
 
     /**

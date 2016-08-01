@@ -147,7 +147,7 @@
                                id="announcementTitle"
                                placeholder="<fmt:message
                                                             key="announcements.dialog.newMessage.title.textField.placeholder" />"
-                               value="${param.announcementTitle}">
+                               value="${param.announcementTitle}" />
                       </div>
                     </c:if>
                     <c:if test="${announcementTitleValidationError != null}">
@@ -155,8 +155,7 @@
                       <div class="form-group has-error has-feedback">
                         <label class="control-label" for="announcementTitleError">
                           <fmt:message
-                                  key="announcements.dialog.newMessage.title.textField.label"
-                                  />
+                                  key="announcements.dialog.newMessage.title.textField.label" />
                         </label>
                         <input type="text" name="announcementTitle" class="form-control"
                                id="announcementTitleError"

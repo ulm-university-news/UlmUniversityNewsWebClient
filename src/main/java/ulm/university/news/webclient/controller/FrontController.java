@@ -101,13 +101,14 @@ public class FrontController extends HttpServlet {
         catch (SessionIsExpiredException sessionEx){
             logger.error("Session of the requestor is expired. Request is rejected.");
             // Display error message on the login page.
-            // TODO - what about internationalisation in case of an expired session.
             String errorMessage = Translator.getInstance().getText(Locale.ENGLISH,
                     "general.message.error.sessionExpired");
             contextManager.addToRequestContext("loginStatusMsg", errorMessage);
             RequestDispatcher.dispatch(contextManager, Constants.SESSION_EXPIRED);
         }
         catch (ServerException serverE){
+            logger.error("ServerException received in FrontController. Error code is {}.", serverE.getErrorCode());
+
             if (serverE.getErrorCode() == Constants.CONNECTION_FAILURE){
                 // Forward to error page.
                 RequestDispatcher.forwardRequestToErrorView(request, response, Constants.CONNECTION_FAILURE);
@@ -119,7 +120,11 @@ public class FrontController extends HttpServlet {
                 RequestDispatcher.forwardRequestToErrorView(request, response, Constants.FATAL_ERROR);
             }
 
+            // Error code MODERATOR UNAUTHORIZED, USER_UNAUTHORIZED
+
             // TODO - further errors ?
+            // If not handled so far, navigate to fatal error page.
+            RequestDispatcher.forwardRequestToErrorView(request, response, Constants.FATAL_ERROR);
         }
         catch (Exception ex){
             logger.error("General exception occurred " + ex.getMessage());

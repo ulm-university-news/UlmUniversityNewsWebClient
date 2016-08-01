@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -16,7 +18,6 @@ pageContext.request.locale}" scope="session"/>
 <c:set var="base" value="${fn:substring(url, 0, fn:length(url) - fn:length(req.requestURI))}${req.contextPath}/"/>
 <c:set var="dateTimePattern" value="dd.MM.yyyy HH:mm"/>
 
-<!DOCTYPE html>
 <html lang="${language}">
 <head>
     <meta charset="utf-8">
@@ -28,17 +29,28 @@ pageContext.request.locale}" scope="session"/>
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Include button margin stylesheet. -->
     <link href="../css/ButtonStyle.css" rel="stylesheet">
+    <!-- jquery UI -->
+    <link href="../css/jquery-ui.css" rel="stylesheet">
+
     <style type="text/css">
         body {
             padding-top: 50px;
         }
     </style>
 </head>
+
 <body>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="../jquery/jquery-1.12.4.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="../bootstrap/js/bootstrap.min.js"></script>
+<!-- jQuery UI -->
+<script src="../jquery/jquery-ui.js"></script>
+<!-- Localization for time picker. -->
+<script src="../jquery/globalize/globalize.js"></script>
+<script src="../jquery/globalize/globalize.culture.de-DE.js"></script>
+<!-- Mousewheel for time picker. -->
+<script src="../jquery/jquery-mousewheel/jquery.mousewheel.js"></script>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
