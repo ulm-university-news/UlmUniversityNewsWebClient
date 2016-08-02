@@ -1,4 +1,3 @@
-<!-- Page header. -->
 <%@ include file="header.jsp" %>
 <c:set var="reminderId" value="${param.reminderId}" scope="session"/>
 <c:set var="priorityHigh" value="HIGH" scope="page"/>
@@ -97,14 +96,54 @@
                                     <c:when test="${reminderId != null && reminderId == reminder.getId()}">
                                         <a href="?reminderId=${reminder.getId()}"
                                            class="list-group-item list-group-item-info">
+                                            <p>
                                                 ${reminder.getTitle()}
+                                                <c:choose>
+                                                    <c:when test="${reminder.isActive() == true &&
+                                                    reminder.isExpired() == false}">
+                                                        <span class="glyphicon glyphicon-time pull-right"></span>
+                                                    </c:when>
+                                                    <c:when test="${reminder.isActive() == true &&
+                                                    reminder.isExpired() == true}">
+                                                        <span class="glyphicon glyphicon-exclamation-sign pull-right"></span>
+                                                        <span class="glyphicon glyphicon-time pull-right"></span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span class="glyphicon glyphicon-ban-circle pull-right"></span>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </p>
                                         </a>
                                         <c:set var="currentReminder" value="${reminder}" scope="session"/>
                                     </c:when>
                                     <c:otherwise>
-                                        <a href="?reminderId=${reminder.getId()}" class="list-group-item">
-                                                ${reminder.getTitle()}
-                                        </a>
+                                        <c:if test="${reminder.isActive() == true && reminder.isExpired() == false}">
+                                            <a href="?reminderId=${reminder.getId()}" class="list-group-item">
+                                                <p>
+                                                    ${reminder.getTitle()}
+                                                    <span class="glyphicon glyphicon-time pull-right"></span>
+                                                </p>
+                                            </a>
+                                        </c:if>
+                                        <c:if test="${reminder.isActive() == true && reminder.isExpired() == true}">
+                                            <a href="?reminderId=${reminder.getId()}"
+                                               class="list-group-item">
+                                                <p>
+                                                    ${reminder.getTitle()}
+                                                    <span class="glyphicon glyphicon-exclamation-sign pull-right"></span>
+                                                    <span class="glyphicon glyphicon-time pull-right"></span>
+                                                </p>
+                                            </a>
+                                        </c:if>
+                                        <c:if test="${reminder.isActive() == false}">
+                                            <a href="?reminderId=${reminder.getId()}"
+                                               class="list-group-item">
+                                                <p>
+                                                    ${reminder.getTitle()}
+                                                    <span class="glyphicon glyphicon-ban-circle pull-right"></span>
+                                                </p>
+                                            </a>
+                                        </c:if>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
@@ -194,6 +233,9 @@
 
                                     <p>
                                         <c:choose>
+                                            <c:when test="${currentReminder.isActive() == false}">
+                                                <fmt:message key="reminder.deactivated"/>
+                                            </c:when>
                                             <c:when test="${currentReminder.isExpired()}">
                                                 <fmt:message key="reminder.expired"/>
                                             </c:when>
@@ -251,20 +293,47 @@
                     <div class="panel-footer">
                         <div class="row">
                             <div class="col-md-12">
-                                <a class="btn btn-primary buttonMargin" href="${base}webclient/reminderEdit"
-                                   role="button">
-                                    <fmt:message key="general.edit"/>
-                                </a>
-                                    <!-- Trigger confirmation dialog. -->
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#confirm">
-                                        <fmt:message key="general.delete"/>
-                                    </button>
+                                <c:if test="${currentReminder.isActive() == true}">
+                                    <a class="btn btn-primary buttonMargin" href="${base}webclient/reminderEdit"
+                                       role="button">
+                                        <fmt:message key="general.edit"/>
+                                    </a>
+
+                                    <c:if test="${currentReminder.isExpired() == false &&
+                                    currentReminder.getInterval() != 0}">
+                                        <!-- Trigger set/reset ignore flag dialog. -->
+                                        <button type="button" class="btn btn-primary buttonMargin" data-toggle="modal"
+                                                data-target="#confirmIgnoreFlagOperation">
+                                            <c:if test="${currentReminder.isIgnore() == true}">
+                                                <fmt:message key="reminders.button.resetIgnoreFlag"/>
+                                            </c:if>
+                                            <c:if test="${currentReminder.isIgnore() == false}">
+                                                <fmt:message key="reminders.button.setIgnoreFlag"/>
+                                            </c:if>
+                                        </button>
+                                    </c:if>
+                                </c:if>
+                                <!-- Trigger activation/deactivation dialog. -->
+                                <button type="button" class="btn btn-primary buttonMargin" data-toggle="modal"
+                                        data-target="#confirmActivationOrDeactivation">
+                                    <c:if test="${currentReminder.isActive() == true}">
+                                        <fmt:message key="reminders.button.deactivate"/>
+                                    </c:if>
+                                    <c:if test="${currentReminder.isActive() == false}">
+                                        <fmt:message key="reminders.button.activate"/>
+                                    </c:if>
+                                </button>
+                                <!-- Trigger deletion confirmation dialog. -->
+                                <button type="button" class="btn btn-primary buttonMargin" data-toggle="modal"
+                                            data-target="#confirmDelete">
+                                    <fmt:message key="general.delete"/>
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <!-- Modal confirm dialog. -->
-                    <div id="confirm" class="modal fade" role="dialog">
+
+                    <!-- Modal confirm dialog - Delete reminder. -->
+                    <div id="confirmDelete" class="modal fade" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -288,7 +357,103 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> <!-- End modal dialog delete reminder. -->
+
+                    <!-- Modal confirm dialog - Activate/Deactivate reminder. -->
+                    <div id="confirmActivationOrDeactivation" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title"><fmt:message key="general.confirmation.title"/></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <c:if test="${currentReminder.isActive() == true}">
+                                        <p>
+                                            <fmt:message key="reminders.warning.deactivation">
+                                                <fmt:param>${currentReminder.getTitle()}</fmt:param>
+                                            </fmt:message>
+                                        </p>
+                                    </c:if>
+                                    <c:if test="${currentReminder.isActive() == false}">
+                                        <p>
+                                            <fmt:message key="reminders.warning.activation">
+                                                <fmt:param>${currentReminder.getTitle()}</fmt:param>
+                                            </fmt:message>
+                                        </p>
+                                    </c:if>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
+                                        <fmt:message key="general.no"/>
+                                    </button>
+                                    <form name="form" class="form-inline" method="post"
+                                          action="${base}webclient/reminders">
+                                        <c:if test="${currentReminder.isActive() == true}">
+                                            <button type="submit" name="button" value="deactivate"
+                                                    class="btn btn-primary pull-left">
+                                                <fmt:message key="general.yes"/>
+                                            </button>
+                                        </c:if>
+                                        <c:if test="${currentReminder.isActive() == false}">
+                                            <button type="submit" name="button" value="activate"
+                                                    class="btn btn-primary pull-left">
+                                                <fmt:message key="general.yes"/>
+                                            </button>
+                                        </c:if>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- End modal dialog activation/deactivation. -->
+
+                    <!-- Modal confirm dialog - Set ignore flag / reset ignore flag. -->
+                    <div id="confirmIgnoreFlagOperation" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title"><fmt:message key="general.confirmation.title"/></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <c:if test="${currentReminder.isIgnore() == true}">
+                                        <p>
+                                            <fmt:message key="reminders.warning.skipNextEvent.reset">
+                                                <fmt:param>${currentReminder.getTitle()}</fmt:param>
+                                            </fmt:message>
+                                        </p>
+                                    </c:if>
+                                    <c:if test="${currentReminder.isIgnore() == false}">
+                                        <p>
+                                            <fmt:message key="reminders.warning.skipNextEvent.set">
+                                                <fmt:param>${currentReminder.getTitle()}</fmt:param>
+                                            </fmt:message>
+                                        </p>
+                                    </c:if>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
+                                        <fmt:message key="general.no"/>
+                                    </button>
+                                    <form name="form" class="form-inline" method="post"
+                                          action="${base}webclient/reminders">
+                                        <c:if test="${currentReminder.isIgnore() == true}">
+                                            <button type="submit" name="button" value="resetIgnoreFlag"
+                                                    class="btn btn-primary pull-left">
+                                                <fmt:message key="general.yes"/>
+                                            </button>
+                                        </c:if>
+                                        <c:if test="${currentReminder.isIgnore() == false}">
+                                            <button type="submit" name="button" value="setIgnoreFlag"
+                                                    class="btn btn-primary pull-left">
+                                                <fmt:message key="general.yes"/>
+                                            </button>
+                                        </c:if>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- End modal dialog set ignore / reset ignore flag. -->
                 </c:if>
             </div>
         </div>

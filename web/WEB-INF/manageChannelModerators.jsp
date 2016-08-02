@@ -161,10 +161,10 @@
                                                 ${moderator.getLastName()}, ${moderator.getFirstName()}
                                                 <c:choose>
                                                     <c:when test="${moderator.isActive() == true}">
-                                                        <span class="glyphicon glyphicon-ok-sign pull-right" ></span>
+                                                        <span class="glyphicon glyphicon-ok-circle pull-right" ></span>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <span class="glyphicon glyphicon-minus-sign pull-right" ></span>
+                                                        <span class="glyphicon glyphicon-ban-circle pull-right" ></span>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </p>
@@ -176,16 +176,16 @@
                                             <a href="?moderatorId=${moderator.getId()}" class="list-group-item">
                                                 <p>
                                                     ${moderator.getLastName()}, ${moderator.getFirstName()}
-                                                    <span class="glyphicon glyphicon-ok-sign pull-right" ></span>
+                                                    <span class="glyphicon glyphicon-ok-circle pull-right" ></span>
                                                 </p>
                                             </a>
                                         </c:if>
                                         <c:if test="${moderator.isActive() == false}">
                                             <a href="?moderatorId=${moderator.getId()}"
-                                               class="list-group-item list-group-item-warning">
+                                               class="list-group-item">
                                                 <p>
                                                     ${moderator.getLastName()}, ${moderator.getFirstName()}
-                                                    <span class="glyphicon glyphicon-minus-sign pull-right" ></span>
+                                                    <span class="glyphicon glyphicon-ban-circle pull-right" ></span>
                                                 </p>
                                             </a>
                                         </c:if>

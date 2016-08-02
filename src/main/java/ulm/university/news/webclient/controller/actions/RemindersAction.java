@@ -1,5 +1,6 @@
 package ulm.university.news.webclient.controller.actions;
 
+import com.google.gson.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulm.university.news.webclient.api.ChannelAPI;
@@ -14,7 +15,10 @@ import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
 /**
- * TODO
+ * An implementation of the Action interface which realizes different features that
+ * can be executed from within the reminders.jsp view. This includes the deletion of reminders, the
+ * activation/deactivation of reminders and the setting or resetting of the ignore flag in order to skip upcoming
+ * reminder events..
  *
  * @author Matthias Mak
  * @author Philipp Speidel
@@ -25,7 +29,8 @@ public class RemindersAction implements Action {
     private static final Logger logger = LoggerFactory.getLogger(RemindersAction.class);
 
     /**
-     * This method executes the business logic to delete reminders from the server.
+     * This method executes the business logic to perform specific tasks on a selected reminder depending on the
+     * specified parameters.
      *
      * @param requestContext The context of the request for which the execution is triggered.
      * @return Returns the status that is used to determine the view that should be displayed after execution.
@@ -49,13 +54,51 @@ public class RemindersAction implements Action {
             try {
                 if (button != null) {
                     String message;
+
+                    // Task delete:
                     if (button.equals("delete")) {
-                        logger.debug("Delete {}", currentReminder.toString());
+                        logger.info("Delete {}", currentReminder.toString());
                         new ChannelAPI().deleteReminder(activeModerator.getServerAccessToken(), channelId,
                                 currentReminder.getId());
                         message = Translator.getInstance().getText(requestContext.retrieveLocale(),
                                 "reminders.delete.success", currentReminder.getTitle());
                         requestContext.storeInSession("editSuccess", message);
+                    }
+
+                    // Task activate reminder:
+                    if (button.equals("activate")){
+                        logger.info("Activate {}", currentReminder.toString());
+
+                        new ChannelAPI().changeActiveStatusOfReminder(activeModerator.getServerAccessToken(),
+                                channelId, currentReminder.getId(), true);
+
+                        message = Translator.getInstance().getText(requestContext.retrieveLocale(),
+                                "reminders.activation.success", currentReminder.getTitle());
+                        requestContext.storeInSession("editSuccess", message);
+                    }
+
+                    // Task deactivate reminder:
+                    if (button.equals("deactivate")){
+                        logger.info("Deactivate {}", currentReminder.toString());
+
+                        new ChannelAPI().changeActiveStatusOfReminder(activeModerator.getServerAccessToken(),
+                                channelId, currentReminder.getId(), false);
+                    }
+
+                    // Task set ignore flag:
+                    if (button.equals("setIgnoreFlag")){
+                        logger.info("Set ignore flag on {}", currentReminder.toString());
+
+                        new ChannelAPI().changeIgnoreFlagOfReminder(activeModerator.getServerAccessToken(),
+                                channelId, currentReminder.getId(), true);
+                    }
+
+                    // Task reset ignore flag:
+                    if (button.equals("resetIgnoreFlag")){
+                        logger.info("Reset ignore flag on {}", currentReminder.toString());
+
+                        new ChannelAPI().changeIgnoreFlagOfReminder(activeModerator.getServerAccessToken(),
+                                channelId, currentReminder.getId(), false);
                     }
                 }
             } catch (APIException e) {
@@ -100,6 +143,6 @@ public class RemindersAction implements Action {
      * @return Returns true if administrator permissions are required, otherwise false.
      */
     public boolean requiresAdminPermissions() {
-        return true;
+        return false;
     }
 }

@@ -905,6 +905,138 @@ public class ChannelAPI extends MainAPI {
     }
 
     /**
+     * Sends a request to change the active status of a specific reminder.
+     *
+     * @param accessToken The access token of the requestor.
+     * @param channelId The if of the channel to which the reminder belongs.
+     * @param reminderId The id of the reminder.
+     * @param active The new active status of the reminder.
+     * @throws APIException Throws an API exception, if the request fails or is rejected from the server.
+     */
+    public void changeActiveStatusOfReminder(String accessToken, int channelId, int reminderId, boolean active)
+            throws APIException {
+        String url = channelUrl + "/" + channelId + "/reminder/" + reminderId;
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("active", active);
+        String jsonContent = jsonObject.toString();
+
+        try{
+            URL obj = new URL(url);
+            // Set http method.
+            connection = (HttpURLConnection) obj.openConnection();
+            // PATCH method is not allowed in HttpUrlConnection.
+            connection.setRequestMethod("POST");
+            // Use X-HTTP-Method-Override header to replace POST with PATCH on the REST server.
+            connection.setRequestProperty("X-HTTP-Method-Override", "PATCH");
+            connection.addRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+            setAuthorization(accessToken);
+
+            logger.info("Sending PATCH request to URL: {} with content: {}", url, jsonContent);
+
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
+            out.write(jsonContent);
+            out.flush();
+            out.close();
+
+            int statusCode = connection.getResponseCode();
+            if (statusCode == HttpURLConnection.HTTP_OK) {
+                // Get request response as String.
+                String json = getResponse(connection);
+
+                Reminder updatedReminder = gson.fromJson(json, Reminder.class);
+
+                logger.info("Successfully changed active status of reminder with id {}, the new value is {}.",
+                        updatedReminder.getId(), updatedReminder.isActive());
+            } else {
+                String serverResponse = getErrorResponse(connection);
+                ServerError se = gson.fromJson(serverResponse, ServerError.class);
+                // Map to API exception.
+                throw new APIException(se.getErrorCode(), connection.getResponseCode(),
+                        "Change active status of reminder with id " + reminderId + " failed.");
+            }
+        } catch (MalformedURLException malEx) {
+            malEx.printStackTrace();
+            logger.error("Malformed URL discovered.");
+            throw new APIException(Constants.FATAL_ERROR, "URL malformed.");
+        } catch (ProtocolException pe) {
+            pe.printStackTrace();
+            throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Failed to connect to server.");
+        }
+    }
+
+    /**
+     * Sends a request to change the ignore flag value of a specific reminder.
+     *
+     * @param accessToken The access token of the requestor.
+     * @param channelId The if of the channel to which the reminder belongs.
+     * @param reminderId The id of the reminder.
+     * @param ignore The new value of the ignore flag of the reminder.
+     * @throws APIException Throws an API exception, if the request fails or is rejected from the server.
+     */
+    public void changeIgnoreFlagOfReminder(String accessToken, int channelId, int reminderId, boolean ignore)
+            throws APIException {
+        String url = channelUrl + "/" + channelId + "/reminder/" + reminderId;
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("ignore", ignore);
+        String jsonContent = jsonObject.toString();
+
+        try{
+            URL obj = new URL(url);
+            // Set http method.
+            connection = (HttpURLConnection) obj.openConnection();
+            // PATCH method is not allowed in HttpUrlConnection.
+            connection.setRequestMethod("POST");
+            // Use X-HTTP-Method-Override header to replace POST with PATCH on the REST server.
+            connection.setRequestProperty("X-HTTP-Method-Override", "PATCH");
+            connection.addRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+            setAuthorization(accessToken);
+
+            logger.info("Sending PATCH request to URL: {} with content: {}", url, jsonContent);
+
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
+            out.write(jsonContent);
+            out.flush();
+            out.close();
+
+            int statusCode = connection.getResponseCode();
+            if (statusCode == HttpURLConnection.HTTP_OK) {
+                // Get request response as String.
+                String json = getResponse(connection);
+
+                Reminder updatedReminder = gson.fromJson(json, Reminder.class);
+
+                logger.info("Successfully changed ignore flag of reminder with id {}, the new value is {}.",
+                        updatedReminder.getId(), updatedReminder.getIgnore());
+            } else {
+                String serverResponse = getErrorResponse(connection);
+                ServerError se = gson.fromJson(serverResponse, ServerError.class);
+                // Map to API exception.
+                throw new APIException(se.getErrorCode(), connection.getResponseCode(),
+                        "Change ignore flag value of reminder with id " + reminderId + " failed.");
+            }
+        } catch (MalformedURLException malEx) {
+            malEx.printStackTrace();
+            logger.error("Malformed URL discovered.");
+            throw new APIException(Constants.FATAL_ERROR, "URL malformed.");
+        } catch (ProtocolException pe) {
+            pe.printStackTrace();
+            throw new APIException(Constants.FATAL_ERROR, "Protocol exception.");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            logger.error("IO exception occurred. Probably due to a failed connection to the server.");
+            throw new APIException(Constants.CONNECTION_FAILURE, "Connection failure. Failed to connect to server.");
+        }
+    }
+
+    /**
      * Deletes the reminder with the specified id from the given channel.
      *
      * @param accessToken The access token of the requestor.

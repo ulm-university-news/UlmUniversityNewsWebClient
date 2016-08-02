@@ -230,7 +230,7 @@ public class CreateOrEditReminderAction implements Action {
         String announcementTitle = requestContext.getRequestParameter("announcementTitle");
         String messagePriority = requestContext.getRequestParameter("priorityValue");
         String announcementText = requestContext.getRequestParameter("announcementText");
-        String skipReminderCBValue = requestContext.getRequestParameter("skipReminderFlag");
+//        String skipReminderCBValue = requestContext.getRequestParameter("skipReminderFlag");
 
         String testString = String.format("Parameters: %n -> StartDate: %s %n -> EndDate: %s %n -> SelectedTime: %s " +
                 "%n -> IntervalType: %s %n -> Interval: %s %n -> AnnouncementTitle: %s %n -> MessagePriority: %s %n "
@@ -294,15 +294,15 @@ public class CreateOrEditReminderAction implements Action {
         }
 
         // Check if skip reminder flag is set.
-        boolean skipReminder;
-        if (skipReminderCBValue == null){
-            logger.debug("Skip reminder flag is not set.");
-            skipReminder = false;
-        }
-        else{
-            logger.debug("Skip reminder flag is set.");
-            skipReminder = true;
-        }
+//        boolean skipReminder;
+//        if (skipReminderCBValue == null){
+//            logger.debug("Skip reminder flag is not set.");
+//            skipReminder = false;
+//        }
+//        else{
+//            logger.debug("Skip reminder flag is set.");
+//            skipReminder = true;
+//        }
 
         // Determine priority.
         Priority priority = Priority.NORMAL;
@@ -317,7 +317,7 @@ public class CreateOrEditReminderAction implements Action {
         reminder.setTitle(announcementTitle);
         reminder.setPriority(priority);
         reminder.setText(announcementText);
-        reminder.setIgnore(skipReminder);
+        // reminder.setIgnore(skipReminder);
 
         return reminder;
     }
