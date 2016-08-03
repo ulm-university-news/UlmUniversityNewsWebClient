@@ -1,4 +1,3 @@
-<!-- Page header. -->
 <%@ include file="header.jsp" %>
 <c:set var="groupId" value="${param.groupId}" scope="session"/>
 <c:set var="typeTutorial" value="TUTORIAL" scope="page"/>
@@ -51,35 +50,37 @@
                 <div class="list-group-item active">
                     <h4 class="list-group-item-heading"><fmt:message key="groups.list.heading"/></h4>
                 </div>
-                <c:choose>
-                    <c:when test="${groups != null && !groups.isEmpty()}">
-                        <c:forEach items="${groups}" var="group">
-                            <c:if test="${groupId == null && group != null}">
-                                <c:set var="groupId" value="${group.getId()}"/>
-                            </c:if>
-                            <c:choose>
-                                <c:when test="${groupId != null && groupId == group.getId()}">
-                                    <a href="?groupId=${group.getId()}"
-                                       class="list-group-item list-group-item-info">
-                                            ${group.getName()}
-                                    </a>
-                                    <c:set var="currentGroup" value="${group}" scope="session"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="?groupId=${group.getId()}" class="list-group-item">
-                                            ${group.getName()}
-                                    </a>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="list-group-item">
-                            <fmt:message key="general.none"/>
-                        </div>
-                        ${currentGroup = null}
-                    </c:otherwise>
-                </c:choose>
+                <div class="scrollEnabled">
+                    <c:choose>
+                        <c:when test="${groups != null && !groups.isEmpty()}">
+                            <c:forEach items="${groups}" var="group">
+                                <c:if test="${groupId == null && group != null}">
+                                    <c:set var="groupId" value="${group.getId()}"/>
+                                </c:if>
+                                <c:choose>
+                                    <c:when test="${groupId != null && groupId == group.getId()}">
+                                        <a href="?groupId=${group.getId()}"
+                                           class="list-group-item list-group-item-info">
+                                                ${group.getName()}
+                                        </a>
+                                        <c:set var="currentGroup" value="${group}" scope="session"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="?groupId=${group.getId()}" class="list-group-item">
+                                                ${group.getName()}
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="list-group-item">
+                                <fmt:message key="general.none"/>
+                            </div>
+                            ${currentGroup = null}
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </div>
         </div>
         <div class="col-md-9">
@@ -94,7 +95,7 @@
                         </c:otherwise>
                     </c:choose>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body scrollEnabledPanel">
                     <c:choose>
                         <c:when test="${currentGroup != null}">
                             <div class="row">

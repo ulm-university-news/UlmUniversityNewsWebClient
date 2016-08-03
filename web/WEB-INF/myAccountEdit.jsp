@@ -1,8 +1,8 @@
-<!-- Page header. -->
 <%@ include file="header.jsp" %>
 
 <!-- Page content. -->
 <div class="container">
+
     <div class="row">
         <div class="col-md-12">
             <h3><fmt:message key="myAccountEdit.title"/></h3>
@@ -11,6 +11,7 @@
             <br>
         </div>
     </div>
+
     <c:if test="${editSuccess != null}">
         <div class="row">
             <div class="col-md-12">
@@ -43,8 +44,14 @@
         </div>
         ${loadError = null}
     </c:if>
+
     <div class="row">
-        <div class="col-md-12">
+
+        <!-- Dummy column -->
+        <div class="col-md-1"></div>
+
+        <!-- Form -->
+        <div class="col-md-10">
             <form class="form-horizontal" role="form" method="post" action="${base}webclient/myAccountEdit">
                 <!-- Name of the moderator account -->
                 <!--
@@ -249,7 +256,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="text-center">
-                            <button class="btn btn-primary btn-block"
+                            <button class="btn btn-primary pull-right"
                                     type="submit" name="task" value="register"><fmt:message key="general.edit"/>
                             </button>
                         </div>
@@ -257,6 +264,10 @@
                 </div>
             </form>
         </div>
+
+        <!-- Dummy column. -->
+        <div class="col-md-1"></div>
+
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -268,12 +279,19 @@
     <br>
 
     <div class="row">
-        <div class="col-md-12">
-            <button class="btn btn-primary btn-block" type="button" name="newMessageBtn"
+        <!-- Dummy column. -->
+        <div class="col-md-1"></div>
+
+        <!-- Button -->
+        <div class="col-md-10">
+            <button class="btn btn-primary pull-right" type="button" name="newMessageBtn"
                     data-toggle="modal" data-target="#newPasswordDialog">
                 <fmt:message key="myAccountEdit.password.change"/>
             </button>
         </div>
+
+        <!-- Dummy column. -->
+        <div class="col-md-1"></div>
     </div>
 
     <!-- New password dialog. -->

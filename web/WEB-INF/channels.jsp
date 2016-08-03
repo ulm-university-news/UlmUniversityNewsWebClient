@@ -1,4 +1,3 @@
-<!-- Page header. -->
 <%@include file="header.jsp" %>
 
 <c:set var="channelId" value="${param.channelId}" scope="session"/>
@@ -7,26 +6,6 @@
 <c:set var="typeSports" value="SPORTS" scope="page"/>
 <c:set var="typeStudentGroup" value="STUDENT_GROUP" scope="page"/>
 <c:set var="typeOther" value="OTHER" scope="page"/>
-
-<style>
-    .heightRestrictedList {
-        min-height: 100px;
-        max-height: 60vh;
-        position: relative;
-    }
-
-    .scrollEnabled {
-        min-height: 100px;
-        max-height: 60vh;
-        overflow-y: auto;
-    }
-
-    .scrollEnabledPanel {
-        min-height: 100px;
-        max-height: 50vh;
-        overflow-y: auto;
-    }
-</style>
 
 <!-- Page content -->
 <div class="container">

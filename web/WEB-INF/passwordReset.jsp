@@ -1,4 +1,3 @@
-<!-- Page header. -->
 <%@ include file="header.jsp" %>
 
 <!-- Page content. -->

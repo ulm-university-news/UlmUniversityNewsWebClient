@@ -1,4 +1,3 @@
-<!-- Page header. -->
 <%@ include file="header.jsp" %>
 <c:set var="moderatorId" value="${param.moderatorId}" scope="request"/>
 
@@ -50,35 +49,37 @@
                 <div class="list-group-item active">
                     <h4 class="list-group-item-heading"><fmt:message key="accounts.list.heading"/></h4>
                 </div>
-                <c:choose>
-                    <c:when test="${moderators != null && !moderators.isEmpty()}">
-                        <c:forEach items="${moderators}" var="moderator">
-                            <c:if test="${moderatorId == null && moderator != null}">
-                                <c:set var="moderatorId" value="${moderator.getId()}"/>
-                            </c:if>
-                            <c:choose>
-                                <c:when test="${moderatorId != null && moderatorId == moderator.getId()}">
-                                    <a href="?moderatorId=${moderator.getId()}"
-                                       class="list-group-item list-group-item-info">
-                                            ${moderator.getLastName()}, ${moderator.getFirstName()}
-                                    </a>
-                                    <c:set var="currentModerator" value="${moderator}" scope="session"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="?moderatorId=${moderator.getId()}" class="list-group-item">
-                                            ${moderator.getLastName()}, ${moderator.getFirstName()}
-                                    </a>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="list-group-item">
-                            <fmt:message key="general.none"/>
-                        </div>
-                        ${currentModerator = null}
-                    </c:otherwise>
-                </c:choose>
+                <div class="scrollEnabled">
+                    <c:choose>
+                        <c:when test="${moderators != null && !moderators.isEmpty()}">
+                            <c:forEach items="${moderators}" var="moderator">
+                                <c:if test="${moderatorId == null && moderator != null}">
+                                    <c:set var="moderatorId" value="${moderator.getId()}"/>
+                                </c:if>
+                                <c:choose>
+                                    <c:when test="${moderatorId != null && moderatorId == moderator.getId()}">
+                                        <a href="?moderatorId=${moderator.getId()}"
+                                           class="list-group-item list-group-item-info">
+                                                ${moderator.getLastName()}, ${moderator.getFirstName()}
+                                        </a>
+                                        <c:set var="currentModerator" value="${moderator}" scope="session"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="?moderatorId=${moderator.getId()}" class="list-group-item">
+                                                ${moderator.getLastName()}, ${moderator.getFirstName()}
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="list-group-item">
+                                <fmt:message key="general.none"/>
+                            </div>
+                            ${currentModerator = null}
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </div>
         </div>
         <div class="col-md-9">
@@ -99,11 +100,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <h4><fmt:message key="moderator.firstname"/></h4>
-                                        ${currentModerator.getFirstName()}
+                                    <p>${currentModerator.getFirstName()}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <h4><fmt:message key="moderator.lastname"/></h4>
-                                        ${currentModerator.getLastName()}
+                                    <p>${currentModerator.getLastName()}</p>
                                 </div>
                             </div>
                             <br>
@@ -111,26 +112,26 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <h4><fmt:message key="moderator.name"/></h4>
-                                        ${currentModerator.getName()}
+                                    <p>${currentModerator.getName()}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <h4><fmt:message key="moderator.email"/></h4>
-                                        ${currentModerator.getEmail()}
+                                    <p>${currentModerator.getEmail()}</p>
                                 </div>
                             </div>
                             <br>
                             <h4><fmt:message key="moderator.isAdmin"/></h4>
-                            <c:choose>
-                                <c:when test="${currentModerator.isAdmin()}">
-                                    <fmt:message key="general.yes"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <fmt:message key="general.no"/>
-                                </c:otherwise>
-                            </c:choose>
+                                <c:choose>
+                                    <c:when test="${currentModerator.isAdmin()}">
+                                       <p><fmt:message key="general.yes"/></p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p><fmt:message key="general.no"/></p>
+                                    </c:otherwise>
+                                </c:choose>
                             <br><br>
                             <h4><fmt:message key="moderator.motivation"/></h4>
-                            ${currentModerator.getMotivation()}
+                            <p>${currentModerator.getMotivation()}</p>
                         </c:when>
                         <c:otherwise>
                             <fmt:message key="accounts.nodata.info"/>
@@ -145,13 +146,13 @@
                                     <c:choose>
                                         <c:when test="${currentModerator.isAdmin()}">
                                             <button type="submit" name="button" value="removeRights"
-                                                    class="btn btn-primary">
+                                                    class="btn btn-primary buttonMargin">
                                                 <fmt:message key="accounts.adminRights.remove"/>
                                             </button>
                                         </c:when>
                                         <c:otherwise>
                                             <button type="submit" name="button" value="addRights"
-                                                    class="btn btn-primary">
+                                                    class="btn btn-primary buttonMargin">
                                                 <fmt:message key="accounts.adminRights.add"/>
                                             </button>
                                         </c:otherwise>
@@ -161,11 +162,11 @@
                             <div class="col-md-6">
                                 <form name="form" class="form-inline pull-right" method="post"
                                       action="${base}webclient/accounts">
-                                    <button type="submit" name="button" value="lock" class="btn btn-primary">
+                                    <button type="submit" name="button" value="lock" class="btn btn-primary buttonMargin">
                                         <fmt:message key="accounts.lock"/>
                                     </button>
                                     <!-- Trigger confirmation dialog. -->
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    <button type="button" class="btn btn-primary buttonMargin" data-toggle="modal"
                                             data-target="#confirm">
                                         <fmt:message key="general.delete"/>
                                     </button>

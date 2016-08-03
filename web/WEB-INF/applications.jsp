@@ -1,4 +1,3 @@
-<!-- Page header. -->
 <%@ include file="header.jsp" %>
 <c:set var="moderatorId" value="${param.moderatorId}" scope="session"/>
 

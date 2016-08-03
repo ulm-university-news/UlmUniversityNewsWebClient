@@ -1,28 +1,6 @@
-<!-- Page header. -->
 <%@ include file="header.jsp" %>
 
 <c:set var="moderatorId" value="${param.moderatorId}" scope="request" />
-
-<style>
-    .row-eq-height {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-    }
-
-    .scrollEnabledList {
-        min-height: 100px;
-        max-height: 60vh;
-        overflow-y: auto;
-    }
-
-    .scrollEnabledPanel {
-        min-height: 100px;
-        max-height: 50vh;
-        overflow-y: auto;
-    }
-</style>
 
 <!-- PageContent. -->
 <div class="container">
@@ -110,10 +88,8 @@
                                     <fmt:message key="manageChannelModerators.dialog.addModerator.inputfield.label" />
                                 </label>
                                 <input type="text" name="usernameModerator" class="form-control" id="moderatorName"
-                                        placeholder="
-                                        <fmt:message
-                                        key="manageChannelModerators.dialog.addModerator.inputfield.placeholder" />
-                                        ">
+                                        placeholder="<fmt:message
+                                        key="manageChannelModerators.dialog.addModerator.inputfield.placeholder" />">
                             </div>
                         </div>
                         <!-- Footer with submit button. -->
@@ -135,7 +111,7 @@
     <br>
     <br>
 
-    <div class="row row-eq-height">
+    <div class="row">
         <div class="col-md-3">
             <div class="list-group">
                 <div class="list-group-item active">

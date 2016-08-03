@@ -1,27 +1,4 @@
-<!-- Page header. -->
 <%@include file="header.jsp"%>
-
-<style>
-  #announcementList {
-    overflow: auto;
-    max-height: 60vh;
-  }
-
-  .borderStyle{
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: none;
-  }
-
-  hr {
-    height: 1px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    background: #000000;
-  }
-
-</style>
 
 <div class="container">
   <div class="row">
@@ -75,12 +52,13 @@
           </div>
 
           <!-- Body -->
-          <div class="panel-body" id="announcementList">
+          <div class="panel-body scrollEnabled" id="announcementList">
             <div class="list-group">
               <c:choose>
                 <c:when test="${announcements != null && !announcements.isEmpty()}">
                   <c:forEach items="${announcements}" var="announcement">
-                    <div class="list-group-item borderStyle">
+                    <div class="list-group-item" style="border-top: none; border-left: none; border-right: none;
+                       border-bottom: none;">
                       <p><b>${announcement.getTitle()}</b>
                                                 <span class="pull-right">
                                                     <joda:format value="${announcement.getCreationDate()}"
@@ -89,13 +67,14 @@
                       </p>
                       <p>${announcement.getText()}</p>
 
-                      <hr>
+                      <hr style="height: 1px; margin-top: 5px; margin-bottom: 5px; background: #000000;">
 
                     </div>
                   </c:forEach>
                 </c:when>
                 <c:otherwise>
-                  <div class="list-group-item borderStyle">
+                  <div class="list-group-item" style="border-top: none; border-left: none; border-right: none;
+                       border-bottom: none;">
                     <fmt:message key="announcements.noAnnouncements"/>
                   </div>
                 </c:otherwise>

@@ -1,4 +1,3 @@
-<!-- Page header. -->
 <%@ include file="header.jsp" %>
 <c:set var="moderatorId" value="${param.moderatorId}" scope="request"/>
 
@@ -105,11 +104,11 @@
                     <div class="panel-footer">
                         <div class="row">
                             <div class="col-md-12">
-                                <a class="btn btn-primary" href="${base}webclient/myAccountEdit">
+                                <a class="btn btn-primary buttonMargin" href="${base}webclient/myAccountEdit">
                                     <fmt:message key="general.edit"/></a>
 
                                 <!-- Trigger confirmation dialog. -->
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                <button type="button" class="btn btn-primary buttonMargin" data-toggle="modal"
                                         data-target="#confirm">
                                     <fmt:message key="general.delete"/>
                                 </button>

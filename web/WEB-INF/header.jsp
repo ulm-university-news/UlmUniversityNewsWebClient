@@ -36,6 +36,18 @@ pageContext.request.locale}" scope="session"/>
         body {
             padding-top: 50px;
         }
+
+         .scrollEnabled {
+             min-height: 100px;
+             max-height: 60vh;
+             overflow-y: auto;
+         }
+
+        .scrollEnabledPanel {
+            min-height: 100px;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
     </style>
 </head>
 

@@ -1,4 +1,3 @@
-<!-- Page header. -->
 <%@ include file="header.jsp" %>
 
 <!-- Page content. -->
@@ -70,6 +69,6 @@
                 <fmt:message key="index.button.app.windowsPhone"/> &raquo;</a></p>
         </div>
     </div>
-
+</div>
     <!-- Page footer. -->
     <%@ include file="footer.jsp" %>
