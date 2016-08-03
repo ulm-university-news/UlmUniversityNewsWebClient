@@ -7,7 +7,7 @@ import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
 /**
- * TODO
+ * This action performs the logout procedure.
  *
  * @author Matthias Mak
  * @author Philipp Speidel

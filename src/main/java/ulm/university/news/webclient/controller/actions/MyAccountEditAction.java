@@ -14,7 +14,7 @@ import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
 /**
- * TODO
+ * Action that provides functionality for editing the own moderator account or change the password for it.
  *
  * @author Matthias Mak
  * @author Philipp Speidel

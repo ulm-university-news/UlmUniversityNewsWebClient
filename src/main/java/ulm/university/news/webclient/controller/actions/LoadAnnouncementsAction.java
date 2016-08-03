@@ -16,14 +16,14 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Action that realizes the loading process of the channel details and announcements of the selected channel.
+ * Action that realizes the loading process of the announcements of the selected channel.
  *
  * @author Matthias Mak
  * @author Philipp Speidel
  */
 public class LoadAnnouncementsAction implements Action {
     /**
-     * This method executes the business logic to load channel details and announcements of the selected channel.
+     * This method executes the business logic to load announcements of the selected channel.
      *
      * @param requestContext The context of the request for which the execution is triggered.
      * @return Returns the status that is used to determine the view that should be displayed after execution.
@@ -76,7 +76,7 @@ public class LoadAnnouncementsAction implements Action {
      * @return Returns true if an active session is required, otherwise false.
      */
     public boolean requiresSession() {
-        return false;
+        return true;
     }
 
     /**

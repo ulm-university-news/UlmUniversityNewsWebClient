@@ -7,6 +7,7 @@ import ulm.university.news.webclient.controller.context.RequestContextManager;
 import ulm.university.news.webclient.controller.dispatcher.RequestDispatcher;
 import ulm.university.news.webclient.controller.factory.ActionFactory;
 import ulm.university.news.webclient.controller.interfaces.Action;
+import ulm.university.news.webclient.data.Moderator;
 import ulm.university.news.webclient.util.Constants;
 import ulm.university.news.webclient.util.Translator;
 import ulm.university.news.webclient.util.exceptions.ServerException;
@@ -88,7 +89,20 @@ public class FrontController extends HttpServlet {
                 }
                 else {
                     logger.debug("User seems to have an active session.");
-                    // TODO Check rights/permissions of the requestor.
+                    // Check rights/permissions of the requestor.
+                    if (action.requiresAdminPermissions()){
+                        Moderator activeModerator = contextManager.retrieveRequestor();
+
+                        if (activeModerator == null || !activeModerator.isAdmin()){
+                            logger.warn("Requestor has not the appropriate rights to perform the request on {0}.",
+                                    contextManager.getUrlPath());
+                            logger.error("Request will be rejected.");
+                            // Reject request.
+                            // Forward to error page.
+                            RequestDispatcher.forwardRequestToErrorView(request, response, Constants.FORBIDDEN);
+                            return;
+                        }
+                    }
                 }
             }
 
@@ -108,23 +122,51 @@ public class FrontController extends HttpServlet {
         }
         catch (ServerException serverE){
             logger.error("ServerException received in FrontController. Error code is {}.", serverE.getErrorCode());
+            Locale currentLocale = contextManager.retrieveLocale();
 
             if (serverE.getErrorCode() == Constants.CONNECTION_FAILURE){
                 // Forward to error page.
                 RequestDispatcher.forwardRequestToErrorView(request, response, Constants.CONNECTION_FAILURE);
             }
-
-            if (serverE.getErrorCode() == Constants.DATABASE_FAILURE) {
+            else if (serverE.getErrorCode() == Constants.DATABASE_FAILURE) {
                 // Forward to error page.
-                // TODO separate error page?
+                String errorMessage = Translator.getInstance().getText(currentLocale,
+                        "general.message.error.databaseFailure");
+                contextManager.addToRequestContext("fatalErrorDescription", errorMessage);
                 RequestDispatcher.forwardRequestToErrorView(request, response, Constants.FATAL_ERROR);
             }
-
-            // Error code MODERATOR UNAUTHORIZED, USER_UNAUTHORIZED
-
-            // TODO - further errors ?
-            // If not handled so far, navigate to fatal error page.
-            RequestDispatcher.forwardRequestToErrorView(request, response, Constants.FATAL_ERROR);
+            else if (serverE.getErrorCode() == Constants.MODERATOR_UNAUTHORIZED){
+                // Forward to error page.
+                String errorMessage = Translator.getInstance().getText(currentLocale,
+                        "general.message.error.moderatorUnauthorized");
+                contextManager.addToRequestContext("fatalErrorDescription", errorMessage);
+                RequestDispatcher.forwardRequestToErrorView(request, response, Constants.FATAL_ERROR);
+            }
+            else if (serverE.getErrorCode() == Constants.USER_FORBIDDEN){
+                // Forward to error page.
+                String errorMessage = Translator.getInstance().getText(currentLocale,
+                        "general.message.error.userForbidden");
+                contextManager.addToRequestContext("forbiddenDescription", errorMessage);
+                RequestDispatcher.forwardRequestToErrorView(request, response, Constants.FORBIDDEN);
+            }
+            else if (serverE.getErrorCode() == Constants.MODERATOR_FORBIDDEN){
+                // Forward to error page.
+                String errorMessage = Translator.getInstance().getText(currentLocale,
+                        "general.message.error.moderatorForbidden");
+                contextManager.addToRequestContext("forbiddenDescription", errorMessage);
+                RequestDispatcher.forwardRequestToErrorView(request, response, Constants.FORBIDDEN);
+            }
+            else if (serverE.getErrorCode() == Constants.EMAIL_FAILURE){
+                // Forward to error page.
+                String errorMessage = Translator.getInstance().getText(currentLocale,
+                        "general.message.error.emailFailure");
+                contextManager.addToRequestContext("fatalErrorDescription", errorMessage);
+                RequestDispatcher.forwardRequestToErrorView(request, response, Constants.FATAL_ERROR);
+            }
+            else {
+                // If not handled so far, navigate to fatal error page.
+                RequestDispatcher.forwardRequestToErrorView(request, response, Constants.FATAL_ERROR);
+            }
         }
         catch (Exception ex){
             logger.error("General exception occurred " + ex.getMessage());

@@ -13,7 +13,7 @@ import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
 /**
- * TODO
+ * This action provides functionality that can be executed from within the "my account" view.
  *
  * @author Matthias Mak
  * @author Philipp Speidel
@@ -92,6 +92,6 @@ public class MyAccountAction implements Action {
      * @return Returns true if administrator permissions are required, otherwise false.
      */
     public boolean requiresAdminPermissions() {
-        return true;
+        return false;
     }
 }

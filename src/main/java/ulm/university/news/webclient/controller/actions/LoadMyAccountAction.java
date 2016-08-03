@@ -11,7 +11,7 @@ import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
 /**
- * TODO
+ * This action is responsible for loading the required data for the "my account" view.
  *
  * @author Matthias Mak
  * @author Philipp Speidel
@@ -59,6 +59,6 @@ public class LoadMyAccountAction implements Action {
      * @return Returns true if administrator permissions are required, otherwise false.
      */
     public boolean requiresAdminPermissions() {
-        return true;
+        return false;
     }
 }

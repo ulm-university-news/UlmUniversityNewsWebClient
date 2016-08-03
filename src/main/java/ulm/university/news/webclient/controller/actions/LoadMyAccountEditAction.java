@@ -11,7 +11,7 @@ import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
 /**
- * TODO
+ * This action is called when the logged in moderator wants to change his account data.
  *
  * @author Matthias Mak
  * @author Philipp Speidel
@@ -59,6 +59,6 @@ public class LoadMyAccountEditAction implements Action {
      * @return Returns true if administrator permissions are required, otherwise false.
      */
     public boolean requiresAdminPermissions() {
-        return true;
+        return false;
     }
 }

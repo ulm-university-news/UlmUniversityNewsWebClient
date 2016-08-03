@@ -7,7 +7,7 @@ import ulm.university.news.webclient.util.exceptions.ServerException;
 import ulm.university.news.webclient.util.exceptions.SessionIsExpiredException;
 
 /**
- * TODO
+ * This action is called when the login screen should be loaded.
  *
  * @author Matthias Mak
  * @author Philipp Speidel
