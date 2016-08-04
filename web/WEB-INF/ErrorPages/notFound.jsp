@@ -22,7 +22,7 @@
         <div class="col-md-1"></div>
 
         <div class="col-md-10">
-            <img src="${base}../img/error-1349562_1280.png" class="img-rounded img-responsive" alt="404 not found">
+            <img src="${base}/img/error-1349562_1280.png" class="img-rounded img-responsive" alt="404 not found">
         </div>
 
         <!-- Dummy col -->

@@ -26,11 +26,11 @@ pageContext.request.locale}" scope="session"/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>University New Ulm Web Client</title>
     <!-- Bootstrap -->
-    <link href="${base}../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${base}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Include button margin stylesheet. -->
-    <link href="${base}../css/ButtonStyle.css" rel="stylesheet">
+    <link href="${base}/css/ButtonStyle.css" rel="stylesheet">
     <!-- jquery UI -->
-    <link href="${base}../css/jquery-ui.css" rel="stylesheet">
+    <link href="${base}/css/jquery-ui.css" rel="stylesheet">
 
     <style type="text/css">
         body {
@@ -53,16 +53,16 @@ pageContext.request.locale}" scope="session"/>
 
 <body>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="${base}../jquery/jquery-1.12.4.min.js"></script>
+<script src="${base}/jquery/jquery-1.12.4.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="${base}../bootstrap/js/bootstrap.min.js"></script>
+<script src="${base}/bootstrap/js/bootstrap.min.js"></script>
 <!-- jQuery UI -->
-<script src="${base}../jquery/jquery-ui.js"></script>
+<script src="${base}/jquery/jquery-ui.js"></script>
 <!-- Localization for time picker. -->
-<script src="${base}../jquery/globalize/globalize.js"></script>
-<script src="${base}../jquery/globalize/globalize.culture.de-DE.js"></script>
+<script src="${base}/jquery/globalize/globalize.js"></script>
+<script src="${base}/jquery/globalize/globalize.culture.de-DE.js"></script>
 <!-- Mousewheel for time picker. -->
-<script src="${base}../jquery/jquery-mousewheel/jquery.mousewheel.js"></script>
+<script src="${base}/jquery/jquery-mousewheel/jquery.mousewheel.js"></script>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
