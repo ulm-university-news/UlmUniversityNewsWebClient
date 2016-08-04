@@ -1,7 +1,8 @@
 <%@ include file="header.jsp" %>
 
 <!-- Hashing library. -->
-<script src="https://raw.github.com/bitwiseshiftleft/sjcl/master/sjcl.js"></script>
+<!-- <script src="https://raw.github.com/bitwiseshiftleft/sjcl/master/sjcl.js"></script> -->
+<script src="${base}/hashlib/sha256.js"></script>
 
 <!-- Page content. -->
 <div class="container">
@@ -64,8 +65,10 @@
 
         var password = document.getElementById("inputPassword").value;
 
-        var bitArray = sjcl.hash.sha256.hash(password);
-        var digest_sha256 = sjcl.codec.hex.fromBits(bitArray);
+//        var bitArray = sjcl.hash.sha256.hash(password);
+//        var digest_sha256 = sjcl.codec.hex.fromBits(bitArray);
+
+        var digest_sha256 = sha256(password);
 
         document.getElementById("inputPassword").value = digest_sha256;
 
