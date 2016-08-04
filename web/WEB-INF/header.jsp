@@ -31,6 +31,7 @@ pageContext.request.locale}" scope="session"/>
     <link href="${base}/css/ButtonStyle.css" rel="stylesheet">
     <!-- jquery UI -->
     <link href="${base}/css/jquery-ui.css" rel="stylesheet">
+    <link href="${base}/img/favicon.ico" rel="icon" type="image/vnd.microsoft.icon">
 
     <style type="text/css">
         body {
