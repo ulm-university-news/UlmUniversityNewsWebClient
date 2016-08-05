@@ -32,7 +32,7 @@ public class Constants {
     public static final String PUSH_TOKEN_CREATED = "pushTokenCreated";
 
     /** The time zone where the user is located. */
-    public static final DateTimeZone TIME_ZONE = DateTimeZone.getDefault();
+    public static final DateTimeZone TIME_ZONE = DateTimeZone.forID("Europe/Berlin");
 
     /** The name of the application. */
     public static final String APPLICATION_NAME = "University News Ulm";

@@ -78,7 +78,7 @@
             <div class="col-md-10">
               <div class="input-group date">
                 <input type='text' class="form-control" name="startDate" id="startDatePicker"
-                       value="${selectedStartDateValue}" />
+                       value="${selectedStartDateValue}" autocomplete="off" />
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
@@ -95,7 +95,7 @@
             <div class="col-md-10">
               <div class="input-group date">
                 <input type='text' class="form-control" name="startDate"
-                       id="startDatePickerValidationError" value="${selectedStartDateValue}" />
+                       id="startDatePickerValidationError" value="${selectedStartDateValue}" autocomplete="off" />
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
@@ -125,7 +125,7 @@
             <div class="col-md-10">
               <div class="input-group date">
                 <input type='text' class="form-control" name="endDate" id="endDatePicker"
-                       value="${selectedEndDateValue}" />
+                       value="${selectedEndDateValue}" autocomplete="off" />
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
@@ -142,7 +142,7 @@
             <div class="col-md-10">
               <div class="input-group date">
                 <input type='text' class="form-control" name="endDate"
-                       id="endDatePickerValidationError" value="${selectedEndDateValue}" />
+                       id="endDatePickerValidationError" value="${selectedEndDateValue}" autocomplete="off" />
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
@@ -461,16 +461,17 @@
       // http://stackoverflow.com/questions/2547814/mixing-jsf-el-in-a-javascript-file
       var lang = '${language}';
 
-      if (lang == 'en'){
+      if (lang == 'en' || lang == 'en-EN' || lang == 'en-GB' || lang == 'en_EN'){
         $.datepicker.setDefaults( $.datepicker.regional[ "en-GB" ] );
         Globalize.culture('en-EN');
       }
-      else if (lang == 'de'){
+      else if (lang == 'de' || lang == 'de-DE' || lang == 'de_DE' || lang == 'de-de'){
         $.datepicker.setDefaults( $.datepicker.regional[ "de" ] );
         Globalize.culture('de');
       }
       else{
-        $.datepicker.setDefaults( $.datepicker.regional[ "" ] );
+          // Default is english.
+        $.datepicker.setDefaults( $.datepicker.regional[ "en-GB" ] );
         Globalize.culture('en-EN');
       }
 
@@ -519,20 +520,28 @@
         var inputElementSelectedTime = $( "#selectedTime" );
         inputElementSelectedTime.timespinner();
 
-        if (lang == 'de'){
+        if (lang == 'de' || lang == 'de-DE' || lang == 'de_DE' || lang == 'de-de'){
           var currentDE = inputElementSelectedTime.timespinner( "value" );
-          Globalize.culture('de');
           if (currentDE == '0'){
             currentDE = Date.now().toString();
           }
+          Globalize.culture('de');
           inputElementSelectedTime.timespinner( "value", currentDE );
-        } else if (lang == 'en'){
+        } else if (lang == 'en' || lang == 'en-EN' || lang == 'en-GB' || lang == 'en_EN'){
           var currentEN = inputElementSelectedTime.timespinner( "value" );
           if (currentEN == '0'){
             currentEN = Date.now().toString();
           }
           Globalize.culture('en-EN');
           inputElementSelectedTime.timespinner( "value", currentEN );
+        }
+          else {
+            var currentDefault = inputElementSelectedTime.timespinner( "value" );
+            if (currentDefault == '0'){
+                currentDefault = Date.now().toString();
+            }
+            Globalize.culture('en-EN');
+            inputElementSelectedTime.timespinner( "value", currentDefault );
         }
 
       } );

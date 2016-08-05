@@ -86,13 +86,25 @@ public class LoadEditReminderAction implements Action {
                 // Prepare request parameters.
                 Locale currentLocale = requestContext.retrieveLocale();
 
+                logger.debug("Current locale is: {}.", currentLocale);
+
                 // Start with date and time.
-                if (currentLocale.equals(Locale.GERMAN)){
+                if (currentLocale.equals(Locale.GERMAN) || currentLocale.equals(Locale.GERMANY)){
                     requestContext.addToRequestContext("initStartDate", reminder.getStartDate().toString("dd.MM.yyyy"));
                     requestContext.addToRequestContext("initEndDate", reminder.getEndDate().toString("dd.MM.yyyy"));
                     requestContext.addToRequestContext("initSelectedTime", reminder.getStartDate().toString("HH:mm"));
                 }
-                else if (currentLocale.equals(Locale.ENGLISH)){
+                else if (currentLocale.equals(Locale.ENGLISH) || currentLocale.equals(Locale.UK) ||
+                        currentLocale.equals(Locale.US)){
+                    requestContext.addToRequestContext("initStartDate", reminder.getStartDate().toString("dd/MM/yyyy"));
+                    requestContext.addToRequestContext("initEndDate", reminder.getEndDate().toString("dd/MM/yyyy"));
+                    requestContext.addToRequestContext("initSelectedTime", reminder.getStartDate().toString("hh:mm " +
+                            "aa"));
+                }
+                else {
+                    logger.error("No local matched. Current locale is: {}", currentLocale);
+                    logger.warn("Using english per default.");
+                    // Try english as default.
                     requestContext.addToRequestContext("initStartDate", reminder.getStartDate().toString("dd/MM/yyyy"));
                     requestContext.addToRequestContext("initEndDate", reminder.getEndDate().toString("dd/MM/yyyy"));
                     requestContext.addToRequestContext("initSelectedTime", reminder.getStartDate().toString("hh:mm " +

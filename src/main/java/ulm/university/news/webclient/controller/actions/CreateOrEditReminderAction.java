@@ -1,6 +1,8 @@
 package ulm.university.news.webclient.controller.actions;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
@@ -246,18 +248,35 @@ public class CreateOrEditReminderAction implements Action {
         if (startDate != null && startDate.trim().length() > 0 &&
                 endDate != null && endDate.trim().length() > 0 &&
                 selectedTime != null){
+
+            logger.debug("Locale iso3 country: {}", currentLocale.getISO3Country());
+
             try{
-                if (currentLocale.equals(Locale.GERMAN)){
+                if (currentLocale.equals(Locale.GERMAN) || currentLocale.equals(Locale.GERMANY)){
                     logger.debug("Case GERMAN: ");
                     DateTimeFormatter formatter = DateTimeFormat.forPattern("dd.MM.yyyy HH:mm").withLocale(Locale.GERMAN);
-                    reminderStartDate = formatter.parseDateTime(startDate + " " + selectedTime);
-                    reminderEndDate = formatter.parseDateTime(endDate + " " + selectedTime);
+                    reminderStartDate = formatter.withZone(Constants.TIME_ZONE).parseDateTime(startDate + " " +
+                            selectedTime);
+                    reminderEndDate = formatter.withZone(Constants.TIME_ZONE).parseDateTime(endDate + " " +
+                            selectedTime);
                 }
-                else if (currentLocale.equals(Locale.ENGLISH)){
+                else if (currentLocale.equals(Locale.ENGLISH) || currentLocale.equals(Locale.UK) ||
+                        currentLocale.equals(Locale.US)){
                     logger.debug("Case ENGLISH: ");
                     DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy hh:mm aa").withLocale(Locale.ENGLISH);
-                    reminderStartDate = formatter.parseDateTime(startDate + " " + selectedTime);
-                    reminderEndDate = formatter.parseDateTime(endDate + " " + selectedTime);
+                    reminderStartDate = formatter.withZone(Constants.TIME_ZONE).parseDateTime(startDate + " " +
+                            selectedTime);
+                    reminderEndDate = formatter.withZone(Constants.TIME_ZONE).parseDateTime(endDate + " " +
+                            selectedTime);
+                }
+                else{
+                    logger.error("No locale matched. Current locale is: {}.", currentLocale);
+                    logger.warn("Taking english as default language.");
+                    DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy hh:mm aa").withLocale(Locale.ENGLISH);
+                    reminderStartDate = formatter.withZone(Constants.TIME_ZONE).parseDateTime(startDate + " " +
+                            selectedTime);
+                    reminderEndDate = formatter.withZone(Constants.TIME_ZONE).parseDateTime(endDate + " " +
+                            selectedTime);
                 }
             } catch (IllegalArgumentException ex){
                 logger.error("Invalid date format was provided. The provided start date is: {} and the provided end " +

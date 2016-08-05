@@ -94,6 +94,17 @@ public class RequestContextManager {
      */
     public Locale retrieveLocale() {
         if (request != null) {
+            // Check if language parameter is set.
+            if (request.getParameter("language") != null){
+                if (request.getParameter("language").equals("de")){
+                    return Locale.GERMAN;
+                }
+                else if (request.getParameter("language").equals("en")){
+                    return Locale.ENGLISH;
+                }
+            }
+
+            // If the language parameter was not set, or contained a wrong value, retrieve locale from session.
             Object object = retrieveFromSession("language");
             if (object != null) {
                 if (object instanceof Locale) {
@@ -101,6 +112,14 @@ public class RequestContextManager {
                 }
                 if (object instanceof String) {
                     String language = (String) object;
+
+                    if (language.contains("de")){
+                        return Locale.GERMAN;
+                    }
+                    else if (language.contains("en")) {
+                        return Locale.ENGLISH;
+                    }
+
                     return new Locale(language);
                 }
             }
