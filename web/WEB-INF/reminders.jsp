@@ -77,15 +77,21 @@
                                         <a href="?reminderId=${reminder.getId()}"
                                            class="list-group-item list-group-item-info">
                                             <p>
-                                                <span>${reminder.getTitle()}</span> &emsp;
+                                                <span>${reminder.getTitle()}</span>
+                                                <span>&emsp;</span>
                                                 <c:choose>
                                                     <c:when test="${reminder.isActive() == true &&
                                                     reminder.isExpired() == false}">
+                                                        <c:if test="${reminder.getIgnore() == true}">
+                                                            <span class="glyphicon glyphicon-flag pull-right"></span>
+                                                            <span>&ensp;</span>
+                                                        </c:if>
                                                         <span class="glyphicon glyphicon-time pull-right"></span>
                                                     </c:when>
                                                     <c:when test="${reminder.isActive() == true &&
                                                     reminder.isExpired() == true}">
                                                         <span class="glyphicon glyphicon-exclamation-sign pull-right"></span>
+                                                        <span>&ensp;</span>
                                                         <span class="glyphicon glyphicon-time pull-right"></span>
                                                     </c:when>
                                                     <c:otherwise>
@@ -100,7 +106,12 @@
                                         <c:if test="${reminder.isActive() == true && reminder.isExpired() == false}">
                                             <a href="?reminderId=${reminder.getId()}" class="list-group-item">
                                                 <p>
-                                                    <span>${reminder.getTitle()}</span> &emsp;
+                                                    <span>${reminder.getTitle()}</span>
+                                                    <span>&emsp;</span>
+                                                    <c:if test="${reminder.getIgnore() == true}">
+                                                        <span class="glyphicon glyphicon-flag pull-right"></span>
+                                                        <span>&ensp;</span>
+                                                    </c:if>
                                                     <span class="glyphicon glyphicon-time pull-right"></span>
                                                 </p>
                                             </a>
@@ -109,8 +120,10 @@
                                             <a href="?reminderId=${reminder.getId()}"
                                                class="list-group-item">
                                                 <p>
-                                                    <span>${reminder.getTitle()}</span> &emsp;
+                                                    <span>${reminder.getTitle()}</span>
+                                                    <span>&emsp;</span>
                                                     <span class="glyphicon glyphicon-exclamation-sign pull-right"></span>
+                                                    <span>&ensp;</span>
                                                     <span class="glyphicon glyphicon-time pull-right"></span>
                                                 </p>
                                             </a>
@@ -119,7 +132,8 @@
                                             <a href="?reminderId=${reminder.getId()}"
                                                class="list-group-item">
                                                 <p>
-                                                    <span>${reminder.getTitle()}</span> &emsp;
+                                                    <span>${reminder.getTitle()}</span>
+                                                    <span>&emsp;</span>
                                                     <span class="glyphicon glyphicon-ban-circle pull-right"></span>
                                                 </p>
                                             </a>
