@@ -1,9 +1,12 @@
 package ulm.university.news.webclient.data;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulm.university.news.webclient.data.enums.Priority;
 import ulm.university.news.webclient.util.Translator;
 
+import java.time.ZonedDateTime;
 import java.util.Locale;
 
 import static ulm.university.news.webclient.util.Constants.TIME_ZONE;
@@ -16,6 +19,9 @@ import static ulm.university.news.webclient.util.Constants.TIME_ZONE;
  * @author Philipp Speidel
  */
 public class Reminder {
+    /** The logger instance for Reminder. */
+    private static final Logger logger = LoggerFactory.getLogger(Reminder.class);
+
     /** The unique Reminder id. */
     int id;
     /** The date on which the Reminder was created. */
@@ -125,7 +131,32 @@ public class Reminder {
         if (interval == null || interval == 0) {
             nextDate = endDate.plusSeconds(1);
         } else {
-            nextDate = nextDate.plusSeconds(interval);
+            DateTime tmpNextDate = nextDate.plusSeconds(interval);
+
+            boolean nextDateInDST = !nextDate.getZone().isStandardOffset(nextDate.toInstant().getMillis());
+            boolean tmpNextDateInDST = !tmpNextDate.getZone().isStandardOffset(tmpNextDate.toInstant().getMillis());
+
+            // Check if there is a transition from daylight saving time to non daylight saving time.
+            if (nextDateInDST &&
+                    !tmpNextDateInDST){
+                // Add one hour.
+                tmpNextDate = tmpNextDate.plusHours(1);
+
+                logger.info("Adding one hour to next date for reminder with id {}.", getId());
+                logger.debug("Date before DTS shift was {} and date after DTS shift was {}.", nextDate, tmpNextDate);
+            }
+
+            // Check if there is a transition from non daylight saving time to daylight saving time.
+            if (!nextDateInDST &&
+                    tmpNextDateInDST){
+                // Subtract one hour.
+                tmpNextDate = tmpNextDate.minusHours(1);
+
+                logger.info("Subtracting one hour to next date for reminder with id {}.", getId());
+                logger.debug("Date before DTS shift was {} and date after DTS shift was {}.", nextDate, tmpNextDate);
+            }
+
+            nextDate = tmpNextDate;
         }
 
     }
@@ -140,10 +171,15 @@ public class Reminder {
         if (interval == null || interval == 0) {
             return;
         }
+
+        logger.debug("Start date in local time: {}", startDate);
+
         // The next date has to be in the future.
         while (nextDate.isBefore(DateTime.now(TIME_ZONE))) {
-            nextDate = nextDate.plusSeconds(interval);
+            computeNextDate();
         }
+
+        logger.info("Calculated next date is: {}", nextDate);
     }
 
     /**
